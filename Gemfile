@@ -31,8 +31,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+# Rubocop is an automatic ruby code style checking tool
 gem 'rubocop'
-# Boostrap
+
+gem 'devise', '>= 3.2.4'
+# Bootstrap
 gem 'bootstrap-sass', '~> 3.3.5'
 
 group :development, :test do
