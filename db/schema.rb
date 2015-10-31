@@ -11,10 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151030160942) do
+ActiveRecord::Schema.define(version: 20151031212824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bishops", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "games", force: :cascade do |t|
     t.string   "name"
@@ -26,6 +31,21 @@ ActiveRecord::Schema.define(version: 20151030160942) do
   end
 
   add_index "games", ["player_id"], name: "index_games_on_player_id", using: :btree
+
+  create_table "kings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "knights", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pawns", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "pieces", force: :cascade do |t|
     t.integer  "x_position"
@@ -58,5 +78,15 @@ ActiveRecord::Schema.define(version: 20151030160942) do
 
   add_index "players", ["email"], name: "index_players_on_email", unique: true, using: :btree
   add_index "players", ["reset_password_token"], name: "index_players_on_reset_password_token", unique: true, using: :btree
+
+  create_table "queens", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rooks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
