@@ -35,6 +35,8 @@ gem 'rubocop'
 gem 'devise', '>= 3.2.4'
 # Bootstrap
 gem 'bootstrap-sass', '~> 3.3.5'
+# Capybara is for feature testing in rspec
+gem 'capybara'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -51,6 +53,7 @@ group :development do
   gem 'spring'
 end
 
+# Rspec for testing
 group :development, :test do
   gem "rspec-rails", "~> 3.0"
 end
