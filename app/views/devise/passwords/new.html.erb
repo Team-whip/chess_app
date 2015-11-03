@@ -1,3 +1,4 @@
+<div class="hero">
 <br /><br />
 <div class='booyah-box col-xs-4 col-xs-offset-4'>
   <h2><strong>Forgot your password?</strong></h2>
@@ -8,9 +9,10 @@
         <%= f.email_field :email, autofocus: true, :class => "form-control" %>
       </div>
       <div class="actions">
-        <%= f.submit "Send me reset password instructions", :class => "btn btn-default" %><br /><br />
+        <%= f.submit "Reset my password", :class => "btn btn-default" %><br /><br />
         <%= render "devise/shared/links" %>
       </div>
       <br />
     <% end %>
+</div>
 </div>
