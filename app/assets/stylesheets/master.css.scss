@@ -1,0 +1,47 @@
+.navbar.navbar-inverse {
+  background-color: #585858;
+  background-image: none;
+  background-repeat: no-repeat;
+  box-shadow: 0px 1px 3px #2a2a2a;
+}
+
+.navbar.navbar-inverse .navbar-brand {
+  color: #ffffff;
+}
+
+.navbar.navbar-inverse .navbar-nav > li > a {
+  color: #ffffff;
+}
+
+.hero {
+	margin-top: 0px;
+	background: #a9a9a9;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height:1090px;
+}
+
+.booyah-box {
+  -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
+  -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
+  box-shadow: 1px 1px 2px 0 #d0d0d0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
+  margin-top: 100px;
+  margin-bottom: 15px;
+  padding: 20px;
+} 
+
+.frosty {
+  background:rgba(0,0,0, 0.5);
+  color:white;
+}
+
+.frosty h1 {
+  font-family: "Helvetica Neue", Helvetica;
+  font-weight: 200;
+}
+

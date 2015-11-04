@@ -35,6 +35,7 @@ gem 'rubocop'
 gem 'devise', '>= 3.2.4'
 # Bootstrap
 gem 'bootstrap-sass', '~> 3.3.5'
+gem 'autoprefixer-rails'
 # Capybara is for feature testing in rspec
 gem 'capybara'
 
