@@ -31,7 +31,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Rubocop is an automatic ruby code style checking tool
 gem 'rubocop'
-
+# gem for building forms
+gem 'simple_form'
 gem 'devise', '>= 3.2.4'
 # Bootstrap
 gem 'bootstrap-sass', '~> 3.3.5'
@@ -53,8 +54,8 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
-  # gem for building forms
-  gem 'simple_form'
+
+
 end
 
 # Rspec for testing
