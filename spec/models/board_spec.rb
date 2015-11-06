@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Board, :type => :model do
-  describe "#populate_board" do
+  describe "#populate the board" do
     game = Game.create
     board = Board.new.populate(game.id)
 
@@ -264,6 +264,34 @@ RSpec.describe Board, :type => :model do
 	it "belongs to the correct game" do
 	  board[6].each { |pawn| expect(pawn.game_id).to eql(game.id) }
 	end
+      end
+    end
+  end
+  describe "#refresh the board" do
+    game = Game.new
+    board = Board.new.populate(game.id)
+    
+    context "white player has moved the pawn at 3,6" do
+      pawn = board[6][3]
+      it "one space forward" do
+	pawn.update_attributes(y_position: 5)
+	board = Board.new.refresh(game.id)
+	expect(board[5][3]).to eql(pawn)
+      end
+
+      it "two spaces forward" do
+	pawn.update_attributes(y_position: 4)
+	board = Board.new.refresh(game.id)
+	expect(board[4][3]).to eql(pawn)
+      end
+    end
+
+    context "black player has moved knight at 1,0" do
+      knight = board[0][1]
+      it "two spaces forward and one to the left" do
+	knight.update_attributes(y_position: 2, x_position: 0)
+	board = Board.new.refresh(game.id)
+	expect(board[2][0]).to eql(knight)
       end
     end
   end
