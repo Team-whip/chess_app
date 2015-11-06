@@ -51,11 +51,11 @@
 }
 
 .chess-board tr:nth-child(odd) td:nth-child(even) { 
-  background: black;
+  background: gray;
 }
 
 .chess-board tr:nth-child(even) td:nth-child(odd) {
-  background: black;
+  background: gray;
 }
 
 .chess-square {
