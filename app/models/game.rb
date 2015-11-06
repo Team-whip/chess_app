@@ -1,15 +1,6 @@
 class Game < ActiveRecord::Base
 	has_many :pieces
 
-	def draw_board
-	  @new_board = Board.new
-	end
-	
-	def populate_board
-	  self.draw_board
-	  @new_board.populate
-	end
-
 	def in_check?
 		# Checks to see if either player is in check.
 	end
