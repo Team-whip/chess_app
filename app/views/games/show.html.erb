@@ -4,9 +4,9 @@
 
   <table class="chess-board">
   	<% 8.times do |row| %>
-    <tr>
+	  <tr>
       <% 8.times do |column| %>
-        <td class="chess-square"></td>
+	<td data-x  = <%= column + 1 %> data-y = <%= row + 1 %>, class="chess-square"></td>
       <% end %>
     </tr>
   <% end %>
