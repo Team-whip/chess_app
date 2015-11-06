@@ -45,3 +45,21 @@
   font-weight: 200;
 }
 
+.chess-board {
+  margin: 50px auto; 
+  width: auto;
+}
+
+.chess-board tr:nth-child(odd) td:nth-child(even) { 
+  background: black;
+}
+
+.chess-board tr:nth-child(even) td:nth-child(odd) {
+  background: black;
+}
+
+.chess-square {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #000;
+}
