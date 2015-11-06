@@ -1,7 +1,6 @@
 == README
 
 = Team Whip Chess App    {<img src="https://codeship.com/projects/66f06d60-5ff2-0133-09c3-5a99c145e314/status?branch=master" alt="Status?branch=master" />}[https://codeship.com/projects/112011]
----
 
 === Heroku Link
 
@@ -10,7 +9,8 @@ http://teamwhipchess.herokuapp.com/
 
 === Development
 
-The goal of this application is for five new developers to learn how to work together in an Agile environment.  We will create this chess program with very little guidance and will cement our knowledge gained at The Firehose Project throughout its development.
+The goal of this application is for five new developers to learn how to work together in an Agile environment.
+We will create this chess program with very little guidance and will cement our knowledge gained at The Firehose Project throughout its development.
 
 Please click the Heroku link above if you would like to play!
 
