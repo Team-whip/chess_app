@@ -6,7 +6,11 @@
     <% @board.board.each_with_index do |row, y| %>
       <tr>
 	<% row.each_with_index do |column, x| %>
-	  <td data-x = <%= x + 1 %>, data-y = <%= y + 1 %>, class = "chess-square"></td>
+
+	  <td data-x = <%= x %>, data-y = <%= y %>, class = "text-center chess-square">
+	    <%= @board.piece_glyphs(y, x) %>
+	  </td>
+
 	<% end %>
       </tr>
     <% end %>

@@ -18,10 +18,10 @@ RSpec.describe Board, :type => :model do
 	end
 
 	it "is saving the right position" do
-	  expect(board[0][0].x_position).to eql(1)
-	  expect(board[0][0].y_position).to eql(1)
-	  expect(board[0][7].x_position).to eql(8)
-	  expect(board[0][7].y_position).to eql(1)
+	  expect(board[0][0].x_position).to eql(0)
+	  expect(board[0][0].y_position).to eql(0)
+	  expect(board[0][7].x_position).to eql(7)
+	  expect(board[0][7].y_position).to eql(0)
 	end
 
 	it "belongs to the correct game" do
@@ -42,10 +42,10 @@ RSpec.describe Board, :type => :model do
 	end
 
 	it "is saving the right position" do
-	  expect(board[0][1].x_position).to eql(2)
-	  expect(board[0][1].y_position).to eql(1)
-	  expect(board[0][6].x_position).to eql(7)
-	  expect(board[0][6].y_position).to eql(1)
+	  expect(board[0][1].x_position).to eql(1)
+	  expect(board[0][1].y_position).to eql(0)
+	  expect(board[0][6].x_position).to eql(6)
+	  expect(board[0][6].y_position).to eql(0)
 	end
 
 	it "belongs to the correct game" do
@@ -66,10 +66,10 @@ RSpec.describe Board, :type => :model do
 	end
 
 	it "is saving the right position" do
-	  expect(board[0][2].x_position).to eql(3)
-	  expect(board[0][2].y_position).to eql(1)
-	  expect(board[0][5].x_position).to eql(6)
-	  expect(board[0][5].y_position).to eql(1)
+	  expect(board[0][2].x_position).to eql(2)
+	  expect(board[0][2].y_position).to eql(0)
+	  expect(board[0][5].x_position).to eql(5)
+	  expect(board[0][5].y_position).to eql(0)
 	end
 
 	it "belongs to the correct game" do
@@ -88,8 +88,8 @@ RSpec.describe Board, :type => :model do
 	end
 
 	it "is saving the right position" do
-	  expect(board[0][3].x_position).to eql(4)
-	  expect(board[0][3].y_position).to eql(1)
+	  expect(board[0][3].x_position).to eql(3)
+	  expect(board[0][3].y_position).to eql(0)
 	end
 
 	it "belongs to the correct game" do
@@ -107,8 +107,8 @@ RSpec.describe Board, :type => :model do
 	end
 
 	it "is saving the right position" do
-	  expect(board[0][4].x_position).to eql(5)
-	  expect(board[0][4].y_position).to eql(1)
+	  expect(board[0][4].x_position).to eql(4)
+	  expect(board[0][4].y_position).to eql(0)
 	end
 
 	it "belongs to the correct game" do
@@ -126,8 +126,8 @@ RSpec.describe Board, :type => :model do
 	end
 
 	it "is saving the right position" do
-	  board[1].each_with_index { |pawn, index| expect(pawn.x_position).to eql(index + 1) }
-	  board[1].each { |pawn| expect(pawn.y_position).to eql(2) }
+	  board[1].each_with_index { |pawn, index| expect(pawn.x_position).to eql(index) }
+	  board[1].each { |pawn| expect(pawn.y_position).to eql(1) }
 	end
 
 	it "belongs to the correct game" do
@@ -149,10 +149,10 @@ RSpec.describe Board, :type => :model do
 	end
 
 	it "is saving the right location" do
-	  expect(board[7][0].x_position).to eql(1)
-	  expect(board[7][0].y_position).to eql(8)
-	  expect(board[7][7].x_position).to eql(8)
-	  expect(board[7][7].y_position).to eql(8)
+	  expect(board[7][0].x_position).to eql(0)
+	  expect(board[7][0].y_position).to eql(7)
+	  expect(board[7][7].x_position).to eql(7)
+	  expect(board[7][7].y_position).to eql(7)
 	end
 
 	it "belongs to the correct game" do
@@ -173,10 +173,10 @@ RSpec.describe Board, :type => :model do
 	end
 
 	it "is saving the right location" do
-	  expect(board[7][1].x_position).to eql(2)
-	  expect(board[7][1].y_position).to eql(8)
-	  expect(board[7][6].x_position).to eql(7)
-	  expect(board[7][6].y_position).to eql(8)
+	  expect(board[7][1].x_position).to eql(1)
+	  expect(board[7][1].y_position).to eql(7)
+	  expect(board[7][6].x_position).to eql(6)
+	  expect(board[7][6].y_position).to eql(7)
 	end
 
 	it "belongs to the correct game" do
@@ -197,10 +197,10 @@ RSpec.describe Board, :type => :model do
 	end
 
 	it "is saving the right location" do
-	  expect(board[7][2].x_position).to eql(3)
-	  expect(board[7][2].y_position).to eql(8)
-	  expect(board[7][5].x_position).to eql(6)
-	  expect(board[7][5].y_position).to eql(8)
+	  expect(board[7][2].x_position).to eql(2)
+	  expect(board[7][2].y_position).to eql(7)
+	  expect(board[7][5].x_position).to eql(5)
+	  expect(board[7][5].y_position).to eql(7)
 	end
 
 	it "belongs to the correct game" do
@@ -219,8 +219,8 @@ RSpec.describe Board, :type => :model do
 	end
 
 	it "is saving the right location" do
-	  expect(board[7][3].x_position).to eql(4)
-	  expect(board[7][3].y_position).to eql(8)
+	  expect(board[7][3].x_position).to eql(3)
+	  expect(board[7][3].y_position).to eql(7)
 	end
 	
 	it "belongs to the correct game" do
@@ -238,8 +238,8 @@ RSpec.describe Board, :type => :model do
 	end
 
 	it "is saving the right location" do
-	  expect(board[7][4].x_position).to eql(5)
-	  expect(board[7][4].y_position).to eql(8)
+	  expect(board[7][4].x_position).to eql(4)
+	  expect(board[7][4].y_position).to eql(7)
 	end
 
 	it "belongs to the correct game" do
@@ -257,8 +257,8 @@ RSpec.describe Board, :type => :model do
 	end
 
 	it "is saving the right location" do
-	  board[6].each_with_index { |pawn, index| expect(pawn.x_position).to eql(index + 1) }
-	  board[6].each { |pawn| expect(pawn.y_position).to eql(7) }
+	  board[6].each_with_index { |pawn, index| expect(pawn.x_position).to eql(index) }
+	  board[6].each { |pawn| expect(pawn.y_position).to eql(6) }
 	end
 
 	it "belongs to the correct game" do
