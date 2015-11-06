@@ -1,12 +1,13 @@
 class Game < ActiveRecord::Base
 	has_many :pieces
 
-	def create_board
-		# Instantiate's a new board. 
-		# Should be 8 X 8 
-		# Should include all the appropriate pieces for both 
-		# player_white and player_black
-		# Should have white and black squares underneath that alternate
+	def draw_board
+	  @new_board = Board.new
+	end
+	
+	def populate_board
+	  self.draw_board
+	  @new_board.populate
 	end
 
 	def in_check?
