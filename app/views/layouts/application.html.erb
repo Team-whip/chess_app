@@ -26,10 +26,16 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
 	<li><%= link_to 'Start a Game', new_game_path %></li>
-        <li><%= link_to 'Current Games', dashboard_path %></li>
+        <li><%= link_to 'Current Games', '#' %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if player_signed_in? %>
+	  <li></li>
+	  <% if current_player.first_name.present? %>
+	    <li><%= link_to "#{current_player.first_name}'s Dashboard", dashboard_path %></li>
+	  <% else %>
+	    <li><%= link_to "User Dashboard", dashboard_path %></li>
+	  <% end %>
           <li><%= link_to 'Sign out', destroy_player_session_path, :method => :delete %></li>
         <% else %>
           <li><%= link_to 'Login', player_session_path %></li>
