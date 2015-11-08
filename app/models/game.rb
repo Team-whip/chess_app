@@ -1,5 +1,6 @@
 class Game < ActiveRecord::Base
 	has_many :pieces
+	belongs_to :players
 
 	def in_check?
 		# Checks to see if either player is in check.

@@ -1,0 +1,21 @@
+<br />
+
+<div class="hero">
+	<br />
+	<br />
+	<br />
+	<div class="dashboard-heading">
+		<h1>Current Games</h1>
+	</div>
+	  <section class="my-games">
+	  	<h2 class="text-center">My Games</h2>
+  		<% current_player.games.each do |game| %>
+  			<div class="game-list-item col-xs-6 col-xs-offset-3">
+	    		<ul class="list-unstyled">
+	    			<li class="text-center"><h3><%= link_to game.name, game_path(game) %></h3></li>
+	    			<li class="text-center"><%= current_player.email %></li>
+	    		</ul>
+	    	</div>    	
+  		<% end %>
+  	</section>
+</div>
