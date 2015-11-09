@@ -1,5 +1,7 @@
 class Game < ActiveRecord::Base
 	has_many :pieces
+	has_many :join_games
+	has_many :joined_players, through: :join_games, source: :player
 	belongs_to :players
 
 	def in_check?

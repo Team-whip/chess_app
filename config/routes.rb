@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   devise_for :players, controllers: { registrations: 'registrations' }
+  resources :games, only: [:index] do
+    resources :join_games, only: :create
+  end
   resource :dashboard, :only => [:show]
   root 'static_pages#index'
   resources :games

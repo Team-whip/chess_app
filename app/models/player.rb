@@ -6,4 +6,6 @@ class Player < ActiveRecord::Base
 
   has_many :games
   has_many :pieces
+  has_many :join_games
+  has_many :joined_games, through: :join_games, source: :game
 end
