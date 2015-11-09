@@ -1,11 +1,17 @@
 class GamesController < ApplicationController
-  #before_action :authenticate_user!
+  before_action :authenticate_player!
+  
+  def index
+    @games = Game.all
+  end
+
   def new
     @game = Game.new
   end
 
   def create
-    @game = Game.create(game_params)
+    @game = current_player.games.create(game_params)
+    # @game = Game.create(game_params)
     @board = Board.new.populate(@game.id)
     redirect_to game_path(@game)
   end
