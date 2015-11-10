@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>ChessGame</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
+  <head>
+    <title>ChessGame</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
 
-<body>
+  <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to 'Team Whip', root_path, :class => 'navbar-brand' %>
-    </div>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	  <span class="sr-only">Toggle navigation</span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	</button>
+	<%= link_to 'Team Whip', root_path, :class => 'navbar-brand' %>
+      </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-	<li><%= link_to 'Start a Game', new_game_path %></li>
-        <li><%= link_to 'Current Games', games_path %></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <% if player_signed_in? %>
-	  <li></li>
-	  <% if current_player.first_name.present? %>
-	    <li><%= link_to "#{current_player.first_name}'s Dashboard", dashboard_path %></li>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	<ul class="nav navbar-nav">
+	  <li><%= link_to 'Start a Game', new_game_path %></li>
+	  <li><%= link_to 'Current Games', games_path %></li>
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+	  <% if player_signed_in? %>
+	    <li></li>
+	    <% if current_player.first_name.present? %>
+	      <li><%= link_to "#{current_player.first_name}'s Dashboard", dashboard_path %></li>
+	    <% else %>
+	      <li><%= link_to "User Dashboard", dashboard_path %></li>
+	    <% end %>
+	    <li><%= link_to 'Sign out', destroy_player_session_path, :method => :delete %></li>
 	  <% else %>
-	    <li><%= link_to "User Dashboard", dashboard_path %></li>
-	  <% end %>
-          <li><%= link_to 'Sign out', destroy_player_session_path, :method => :delete %></li>
-        <% else %>
-          <li><%= link_to 'Login', player_session_path %></li>
-          <li><%= link_to 'Sign Up', new_player_registration_path %></li>
-        <% end %> 
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+	    <li><%= link_to 'Login', player_session_path %></li>
+	    <li><%= link_to 'Sign Up', new_player_registration_path %></li>
+	  <% end %> 
+	</ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+    </nav>
 
-<%= yield %>
+    <%= yield %>
 
-</body>
+  </body>
 </html>
