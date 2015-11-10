@@ -11,16 +11,16 @@
       <div class="game-list-item col-xs-4">
 	<ul class="list-unstyled">
 	  <li class="text-center"><h2><%= link_to game.name, game_path(game) %></h2></li>
-	  <% @player1, @player2 = Player.find(game.player_one_id), Player.find(game.player_two_id) %>
-	  <% case [@player1.first_name.nil?, @player2.first_name.nil?] %>
+	  <% player1, player2 = Player.find(game.player_one_id), Player.find(game.player_two_id) %>
+	  <% case [player1.first_name.nil?, player2.first_name.nil?] %>
 	  <% when [true, true] %>
-	    <li class="text-center"><h4><%= @player1.email + " vs " + @player2.email %></h4></li>
+	    <li class="text-center"><h4><%= player1.email + " vs " + player2.email %></h4></li>
 	  <% when [true, false] %>
-	    <li class="text-center"><h4><%= @player1.email + " vs " + @player2.first_name %></h4></li>
+	    <li class="text-center"><h4><%= player1.email + " vs " + player2.first_name %></h4></li>
 	  <% when [false, true] %>
-	    <li class="text-center"><h4><%= @player1.first_name + " vs " + @player2.email %></h4></li>
+	    <li class="text-center"><h4><%= player1.first_name + " vs " + player2.email %></h4></li>
 	  <% when [false, false] %>
-	    <li class="text-center"><h4><%= @player1.first_name + " vs " + @player2.first_name %></h4></li>
+	    <li class="text-center"><h4><%= player1.first_name + " vs " + player2.first_name %></h4></li>
 	  <% end %>
 	</ul>
       </div>    	
@@ -30,14 +30,15 @@
   <h2 class = 'text-center'>My Open Games</h2>
   <% current_player.joined_games.each do |game| %>
     <% if game.player_two_id == nil %>
+      <% player1 = Player.find(game.player_one_id) %>
       <div class = "game-list-item col-xs-4">
 	<ul class = "list-unstyled">
 	  <li class = 'text-center'><h2><%= link_to game.name, game_path(game) %></h2><li>
-	  <% case @player1.first_name.nil? %>
+	  <% case player1.first_name.nil? %>
 	  <% when true %>
-	    <li class = 'text-center'><h3><%= @player1.email + " vs " %><% link_to "Join Game", game_join_games_path(game.id), class: 'btn btn-sm btn-success', method: :post %><h3></li>
+	    <li class = 'text-center'><h3><%= player1.email + " vs " %><% link_to "Join Game", game_join_games_path(game.id), class: 'btn btn-sm btn-success', method: :post %><h3></li>
 	  <% when false %>
-	    <li class = 'text-center'><h3><%= @player1.first_name + " vs " %><%= link_to "Join Game", game_join_games_path(game.id), class: 'btn btn-sm btn-success', method: :post %><h3></li>
+	    <li class = 'text-center'><h3><%= player1.first_name + " vs " %><%= link_to "Join Game", game_join_games_path(game.id), class: 'btn btn-sm btn-success', method: :post %><h3></li>
 	  <% end %>
 	</ul>
       </div>
