@@ -9,44 +9,51 @@
 
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-	  <span class="sr-only">Toggle navigation</span>
-	  <span class="icon-bar"></span>
-	  <span class="icon-bar"></span>
-	  <span class="icon-bar"></span>
-	</button>
-	<%= link_to 'Team Whip', root_path, :class => 'navbar-brand' %>
-      </div>
+  <div class="site-wrapper">
+    <div class="site-wrapper-inner">
+      <div class="cover-container">
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	<ul class="nav navbar-nav">
-	  <li><%= link_to 'Start a Game', new_game_path %></li>
-	  <li><%= link_to 'Current Games', games_path %></li>
-	</ul>
-	<ul class="nav navbar-nav navbar-right">
-	  <% if player_signed_in? %>
-	    <li></li>
-	    <% if current_player.first_name.present? %>
-	      <li><%= link_to "#{current_player.first_name}'s Dashboard", dashboard_path %></li>
-	    <% else %>
-	      <li><%= link_to "User Dashboard", dashboard_path %></li>
-	    <% end %>
-	    <li><%= link_to 'Sign out', destroy_player_session_path, :method => :delete %></li>
-	  <% else %>
-	    <li><%= link_to 'Login', player_session_path %></li>
-	    <li><%= link_to 'Sign Up', new_player_registration_path %></li>
-	  <% end %> 
-	</ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-    </nav>
+        <div class="masthead clearfix">
+          <div class="inner">
+            <h3 class="masthead-brand"><%= link_to 'Team Whip', root_path %></h3>
+            <nav>
+              <ul class="nav navbar-left masthead-nav">
+                <li class="<%= 'active' if current_page?(new_game_path) %>"><%= link_to 'Start a Game', new_game_path %></li>
+                <li class="<%= 'active' if current_page?(games_path) %>"><%= link_to 'Current Games', games_path %></li>
+              </ul>
+              <ul class="nav navbar-right masthead-nav">
+                <% if player_signed_in? %>
+                  <% if current_player.first_name.present? %>
+                    <li><%= link_to "#{current_player.first_name}'s Dashboard", dashboard_path %></li>
+                  <% else %>
+                    <li><%= link_to "User Dashboard", dashboard_path %></li>
+                  <% end %>
+                    <li><%= link_to 'Sign out', destroy_player_session_path, :method => :delete %></li>
+                  <% else %>
+                    <li><%= link_to 'Login', player_session_path %></li>
+                    <li><%= link_to 'Sign Up', new_player_registration_path %></li>
+                <% end %>
+              </ul>
+            </nav>
+          </div>
+        </div>
 
-    <%= yield %>
+        <%= yield %>
 
+        <!-- footer --> 
+        <div class="mastfoot">
+          <div class="inner">
+            <p class="pull-left"><a href="#">About Us</a> - <a href="#">Code</a></p>
+            <p class="pull-right">
+              <%= link_to 'https://github.com/Team-whip/chess_app' do %>
+                <%= image_tag 'GitHub-Mark-Light-32px.png', :class => 'social-media-icons' %>
+              <% end %>
+            </p>
+          </div>
+        </div>
+
+      </div> <!-- /.cover-container -->
+    </div> <!-- /.site-wrapper-inner -->
+  </div> <!-- /.site-wrapper -->
   </body>
 </html>

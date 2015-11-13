@@ -1,17 +1,201 @@
-.navbar.navbar-inverse {
-  background-color: #585858;
-  background-image: none;
-  background-repeat: no-repeat;
-  box-shadow: 0px 1px 3px #2a2a2a;
+/*
+ * Globals
+ */
+
+/* Links */
+a,
+a:focus,
+a:hover {
+  color: #fff;
 }
 
-.navbar.navbar-inverse .navbar-brand {
-  color: #ffffff;
+/* Custom default button */
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+  color: #333;
+  text-shadow: none; /* Prevent inheritence from `body` */
+  background-color: #fff;
+  border: 1px solid #fff;
 }
 
-.navbar.navbar-inverse .navbar-nav > li > a {
-  color: #ffffff;
+
+/*
+ * Base structure
+ */
+
+html,
+body {
+  height: 100%;
+  background-color: #333;
 }
+body {
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
+/* Extra markup and styles for table-esque vertical and horizontal centering */
+.site-wrapper {
+  display: table;
+  width: 100%;
+  height: 100%; /* For at least Firefox */
+  min-height: 100%;
+  -webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+          box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+}
+.site-wrapper-inner {
+  display: table-cell;
+  vertical-align: top;
+}
+.cover-container {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Padding for spacing */
+.inner {
+  padding: 30px;
+}
+
+
+/*
+ * Header
+ */
+.masthead-brand {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.masthead-brand a {
+  text-decoration: none;
+}
+
+.masthead-nav > li {
+  display: inline-block;
+}
+.masthead-nav > li + li {
+  margin-left: 20px;
+}
+.masthead-nav > li > a {
+  padding-right: 0;
+  padding-left: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff; /* IE8 proofing */
+  color: rgba(255,255,255,.75);
+  border-bottom: 2px solid transparent;
+}
+.masthead-nav > li > a:hover,
+.masthead-nav > li > a:focus {
+  background-color: transparent;
+  border-bottom-color: #a9a9a9;
+  border-bottom-color: rgba(255,255,255,.25);
+}
+.masthead-nav > .active > a,
+.masthead-nav > .active > a:hover,
+.masthead-nav > .active > a:focus {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+.navbar-left {
+  margin-left: 40px;
+}
+
+@media (min-width: 768px) {
+  .masthead-brand {
+    float: left;
+  }
+  .masthead-nav {
+    float: right;
+  }
+}
+
+
+/*
+ * Cover
+ */
+
+.cover {
+  padding: 0 20px;
+}
+.cover .btn-lg {
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+
+/*
+ * Footer
+ */
+
+.mastfoot {
+  color: #999; /* IE8 proofing */
+  color: rgba(255,255,255,.5);
+}
+
+.footer-links {
+  height: 32px;
+  vertical-align: bottom;
+}
+
+.social-media-icons a:hover {
+  text-decoration: none;
+}
+
+/*
+ * Affix and center
+ */
+
+@media (min-width: 768px) {
+  /* Pull out the header and footer */
+  .masthead {
+//    position: fixed;
+    top: 0;
+  }
+  .mastfoot {
+//    position: fixed;
+    bottom: 0;
+  }
+  /* Start the vertical centering */
+  .site-wrapper-inner {
+    vertical-align: middle;
+  }
+  /* Handle the widths */
+  .masthead,
+  .mastfoot,
+  .cover-container {
+    width: 100%; /* Must be percentage or pixels for horizontal alignment */
+  }
+}
+
+@media (min-width: 992px) {
+  .masthead,
+  .mastfoot,
+  .cover-container {
+    width: 960px;
+  }
+}
+
+/*
+ * End Cover CSS 
+ */
+
+//.navbar.navbar-inverse {
+//  background-color: #585858;
+//  background-image: none;
+//  background-repeat: no-repeat;
+//  box-shadow: 0px 1px 3px #2a2a2a;
+//}
+
+//.navbar.navbar-inverse .navbar-brand {
+//  color: #ffffff;
+//}
+
+//.navbar.navbar-inverse .navbar-nav > li > a {
+//  color: #ffffff;
+//}
 
 .hero {
 	margin-top: 0px;
@@ -24,26 +208,25 @@
 }
 
 .booyah-box {
-  -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
-  -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
-  box-shadow: 1px 1px 2px 0 #d0d0d0;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
+  background: #777777;
   margin-top: 100px;
+  border-radius: 5px;
   margin-bottom: 15px;
   padding: 20px;
-} 
-
-.frosty {
-  background:rgba(0,0,0, 0.5);
-  color:white;
+  color: black;
+  text-shadow: none;
 }
 
-.frosty h1 {
-  font-family: "Helvetica Neue", Helvetica;
-  font-weight: 200;
-}
+
+//.frosty {
+//  background:rgba(0,0,0, 0.5);
+//  color:white;
+//}
+
+//.frosty h1 {
+//  font-family: "Helvetica Neue", Helvetica;
+//  font-weight: 200;
+//}
 
 .chess-board {
   margin: 50px auto; 
@@ -65,15 +248,13 @@
 }
 
 .game-list-item {
-  -moz-box-shadow: 1px 1px 2px #d0d0d0;
-  -webkit-box-shadow: 1px 1px 2px #d0d0d0;
-  box-shadow: 1px 1px 2px #d0d0d0;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
-  margin-top: 20px;
+  background: #777777;
+  margin-top: 100px;
+  border-radius: 5px;
   margin-bottom: 15px;
   padding: 20px;
+  color: black;
+  text-shadow: none;
 } 
 
 .my-games h2 {
