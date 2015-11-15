@@ -35,7 +35,7 @@ class Board
     unless piece.nil?
       case [piece.type, piece.color]
       when ["Rook", false]
-	"<i class = 'glyphicon glyphicon-tower black'></i>".html_safe
+	      "<i class = 'glyphicon glyphicon-tower black'></i>".html_safe
       when ["Knight", false]
         "<i class = 'glyphicon glyphicon-knight black'></i>".html_safe
       when ["Bishop", false]
@@ -47,7 +47,7 @@ class Board
       when ["Pawn", false]
         "<i class = 'glyphicon glyphicon-pawn black'></i>".html_safe
       when ["Rook", true]
-	"<i class = 'glyphicon glyphicon-tower white'></i>".html_safe
+	      "<i class = 'glyphicon glyphicon-tower white'></i>".html_safe
       when ["Knight", true]
         "<i class = 'glyphicon glyphicon-knight white'></i>".html_safe
       when ["Bishop", true]
