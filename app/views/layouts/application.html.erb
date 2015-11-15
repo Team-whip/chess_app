@@ -15,8 +15,8 @@
 
         <div class="masthead clearfix">
           <div class="inner">
+            <nav class="navbar navbar-static-top">
             <h3 class="masthead-brand"><%= link_to 'Team Whip', root_path %></h3>
-            <nav>
               <ul class="nav navbar-left masthead-nav">
                 <li class="<%= 'active' if current_page?(new_game_path) %>"><%= link_to 'Start a Game', new_game_path %></li>
                 <li class="<%= 'active' if current_page?(games_path) %>"><%= link_to 'Current Games', games_path %></li>
@@ -43,12 +43,14 @@
         <!-- footer --> 
         <div class="mastfoot">
           <div class="inner">
-            <p class="pull-left"><a href="#">About Us</a> - <a href="#">Code</a></p>
-            <p class="pull-right">
+            <div class="about-us pull-left">
+              <a href="#">About Us</a> - <a href="#">Code</a>
+            </div>
+            <div class="github-icon pull-right">
               <%= link_to 'https://github.com/Team-whip/chess_app' do %>
                 <%= image_tag 'GitHub-Mark-Light-32px.png', :class => 'social-media-icons' %>
               <% end %>
-            </p>
+            </div>
           </div>
         </div>
 
