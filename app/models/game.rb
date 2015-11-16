@@ -19,4 +19,5 @@ class Game < ActiveRecord::Base
 	def check_two_players_present
 		# Checks that two players are present(logged in) to play.
 	end
+
 end
