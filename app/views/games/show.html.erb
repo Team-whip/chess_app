@@ -10,13 +10,21 @@
 
        <!-- draw td data and piece glyphs -->     
 	     <td data-x = <%= x %>, data-y = <%= y %>, class = "text-center chess-square">
-       <%= @board.piece_glyphs(y, x) %>
-       <%= link_to '#',
+       <% glyph = @board.piece_glyphs(y, x) %>
+       <% if glyph != nil %>
+       <%= link_to glyph,
+            {controller: 'pieces',
+             action: 'associate_piece_with_coord',
+             y_position: y,
+             x_position: x} %>
+      <% else %>
+        <%= link_to '#',
             {controller: 'pieces',
              action: 'associate_piece_with_coord',
              y_position: y,
              x_position: x} %>
 	     </td>
+        <% end %>
 	     <% end %>
       </tr>
     <% end %>
