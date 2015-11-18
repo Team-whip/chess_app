@@ -14,13 +14,13 @@
        <% if glyph != nil %>
        <%= link_to glyph,
             {controller: 'pieces',
-             action: 'associate_piece_with_coord',
+             action: 'select_piece',
              y_position: y,
              x_position: x} %>
       <% else %>
         <%= link_to '#',
             {controller: 'pieces',
-             action: 'associate_piece_with_coord',
+             action: 'select_piece',
              y_position: y,
              x_position: x} %>
 	     </td>
