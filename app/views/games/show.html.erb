@@ -7,16 +7,14 @@
     <% @board.board.each_with_index do |row, y| %>
       <tr>
 	   <% row.each_with_index do |column, x| %>
-     <!-- send data to controller -->
-       <%= link_to 'Select',
+
+       <!-- draw td data and piece glyphs -->     
+	     <td data-x = <%= x %>, data-y = <%= y %>, class = "text-center chess-square">
+       <%= link_to @board.piece_glyphs(y, x),
             {controller: 'pieces',
              action: 'associate_piece_with_coord',
              y_position: y,
              x_position: x} %>
-
-       <!-- draw td data and piece glyphs -->     
-	     <td data-x = <%= x %>, data-y = <%= y %>, class = "text-center chess-square">
-	     <%= @board.piece_glyphs(y, x) %>
 	     </td>
 
 	     <% end %>
