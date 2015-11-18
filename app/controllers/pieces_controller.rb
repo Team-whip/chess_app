@@ -1,8 +1,6 @@
 class PiecesController < ApplicationController
-	def select
+	def associate_piece_with_coord
 		id = piece.params[:id].to_i
-		x = id % 8
-		y = id / 8
 		piece = Piece.where(x_position: x, y_position: y, game_id: @game.id)
 	end
 

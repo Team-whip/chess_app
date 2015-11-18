@@ -6,8 +6,7 @@ Rails.application.routes.draw do
   resource :dashboard, :only => [:show]
   root 'static_pages#index'
   resources :games
-
-
+  get '/pieces/associate_piece_with_coord' => 'pieces#associate_piece_with_coord', :as => :associate_piece
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
