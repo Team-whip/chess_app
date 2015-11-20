@@ -43,6 +43,7 @@ body {
   min-height: 100%;
   -webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);
           box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+  position: relative;
 }
 .site-wrapper-inner {
   display: table-cell;
@@ -57,7 +58,6 @@ body {
 .inner {
   padding: 30px;
 }
-
 
 /*
  * Header
@@ -135,7 +135,12 @@ body {
   color: rgba(255,255,255,.5);
 }
 
-.footer-links {
+.about-us {
+  height: 32px;
+  vertical-align: bottom;
+}
+
+.github-icon {
   height: 32px;
   vertical-align: bottom;
 }
@@ -151,12 +156,15 @@ body {
 @media (min-width: 768px) {
   /* Pull out the header and footer */
   .masthead {
-//    position: fixed;
+    position: absolute;
     top: 0;
   }
   .mastfoot {
-//    position: fixed;
+    position: absolute;
+    width: 100%;
     bottom: 0;
+    margin-bottom: 20px;
+
   }
   /* Start the vertical centering */
   .site-wrapper-inner {
@@ -182,51 +190,14 @@ body {
  * End Cover CSS 
  */
 
-//.navbar.navbar-inverse {
-//  background-color: #585858;
-//  background-image: none;
-//  background-repeat: no-repeat;
-//  box-shadow: 0px 1px 3px #2a2a2a;
-//}
-
-//.navbar.navbar-inverse .navbar-brand {
-//  color: #ffffff;
-//}
-
-//.navbar.navbar-inverse .navbar-nav > li > a {
-//  color: #ffffff;
-//}
-
-.hero {
-	margin-top: 0px;
-	background: #a9a9a9;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  height:1090px;
-}
-
 .booyah-box {
   background: #777777;
-  margin-top: 100px;
   border-radius: 5px;
   margin-bottom: 15px;
   padding: 20px;
   color: black;
   text-shadow: none;
 }
-
-
-//.frosty {
-//  background:rgba(0,0,0, 0.5);
-//  color:white;
-//}
-
-//.frosty h1 {
-//  font-family: "Helvetica Neue", Helvetica;
-//  font-weight: 200;
-//}
 
 .chess-board {
   margin: 50px auto; 
@@ -248,17 +219,26 @@ body {
 }
 
 .game-list-item {
+  width: 65%;
   background: #777777;
-  margin-top: 100px;
-  border-radius: 5px;
+  margin-top: 25px;
   margin-bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
   padding: 20px;
+  border-radius: 5px;
   color: black;
   text-shadow: none;
 } 
 
+.my-games {
+  position: static;
+  padding: 75px;
+}
+
 .my-games h2 {
   color: white;
+  margin-top: 50px;
 }
 
 .dashboard-heading {
