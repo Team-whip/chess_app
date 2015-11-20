@@ -65,6 +65,14 @@ body {
 .masthead-brand {
   margin-top: 10px;
   margin-bottom: 10px;
+  float: left;
+}
+
+#toggle-nav {
+  margin-top: -12px;
+  &:hover {
+    color: silver;
+  }
 }
 
 .masthead-brand a {
@@ -106,10 +114,10 @@ body {
 @media (min-width: 768px) {
   .masthead-brand {
     float: left;
-  }
-  .masthead-nav {
-    float: right;
-  }
+}
+.masthead-nav {
+  float: right;
+}
 }
 
 
@@ -158,24 +166,24 @@ body {
   .masthead {
     position: absolute;
     top: 0;
-  }
-  .mastfoot {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    margin-bottom: 20px;
+}
+.mastfoot {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  margin-bottom: 20px;
 
-  }
-  /* Start the vertical centering */
-  .site-wrapper-inner {
-    vertical-align: middle;
-  }
-  /* Handle the widths */
-  .masthead,
-  .mastfoot,
-  .cover-container {
-    width: 100%; /* Must be percentage or pixels for horizontal alignment */
-  }
+}
+/* Start the vertical centering */
+.site-wrapper-inner {
+  vertical-align: middle;
+}
+/* Handle the widths */
+.masthead,
+.mastfoot,
+.cover-container {
+  width: 100%; /* Must be percentage or pixels for horizontal alignment */
+}
 }
 
 @media (min-width: 992px) {
@@ -183,7 +191,7 @@ body {
   .mastfoot,
   .cover-container {
     width: 960px;
-  }
+}
 }
 
 /*
