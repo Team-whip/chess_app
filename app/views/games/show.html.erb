@@ -9,26 +9,25 @@
 	   <% row.each_with_index do |column, x| %>
 
        <!-- draw td data and piece glyphs -->     
-	     <td data-x = <%= x %>, data-y = <%= y %>, class = "text-center chess-square">
+	     <td data-x = <%= x %>, data-y = <%= y %>, data-name="edward", class = "text-center chess-square" id = "pieces">
        <% glyph = @board.piece_glyphs(y, x) %>
        <% if glyph != nil %>
-       <%= link_to glyph,
-            {controller: 'pieces',
-             action: 'select_piece',
-             y_position: y,
-             x_position: x} %>
+       <%= link_to glyph, '#' %>
       <% else %>
-        <%= link_to '#',
-            {controller: 'pieces',
-             action: 'select_piece',
-             y_position: y,
-             x_position: x} %>
+        <%= link_to '#' %>
+      <% end %>
 	     </td>
-        <% end %>
+        
 	     <% end %>
       </tr>
     <% end %>
 
   </table>
+
+  <script>
+    $('td').click(function() {
+      alert($( this ).dataset.x);
+    });
+  </script>
 
 </div>
