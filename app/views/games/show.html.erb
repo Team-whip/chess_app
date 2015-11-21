@@ -3,27 +3,19 @@
   <section class="my-games">
   <h1 class="text-center"><%= @game.name %></h1>
 
-  <table id= "table_id", class = "chess-board">
+  <table id= "gameboard", class = "chess-board">
 
     <% @board.board.each_with_index do |row, y| %>
       <tr>
 	   <% row.each_with_index do |column, x| %>
 
        <!-- draw td data and piece glyphs -->     
-	     <td data-x = <%= x %>, data-y = <%= y %>, class = "text-center chess-square">
+	     <td data-x = <%= x %>, data-y = <%= y %>, class = "text-center chess-square" >
        <% glyph = @board.piece_glyphs(y, x) %>
        <% if glyph != nil %>
-       <%= link_to glyph,
-            {controller: 'pieces',
-             action: 'select_piece',
-             y_position: y,
-             x_position: x} %>
+       <%= link_to glyph,'#' %>
       <% else %>
-        <%= link_to '#',
-            {controller: 'pieces',
-             action: 'select_piece',
-             y_position: y,
-             x_position: x} %>
+        <%= link_to '#' %>
 	     </td>
         <% end %>
 	     <% end %>
@@ -31,5 +23,44 @@
     <% end %>
 
   </table>
+  
+  <script>
+
+  //  $('#gameboard td').click(function() {
+  //    $this = $(this);
+
+  //    alert($(this).data('x'));
+  //    alert($(this).data('y'));
+  //  });
+
+  $(document).ready(function () {
+      $('#gameboard td').click(function() {
+        $this = $(this);
+        alert($this.data('x'));
+
+        var x = $this.data('x');
+        var y = $this.data('y');
+
+        alert(y);
+      
+        $.ajax({
+          type: 'POST',
+          url: "<%= select_piece_path %>",
+          dataType: 'json',
+          data: {
+            x: x,
+            y: y,
+            id: "<%= @game.id %>"
+          },
+          success: function(data) {
+            alert(data);
+            },
+          error: function (){
+            alert('Error' + x + y);
+          }
+        });
+     }); 
+  });
+  </script>
 </section>
 </div>

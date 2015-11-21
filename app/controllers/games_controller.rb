@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  respond_to :js, :json, :html
   before_action :authenticate_player!, only: [:new, :create]
   
   def index
@@ -22,6 +23,16 @@ class GamesController < ApplicationController
     @pieces = Piece.where(game_id: @game.id)
     @board = Board.new
     @board.refresh(@game.id)
+  end
+
+  def select_piece
+    x = params[:x]
+    y = params[:y]
+    print x
+    print y
+    puts "There should be something here!"
+    ## piece = Piece.where(x_position: x, y_position: y, game_id: @game.id)
+    redirect_to game_path(@game)
   end
 
   private
