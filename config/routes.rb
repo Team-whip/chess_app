@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :games
   resources :pieces
   get 'pieces/:game_id/:id/:y_position/:x_position' => 'pieces#select_piece', :as => :select_piece
+  post 'pieces/:game_id/:id/:y_position/:x_position' => 'pieces#move_piece', :as => :move_piece
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

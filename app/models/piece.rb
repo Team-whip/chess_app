@@ -2,6 +2,11 @@ class Piece < ActiveRecord::Base
   belongs_to :player
   belongs_to :game
 
+  def move_piece!(y_position, x_position)
+    self.update_attributes(y_position: y_position, x_position: x_position)
+  end
+
+
   def is_move_obstructed?(x, y, board)
     original_x = self.x_position
     original_y = self.y_position
@@ -32,8 +37,8 @@ class Piece < ActiveRecord::Base
   def diagonal_path_obstructed?(x, y, board)
     new_x = self.x_position
     new_y = self.y_position
-    # pieces moving down and right diagonally 
-    if self.x_position < x && self.y_position < y 
+    # pieces moving down and right diagonally
+    if self.x_position < x && self.y_position < y
       while new_x < x && new_y < y do
 	new_x += 1
 	new_y += 1
@@ -81,7 +86,7 @@ class Piece < ActiveRecord::Base
   end
 
   def horizontal_path_obstructed?(x, y, board)
-    new_x = self.x_position 
+    new_x = self.x_position
     # pieces moving right
     if self.x_position < x
       while new_x < x do
