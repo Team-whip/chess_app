@@ -6,61 +6,36 @@
   <table id= "gameboard", class = "chess-board">
 
     <% @board.board.each_with_index do |row, y| %>
-      <tr>
-	   <% row.each_with_index do |column, x| %>
+	<tr>
+	  <% @board.board.reverse.each_with_index do |column, x| %>
+	      <%= @board.pieces(y, x, @game) %>
+	  <% end %>
+	</tr>
+      <% end %>
 
-       <!-- draw td data and piece glyphs -->     
-	     <td data-x = <%= x %>, data-y = <%= y %>, class = "text-center chess-square" >
-       <% glyph = @board.piece_glyphs(y, x) %>
-       <% if glyph != nil %>
-       <%= link_to glyph,'#' %>
-      <% else %>
-        <%= link_to '#' %>
-	     </td>
-        <% end %>
-	     <% end %>
-      </tr>
-    <% end %>
+    </table>
 
-  </table>
-  
-  <script>
+    <script>
 
-  //  $('#gameboard td').click(function() {
-  //    $this = $(this);
+      //  $('#gameboard td').click(function() {
+	//    $this = $(this);
 
-  //    alert($(this).data('x'));
-  //    alert($(this).data('y'));
-  //  });
+	//    alert($(this).data('x'));
+	//    alert($(this).data('y'));
+	//  });
 
-  $(document).ready(function () {
-      $('#gameboard td').click(function() {
-        $this = $(this);
-        alert($this.data('x'));
+      $(document).ready(function () {
+	$('#gameboard td').click(function() {
+	  $this = $(this);
 
-        var x = $this.data('x');
-        var y = $this.data('y');
+	  var x = $this.data('x');
+	  var y = $this.data('y');
+	  var piece_id = $this.data('piece-id');
 
-        alert(y);
-      
-        $.ajax({
-          type: 'POST',
-          url: "<%= select_piece_path %>",
-          dataType: 'json',
-          data: {
-            x: x,
-            y: y,
-            id: "<%= @game.id %>"
-          },
-          success: function(data) {
-            alert(data);
-            },
-          error: function (){
-            alert('Error' + x + y);
-          }
-        });
-     }); 
-  });
-  </script>
-</section>
-</div>
+	  alert('x-position: ' + x + ' y-position: ' + y + ' piece-id: ' + piece_id);
+
+	}); 
+      });
+    </script>
+    </section>
+  </div>
