@@ -28,11 +28,8 @@ class GamesController < ApplicationController
   def select_piece
     x = params[:x]
     y = params[:y]
-    print x
-    print y
-    puts "There should be something here!"
-    ## piece = Piece.where(x_position: x, y_position: y, game_id: @game.id)
-    redirect_to game_path(@game)
+    piece = Piece.where(x_position: x, y_position: y, game_id: @game.id)
+    @board.refresh(@game.id)
   end
 
   private
