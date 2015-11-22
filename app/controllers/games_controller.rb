@@ -25,6 +25,7 @@ class GamesController < ApplicationController
     @board.refresh(@game.id)
   end
 
+<<<<<<< HEAD
   def select_piece
     x = params[:x]
     y = params[:y]
@@ -32,6 +33,8 @@ class GamesController < ApplicationController
     @board.refresh(@game.id)
   end
 
+=======
+>>>>>>> da49bdd244b618aab2464cb8e178677e407b85a8
   private
 
   def game_params

@@ -6,36 +6,43 @@
   <table id= "gameboard", class = "chess-board">
 
     <% @board.board.each_with_index do |row, y| %>
-	<tr>
-	  <% @board.board.reverse.each_with_index do |column, x| %>
-	      <%= @board.pieces(y, x, @game) %>
-	  <% end %>
-	</tr>
-      <% end %>
+      <tr>
+	<% @board.board.reverse.each_with_index do |column, x| %>
+	  <%= @board.pieces(y, x, @game) %>
+	<% end %>
+      </tr>
+    <% end %>
 
-    </table>
+  </table>
 
-    <script>
+  <script>
+    $('#gameboard td').click(function() {
+      $this = $(this);
+      var pieceIsSelected = $('#gameboard td').hasClass('selected');
 
-      //  $('#gameboard td').click(function() {
-	//    $this = $(this);
+      if (pieceIsSelected){
+	var $piece = selectedPiece();
 
-	//    alert($(this).data('x'));
-	//    alert($(this).data('y'));
-	//  });
+	if ($piece.data('piece-id') == $this.data('piece-id')) {
+	  deselectPiece( $this );
+	}
 
-      $(document).ready(function () {
-	$('#gameboard td').click(function() {
-	  $this = $(this);
+	} else {
+	selectPiece($this);
+	alert("You have selected a piece with the id #" + $this.data('piece-id') + " at x_position: " + $this.data('x') + " and y_position: " + $this.data('y'));
+      }
 
-	  var x = $this.data('x');
-	  var y = $this.data('y');
-	  var piece_id = $this.data('piece-id');
+      function selectedPiece() {
+	return $('#gameboard td.selected');
+      }
+      function selectPiece($piece) {
+	$piece.addClass('selected');
+      }
+      function deselectPiece($piece) {
+	$piece.removeClass('selected');
+      }
 
-	  alert('x-position: ' + x + ' y-position: ' + y + ' piece-id: ' + piece_id);
-
-	}); 
-      });
-    </script>
-    </section>
-  </div>
+    });
+  </script>
+  </section>
+</div>
