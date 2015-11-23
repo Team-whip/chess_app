@@ -205,17 +205,25 @@ body {
 }
 
 .chess-board tr:nth-child(odd) td:nth-child(even) { 
-  background: gray;
+  background: white;
 }
 
 .chess-board tr:nth-child(even) td:nth-child(odd) {
+  background: white;
+}
+
+.chess-board tr:nth-child(even) td:nth-child(even) {
+  background: gray;
+}
+
+.chess-board tr:nth-child(odd) td:nth-child(odd) {
   background: gray;
 }
 
 .chess-square {
   width: 60px;
   height: 60px;
-  border: 2px solid #000;
+  border: solid 2px #000;
 }
 
 .game-list-item {
@@ -250,6 +258,18 @@ body {
   clear: both;
 }
 
-td a {
-  color: black;
+
+td {
+  border-collapse: collapse;
+  &:hover {
+      box-shadow:inset 0px 0px 4px 2px rgba(11, 181, 255, 1);
+      -o-box-shadow:inset 0px 0px 4px 2px rgba(11, 181, 255, 1);
+      -moz-box-shadow:inset 0px 0px 4px 2px rgba(11, 181, 255, 1);
+  }
+}
+
+.selected {
+  box-shadow:inset 0px 0px 4px 2px rgba(212,175,55,1);
+  -o-box-shadow:inset 0px 0px 4px 2px rgba(212,175,55,1);
+  -moz-box-shadow:inset 0px 0px 4px 2px rgba(212,175,55,1);
 }

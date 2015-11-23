@@ -3,33 +3,46 @@
   <section class="my-games">
   <h1 class="text-center"><%= @game.name %></h1>
 
-  <table id= "table_id", class = "chess-board">
+  <table id= "gameboard", class = "chess-board">
 
     <% @board.board.each_with_index do |row, y| %>
       <tr>
-	   <% row.each_with_index do |column, x| %>
-
-       <!-- draw td data and piece glyphs -->     
-	     <td data-x = <%= x %>, data-y = <%= y %>, class = "text-center chess-square">
-       <% glyph = @board.piece_glyphs(y, x) %>
-       <% if glyph != nil %>
-       <%= link_to glyph,
-            {controller: 'pieces',
-             action: 'select_piece',
-             y_position: y,
-             x_position: x} %>
-      <% else %>
-        <%= link_to '#',
-            {controller: 'pieces',
-             action: 'select_piece',
-             y_position: y,
-             x_position: x} %>
-	     </td>
-        <% end %>
-	     <% end %>
+	<% @board.board.reverse.each_with_index do |column, x| %>
+	  <%= @board.pieces(y, x, @game) %>
+	<% end %>
       </tr>
     <% end %>
 
   </table>
-</section>
+
+  <script>
+    $('#gameboard td').click(function() {
+      $this = $(this);
+      var pieceIsSelected = $('#gameboard td').hasClass('selected');
+
+      if (pieceIsSelected){
+	var $piece = selectedPiece();
+
+	if ($piece.data('piece-id') == $this.data('piece-id')) {
+	  deselectPiece( $this );
+	}
+
+	} else {
+	selectPiece($this);
+	alert("You have selected a piece with the id #" + $this.data('piece-id') + " at x_position: " + $this.data('x') + " and y_position: " + $this.data('y'));
+      }
+
+      function selectedPiece() {
+	return $('#gameboard td.selected');
+      }
+      function selectPiece($piece) {
+	$piece.addClass('selected');
+      }
+      function deselectPiece($piece) {
+	$piece.removeClass('selected');
+      }
+
+    });
+  </script>
+  </section>
 </div>
