@@ -67,28 +67,19 @@
     </div> <!-- /.site-wrapper -->
 
     <script>
-      $.fn.animateRotate = function(angle, duration, easing, complete) {
-	return this.each(function() {
-	  var $elem = $(this);
-
-	  $({deg: 0}).animate({deg: angle}, {
-	    duration: duration,
-	    easing: easing,
-	    step: function(now) {
-	      $elem.css({
-		transform: 'rotate(' + now + 'deg)'
-	      });
-	    },
-	    complete: complete || $.noop
-	  });
-	});
-      };
-      var $x = 0
-
       $('#toggle-nav').click(function() {
-	$x = $x + 180
+	$this = $(this);
+
+	if ($this.hasClass('rotate-up')) {
+	  $this.removeClass('rotate-up');
+	  $this.addClass('rotate-down');
+	  } else if ($this.hasClass('rotate-down')) {
+	  $this.removeClass('rotate-down');
+	  $this.addClass('rotate-up');
+	  } else {
+	  $this.addClass('rotate-up');
+	}
       });
-      $('#toggle-nav').animateRotate($x, 400, 'linear');
     </script>
   </body>
 </html>

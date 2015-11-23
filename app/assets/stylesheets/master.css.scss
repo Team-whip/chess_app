@@ -69,9 +69,96 @@ body {
 }
 
 #toggle-nav {
-  margin-top: -12px;
+  margin-top: -10px;
   &:hover {
     color: silver;
+  }
+}
+
+.rotate-up {
+  -webkit-animation: spin-up 500ms ease-out 1;
+  -moz-animation: spin-up 500ms ease-out 1;
+  -o-animation: spin-up 500ms ease-out 1;
+  animation: spin-up 500ms ease-out 1;
+  animation-fill-mode: forwards;
+}
+
+.rotate-down {
+  -webkit-animation: spin-down 500ms ease-out 1;
+  -moz-animation: spin-down 500ms ease-out 1;
+  -o-animation: spin-down 500ms ease-out 1;
+  animation: spin-down 500ms ease-out 1;
+  animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes spin-up {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(180deg);
+  }
+}
+
+@-moz-keyframes spin-up {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(180deg);
+  }
+}
+
+@-o-keyframes spin-up {
+  from {
+    -o-transform: rotate(0deg);
+  }
+  to {
+    -o-transform: rotate(180deg);
+  }
+}
+
+@keyframes spin-up {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+@-webkit-keyframes spin-down {
+  from {
+    -webkit-transform: rotate(180deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes spin-down {
+  from {
+    -moz-transform: rotate(180deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes spin-down {
+  from {
+    -o-transform: rotate(180deg);
+  }
+  to {
+    -o-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-down {
+  from {
+    transform: rotate(180deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 
