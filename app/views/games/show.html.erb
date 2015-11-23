@@ -1,41 +1,48 @@
-<script>
-
-  $(document).ready(function() {
-
-    // Selecting a Piece
-    $('#table_id td').click(function(){
-      $this = $(this);
-      var pieceSelected = $('#table_id td').hasClass('selected');
-
-          alert("This piece was selected and will be moved.");
-    
-    });
-
-    // Moving a Piece
-    function sendMove ($pieceSelected){
-      //Move the piece
-    }
-
-  }); 
-
-</script>
-
 <br />
-<div class="booyah-box col-xs-10 col-xs-offset-1">
+<div class="container col-xs-12">
+  <section class="my-games">
   <h1 class="text-center"><%= @game.name %></h1>
 
-  <table id= "table_id", class = "chess-board">
+  <table id= "gameboard", class = "chess-board">
+
     <% @board.board.each_with_index do |row, y| %>
       <tr>
-	<% row.each_with_index do |column, x| %>
-
-	  <td data-x = <%= x %>, data-y = <%= y %>, class = "text-center chess-square">
-	    <%= @board.piece_glyphs(y, x) %>
-	  </td>
-
+	<% @board.board.reverse.each_with_index do |column, x| %>
+	  <%= @board.pieces(y, x, @game) %>
 	<% end %>
       </tr>
     <% end %>
+
   </table>
 
+  <script>
+    $('#gameboard td').click(function() {
+      $this = $(this);
+      var pieceIsSelected = $('#gameboard td').hasClass('selected');
+
+      if (pieceIsSelected){
+	var $piece = selectedPiece();
+
+	if ($piece.data('piece-id') == $this.data('piece-id')) {
+	  deselectPiece( $this );
+	}
+
+	} else {
+	selectPiece($this);
+	alert("You have selected a piece with the id #" + $this.data('piece-id') + " at x_position: " + $this.data('x') + " and y_position: " + $this.data('y'));
+      }
+
+      function selectedPiece() {
+	return $('#gameboard td.selected');
+      }
+      function selectPiece($piece) {
+	$piece.addClass('selected');
+      }
+      function deselectPiece($piece) {
+	$piece.removeClass('selected');
+      }
+
+    });
+  </script>
+  </section>
 </div>
