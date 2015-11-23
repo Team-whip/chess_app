@@ -1,4 +1,5 @@
 class PiecesController < ApplicationController
+<<<<<<< HEAD
 	def select_piece
 		# tempid = piece_params[:id].to_i
 		x = params[:x_position]
@@ -25,5 +26,7 @@ class PiecesController < ApplicationController
 	def piece_params
 		params.require(:id).permit(:x_position, :y_position)
 	end
+=======
+>>>>>>> 30f1bb3bbfc8b2aea0bf58623485f1cce7e5b697
 
 end

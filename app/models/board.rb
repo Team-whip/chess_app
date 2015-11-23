@@ -30,36 +30,43 @@ class Board
     @board
   end
 
-  def piece_glyphs(y, x)
+  def pieces(y, x, game)
     piece = @board[y][x]
     unless piece.nil?
+    piece_id = game.pieces.where(x_position: x, y_position: y).first.id
+    table_data = "<td data-x = #{x}, data-y = #{y}, data-piece-id = #{piece_id}, class = 'text-center chess-square'>"
       case [piece.type, piece.color]
       when ["Rook", false]
-	      "<i class = 'glyphicon glyphicon-tower black'></i>".html_safe
+	table_data += "<i class = 'glyphicon glyphicon-tower black'></i>"
       when ["Knight", false]
-        "<i class = 'glyphicon glyphicon-knight black'></i>".html_safe
+	table_data += "<i class = 'glyphicon glyphicon-knight black'></i>"
       when ["Bishop", false]
-        "<i class = 'glyphicon glyphicon-bishop black'></i>".html_safe
+	table_data += "<i class = 'glyphicon glyphicon-bishop black'></i>"
       when ["Queen", false]
-        "<i class = 'glyphicon glyphicon-queen black'></i>".html_safe
+	table_data += "<i class = 'glyphicon glyphicon-queen black'></i>"
       when ["King", false]
-        "<i class = 'glyphicon glyphicon-king black'></i>".html_safe
+	table_data += "<i class = 'glyphicon glyphicon-king black'></i>"
       when ["Pawn", false]
-        "<i class = 'glyphicon glyphicon-pawn black'></i>".html_safe
+	table_data += "<i class = 'glyphicon glyphicon-pawn black'></i>"
       when ["Rook", true]
-	      "<i class = 'glyphicon glyphicon-tower white'></i>".html_safe
+	table_data += "<i class = 'glyphicon glyphicon-tower white'></i>"
       when ["Knight", true]
-        "<i class = 'glyphicon glyphicon-knight white'></i>".html_safe
+	table_data += "<i class = 'glyphicon glyphicon-knight white'></i>"
       when ["Bishop", true]
-        "<i class = 'glyphicon glyphicon-bishop white'></i>".html_safe
+	table_data += "<i class = 'glyphicon glyphicon-bishop white'></i>"
       when ["Queen", true]
-        "<i class = 'glyphicon glyphicon-queen white'></i>".html_safe
+	table_data += "<i class = 'glyphicon glyphicon-queen white'></i>"
       when ["King", true]
-        "<i class = 'glyphicon glyphicon-king white'></i>".html_safe
+	table_data += "<i class = 'glyphicon glyphicon-king white'></i>"
       when ["Pawn", true]
-        "<i class = 'glyphicon glyphicon-pawn white'></i>".html_safe
+	table_data += "<i class = 'glyphicon glyphicon-pawn white'></i>"
       end
+    table_data += "</td>"
+    table_data.html_safe
+    else 
+      "<td data-x = #{x}, data-y = #{y}, data-piece-id = #{nil}, class = 'text-center chess-square'>".html_safe
     end
+
   end
 
   def create_black_rooks(game_id)
