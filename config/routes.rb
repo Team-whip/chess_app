@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   resource :dashboard, :only => [:show]
   root 'static_pages#index'
   resources :games
-  post '/games/select_piece' => 'games#select_piece', :as => :select_piece
+
+  # This line is a good example of how to add controller methods as routes
+  # post '/games/select_piece' => 'games#select_piece', :as => :select_piece
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
