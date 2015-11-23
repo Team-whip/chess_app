@@ -205,10 +205,18 @@ body {
 }
 
 .chess-board tr:nth-child(odd) td:nth-child(even) { 
-  background: gray;
+  background: white;
 }
 
 .chess-board tr:nth-child(even) td:nth-child(odd) {
+  background: white;
+}
+
+.chess-board tr:nth-child(even) td:nth-child(even) {
+  background: gray;
+}
+
+.chess-board tr:nth-child(odd) td:nth-child(odd) {
   background: gray;
 }
 
