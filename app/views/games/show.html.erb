@@ -7,67 +7,50 @@
 
     <% @board.board.each_with_index do |row, y| %>
       <tr>
-<<<<<<< HEAD
-	   <% row.each_with_index do |column, x| %>
-
-       <!-- draw td data and piece glyphs -->
-	     <td data-x = <%= x %>, data-y = <%= y %>, class = "text-center chess-square">
-       <% glyph = @board.piece_glyphs(y, x) %>
-       <% if glyph != nil %>
-       <%= link_to glyph,
-            {controller: 'pieces',
-             action: 'select_piece',
-             game_id: @game.id,
-             y_position: y,
-             x_position: x} %>
-      <% else %>
-        <%= link_to '#',
-            {controller: 'pieces',
-             action: 'select_piece',
-             game_id: @game.id,
-             y_position: y,
-             x_position: x} %>
-	     </td>
-        <% end %>
-	     <% end %>
-=======
-	<% @board.board.reverse.each_with_index do |column, x| %>
-	  <%= @board.pieces(y, x, @game) %>
-	<% end %>
->>>>>>> 30f1bb3bbfc8b2aea0bf58623485f1cce7e5b697
+	        <% @board.board.reverse.each_with_index do |column, x| %>
+	         <%= @board.pieces(y, x, @game) %>
+	        <% end %>
       </tr>
     <% end %>
 
   </table>
 
   <script>
-    $('#gameboard td').click(function() {
-      $this = $(this);
-      var pieceIsSelected = $('#gameboard td').hasClass('selected');
-
-      if (pieceIsSelected){
-	var $piece = selectedPiece();
-
-	if ($piece.data('piece-id') == $this.data('piece-id')) {
-	  deselectPiece( $this );
-	}
-
-	} else {
-	selectPiece($this);
-	alert("You have selected a piece with the id #" + $this.data('piece-id') + " at x_position: " + $this.data('x') + " and y_position: " + $this.data('y'));
+  $('#gameboard td').click(function() {
+    $this = $(this);
+    var pieceIsSelected = $('#gameboard td').hasClass('selected');
+    if (pieceIsSelected){
+      var $piece = selectedPiece();
+      if ($piece.data('piece-id') == $this.data('piece-id')) {
+        deselectPiece( $this );
+      } else {
+        sendMove( $this );
       }
-
-      function selectedPiece() {
-	return $('#gameboard td.selected');
-      }
-      function selectPiece($piece) {
-	$piece.addClass('selected');
-      }
-      function deselectPiece($piece) {
-	$piece.removeClass('selected');
-      }
-
-    });
+    } else {
+      selectPiece($this);
+      alert("You have selected a piece with the id #" + $this.data('piece-id') + " at x_position: " + $this.data('x') + " and y_position: " + $this.data('y'));
+    }
+    function selectedPiece() {
+      return $('#gameboard td.selected');
+    }
+    function selectPiece($piece) {
+      $piece.addClass('selected');
+    }
+    function deselectPiece($piece) {
+      $piece.removeClass('selected');
+    }
+    function sendMove($new_space) {
+      $this = $new_space
+      var $x = $this.data('x');
+      var $y = $this.data('y');
+      var $pieceId = $piece.data('piece-id');
+      jQuery.ajax({
+        url: "<%= game_path %>",
+        type: "PUT",
+        data: {new_x: $x, new_y: $y, pieceId: $pieceId}
+      });
+    }
+  });
   </script>
   </section>
 </div>

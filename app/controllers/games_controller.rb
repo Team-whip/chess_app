@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   respond_to :js, :json, :html
   before_action :authenticate_player!, only: [:new, :create]
-  
+
   def index
     @games = Game.all
   end
