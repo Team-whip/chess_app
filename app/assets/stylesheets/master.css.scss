@@ -70,6 +70,12 @@ body {
   margin-bottom: -146px;
 }
 
+@media only screen and (max-device-width: 750px) {
+  .masthead-collapse {
+    margin-bottom: 0px;
+  }
+}
+
 #toggle-nav {
   margin-top: -10px;
   &:hover {
