@@ -63,6 +63,105 @@ body {
 .masthead-brand {
   margin-top: 10px;
   margin-bottom: 10px;
+  float: left;
+}
+
+.masthead-collapse {
+  margin-bottom: -146px;
+}
+
+#toggle-nav {
+  margin-top: -10px;
+  &:hover {
+    color: silver;
+  }
+}
+
+.rotate-up {
+  -webkit-animation: spin-up 500ms ease-out 1;
+  -moz-animation: spin-up 500ms ease-out 1;
+  -o-animation: spin-up 500ms ease-out 1;
+  animation: spin-up 500ms ease-out 1;
+  animation-fill-mode: forwards;
+}
+
+.rotate-down {
+  -webkit-animation: spin-down 500ms ease-out 1;
+  -moz-animation: spin-down 500ms ease-out 1;
+  -o-animation: spin-down 500ms ease-out 1;
+  animation: spin-down 500ms ease-out 1;
+  animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes spin-up {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(180deg);
+  }
+}
+
+@-moz-keyframes spin-up {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(180deg);
+  }
+}
+
+@-o-keyframes spin-up {
+  from {
+    -o-transform: rotate(0deg);
+  }
+  to {
+    -o-transform: rotate(180deg);
+  }
+}
+
+@keyframes spin-up {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+@-webkit-keyframes spin-down {
+  from {
+    -webkit-transform: rotate(180deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes spin-down {
+  from {
+    -moz-transform: rotate(180deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes spin-down {
+  from {
+    -o-transform: rotate(180deg);
+  }
+  to {
+    -o-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-down {
+  from {
+    transform: rotate(180deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .masthead-brand a {
@@ -106,7 +205,7 @@ body {
     float: left;
   }
   .masthead-nav {
-    float: right;
+  float: right;
   }
 }
 
@@ -156,24 +255,24 @@ body {
   .masthead {
     position: absolute;
     top: 0;
-  }
-  .mastfoot {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    margin-bottom: 20px;
+}
+.mastfoot {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  margin-bottom: 20px;
 
-  }
-  /* Start the vertical centering */
-  .site-wrapper-inner {
-    vertical-align: middle;
-  }
-  /* Handle the widths */
-  .masthead,
-  .mastfoot,
-  .cover-container {
-    width: 100%; /* Must be percentage or pixels for horizontal alignment */
-  }
+}
+}
+/* Start the vertical centering */
+.site-wrapper-inner {
+  vertical-align: middle;
+}
+/* Handle the widths */
+.masthead,
+.mastfoot,
+.cover-container {
+  width: 100%; /* Must be percentage or pixels for horizontal alignment */
 }
 
 @media (min-width: 992px) {
@@ -181,7 +280,7 @@ body {
   .mastfoot,
   .cover-container {
     width: 960px;
-  }
+}
 }
 
 /*
@@ -258,10 +357,10 @@ body {
 td {
   border-collapse: collapse;
   &:hover {
-      box-shadow:inset 0px 0px 4px 2px rgba(11, 181, 255, 1);
-      -o-box-shadow:inset 0px 0px 4px 2px rgba(11, 181, 255, 1);
-      -moz-box-shadow:inset 0px 0px 4px 2px rgba(11, 181, 255, 1);
-  }
+    box-shadow:inset 0px 0px 4px 2px rgba(11, 181, 255, 1);
+    -o-box-shadow:inset 0px 0px 4px 2px rgba(11, 181, 255, 1);
+    -moz-box-shadow:inset 0px 0px 4px 2px rgba(11, 181, 255, 1);
+}
 }
 
 .selected {
