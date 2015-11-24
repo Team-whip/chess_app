@@ -6,6 +6,13 @@ class GamesController < ApplicationController
     @games = Game.all
   end
 
+  def show
+    @game = Game.find(params[:id])
+    @pieces = Piece.where(game_id: @game.id)
+    @board = Board.new
+    @board.refresh(@game.id)
+  end
+
   def new
     @game = Game.new
   end
@@ -18,12 +25,6 @@ class GamesController < ApplicationController
     redirect_to game_path(@game)
   end
 
-  def show
-    @game = Game.find(params[:id])
-    @pieces = Piece.where(game_id: @game.id)
-    @board = Board.new
-    @board.refresh(@game.id)
-  end
 
   private
 

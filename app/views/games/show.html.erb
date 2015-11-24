@@ -28,7 +28,7 @@
       }
     } else {
       selectPiece($this);
-      alert("You have selected a piece with the id #" + $this.data('piece-id') + " at x_position: " + $this.data('x') + " and y_position: " + $this.data('y'));
+      <%# alert("You have selected a piece with the id #" + $this.data('piece-id') + " at x_position: " + $this.data('x') + " and y_position: " + $this.data('y')); %>
     }
     function selectedPiece() {
       return $('#gameboard td.selected');
@@ -45,9 +45,12 @@
       var $y = $this.data('y');
       var $pieceId = $piece.data('piece-id');
       jQuery.ajax({
-        url: "<%= game_path %>",
-        type: "PUT",
-        data: {new_x: $x, new_y: $y, pieceId: $pieceId}
+	url: "<%= pieces_path %>",
+        type: "PATCH",
+        data: {new_x: $x, new_y: $y, pieceId: $pieceId},
+	success: function(data) {
+	  $(location).attr('href', data.update_url);
+	}
       });
     }
   });
