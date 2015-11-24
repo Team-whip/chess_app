@@ -4,11 +4,11 @@
   <br />
   <br />
   <br />
-  <section class="my-games container">
-  <h2 class="text-center">My Games</h2>
+  <section class="my-games container text-center">
+  <h2 class=>My Games</h2>
   <% current_player.joined_games.each do |game| %>
     <% if game.player_two_id != nil %>
-      <div class="game-list-item col-xs-4">
+      <div class="game-list-item">
 	<ul class="list-unstyled">
 	  <li class="text-center"><h2><%= link_to game.name, game_path(game) %></h2></li>
 	  <% player1, player2 = Player.find(game.player_one_id), Player.find(game.player_two_id) %>
@@ -31,7 +31,7 @@
   <% current_player.joined_games.each do |game| %>
     <% if game.player_two_id == nil %>
       <% player1 = Player.find(game.player_one_id) %>
-      <div class = "game-list-item col-xs-4">
+      <div class = "game-list-item"> 
 	<ul class = "list-unstyled">
 	  <li class = 'text-center'><h2><%= link_to game.name, game_path(game) %></h2><li>
 	  <% case player1.first_name.nil? %>
