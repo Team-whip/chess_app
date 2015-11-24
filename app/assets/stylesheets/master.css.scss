@@ -14,7 +14,6 @@ a:hover {
 .btn-default:hover,
 .btn-default:focus {
   color: #333;
-  text-shadow: none; /* Prevent inheritence from `body` */
   background-color: #fff;
   border: 1px solid #fff;
 }
@@ -32,7 +31,6 @@ body {
 body {
   color: #fff;
   text-align: center;
-  text-shadow: 0 1px 3px rgba(0,0,0,.5);
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
@@ -196,7 +194,6 @@ body {
   margin-bottom: 15px;
   padding: 20px;
   color: black;
-  text-shadow: none;
 }
 
 .chess-board {
@@ -236,7 +233,6 @@ body {
   padding: 20px;
   border-radius: 5px;
   color: black;
-  text-shadow: none;
 } 
 
 .my-games {
