@@ -36,26 +36,27 @@
               </ul>
             </nav>
           </div>
-        </div>
+	</div>
 
-        <%= yield %>
 
-        <!-- footer --> 
-        <div class="mastfoot">
-          <div class="inner">
-            <div class="about-us pull-left">
-              <a href="#">About Us</a> - <a href="#">Code</a>
-            </div>
-            <div class="github-icon pull-right">
-              <%= link_to 'https://github.com/Team-whip/chess_app' do %>
-                <%= image_tag 'GitHub-Mark-Light-32px.png', :class => 'social-media-icons' %>
-              <% end %>
-            </div>
-          </div>
-        </div>
+	<%= yield %>
+
+	<!-- footer --> 
+	<div class="mastfoot">
+	  <div class="inner">
+	    <div class="about-us pull-left">
+	      <a href="#">About Us</a> - <a href="#">Code</a>
+	    </div>
+	    <div class="github-icon pull-right">
+	      <%= link_to 'https://github.com/Team-whip/chess_app' do %>
+		<%= image_tag 'GitHub-Mark-Light-32px.png', :class => 'social-media-icons' %>
+	      <% end %>
+	    </div>
+	  </div>
+	</div>
 
       </div> <!-- /.cover-container -->
     </div> <!-- /.site-wrapper-inner -->
   </div> <!-- /.site-wrapper -->
-  </body>
+</body>
 </html>
