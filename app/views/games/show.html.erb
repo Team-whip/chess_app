@@ -4,7 +4,7 @@
   <h1 class="text-center"><%= @game.name %></h1>
   
   <% flash.each do |key, value| %>
-    <div class="alert alert-info"><%= value %></div>
+    <div class="alert alert-info col-xs-4 col-xs-offset-4 clearfix"><%= value %></div>
   <% end %>
   
   <table id= "gameboard", class = "chess-board">
