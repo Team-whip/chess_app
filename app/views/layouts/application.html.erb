@@ -9,53 +9,77 @@
 
   <body>
 
-  <div class="site-wrapper">
-    <div class="site-wrapper-inner">
-      <div class="cover-container">
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+	<div class="cover-container">
 
-        <div class="masthead clearfix">
-          <div class="inner">
-            <nav class="navbar navbar-static-top">
-            <h3 class="masthead-brand"><%= link_to 'Team Whip', root_path %></h3>
-              <ul class="nav navbar-left masthead-nav">
-                <li class="<%= 'active' if current_page?(new_game_path) %>"><%= link_to 'Start a Game', new_game_path %></li>
-                <li class="<%= 'active' if current_page?(games_path) %>"><%= link_to 'Current Games', games_path %></li>
-              </ul>
-              <ul class="nav navbar-right masthead-nav">
-                <% if player_signed_in? %>
-                  <% if current_player.first_name.present? %>
-                    <li><%= link_to "#{current_player.first_name}'s Dashboard", dashboard_path %></li>
-                  <% else %>
-                    <li><%= link_to "User Dashboard", dashboard_path %></li>
-                  <% end %>
-                    <li><%= link_to 'Sign out', destroy_player_session_path, :method => :delete %></li>
-                  <% else %>
-                    <li><%= link_to 'Login', player_session_path %></li>
-                    <li><%= link_to 'Sign Up', new_player_registration_path %></li>
-                <% end %>
-              </ul>
-            </nav>
-          </div>
-        </div>
+	  <div class="masthead clearfix">
+	    <div class="inner">
+	      <nav class="navbar navbar-static-top">
+	      <div class = 'navbar-header'>
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+		  <span class="sr-only">Toggle navigation</span>
+		  <i class = 'glyphicon glyphicon-menu-down' id = 'toggle-nav'></i>
+		</button>
+		<h3 class="masthead-brand"><%= link_to 'Team Whip', root_path %></h3>
+	      </div>
+	      <div class = 'collapse navbar-collapse' id = 'navbar-collapse-1'>
+		<ul class="nav navbar-left masthead-nav">
+		  <li class="<%= 'active' if current_page?(new_game_path) %>"><%= link_to 'Start a Game', new_game_path %></li>
+		  <li class="<%= 'active' if current_page?(games_path) %>"><%= link_to 'Current Games', games_path %></li>
+		</ul>
+		<ul class="nav navbar-right masthead-nav">
+		  <% if player_signed_in? %>
+		    <% if current_player.first_name.present? %>
+		      <li><%= link_to "#{current_player.first_name}'s Dashboard", dashboard_path %></li>
+		    <% else %>
+		      <li><%= link_to "User Dashboard", dashboard_path %></li>
+		    <% end %>
+		    <li><%= link_to 'Sign out', destroy_player_session_path, :method => :delete %></li>
+		  <% else %>
+		    <li><%= link_to 'Login', player_session_path %></li>
+		    <li><%= link_to 'Sign Up', new_player_registration_path %></li>
+		  <% end %>
+		</ul>
+	      </div>
+	      </nav>
+	    </div>
+	  </div>
 
-        <%= yield %>
+	  <%= yield %>
 
-        <!-- footer --> 
-        <div class="mastfoot">
-          <div class="inner">
-            <div class="about-us pull-left">
-              <a href="#">About Us</a> - <a href="#">Code</a>
-            </div>
-            <div class="github-icon pull-right">
-              <%= link_to 'https://github.com/Team-whip/chess_app' do %>
-                <%= image_tag 'GitHub-Mark-Light-32px.png', :class => 'social-media-icons' %>
-              <% end %>
-            </div>
-          </div>
-        </div>
+	  <!-- footer --> 
+	  <div class="mastfoot">
+	    <div class="inner">
+	      <div class="about-us pull-left">
+		<a href="#">About Us</a> - <a href="#">Code</a>
+	      </div>
+	      <div class="github-icon pull-right">
+		<%= link_to 'https://github.com/Team-whip/chess_app' do %>
+		  <%= image_tag 'GitHub-Mark-Light-32px.png', :class => 'social-media-icons' %>
+		<% end %>
+	      </div>
+	    </div>
+	  </div>
 
-      </div> <!-- /.cover-container -->
-    </div> <!-- /.site-wrapper-inner -->
-  </div> <!-- /.site-wrapper -->
+	</div> <!-- /.cover-container -->
+      </div> <!-- /.site-wrapper-inner -->
+    </div> <!-- /.site-wrapper -->
+
+    <script>
+      $('#toggle-nav').click(function() {
+	$this = $(this);
+
+	if ($this.hasClass('rotate-up')) {
+	  $this.removeClass('rotate-up');
+	  $this.addClass('rotate-down');
+	  } else if ($this.hasClass('rotate-down')) {
+	  $this.removeClass('rotate-down');
+	  $this.addClass('rotate-up');
+	  } else {
+	  $this.addClass('rotate-up');
+	}
+      });
+    </script>
   </body>
 </html>
