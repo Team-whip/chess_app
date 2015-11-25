@@ -205,21 +205,22 @@ RSpec.describe Piece, :type => :model do
 
 	describe "#in_check?" do
   	before :each do
-  		@board = Board.new
-  		@board.board[4][0] = King.new(color: false, x_position: 4, y_position: 0)
-  		@board.board[4][4] = Rook.new(color: true, x_position: 4, y_position: 4)
-  		@board.board[5][7] = King.new(color: true, x_position: 5, y_position: 7)
-  		@king = @board.board[4][0]
-  		@rook = @board.board[4][4]
-  		@king2 = @board.board[5][7]
+  		@game = Game.create
+  		@board = Board.new.populate(@game.id)
+  		@board[4][3] = King.new(color: false, x_position: 4, y_position: 3)
+  		@board[4][5] = Rook.new(color: true, x_position: 4, y_position: 5)
+  		@board[6][5] = King.new(color: true, x_position: 6, y_position: 5)
+  		@king = @board[4][3]
+  		@rook = @board[4][5]
+  		@king2 = @board[6][5]
   	end
 
   	it "is in check" do
-  		expect(@king.in_check?(@king.x_position, @king.y_position, @king.color, @game)).to be true
+  		expect(@king.in_check?(@king.x_position, @king.y_position, @king.color, @game.id)).to be true
   	end
 
   	it "is not in check" do
-  		expect(@king2.in_check?(@king.x_position, @king.y_position, @king2.color, @game)).to be false
+  		expect(@king2.in_check?(@king.x_position, @king.y_position, @king2.color, @game.id)).to be false
   	end
 	end
 end
