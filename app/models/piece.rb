@@ -1,3 +1,5 @@
+require 'pry'
+
 class Piece < ActiveRecord::Base
   belongs_to :player
   belongs_to :game
@@ -19,6 +21,24 @@ class Piece < ActiveRecord::Base
 	self.location_obstructed?(x, y, board)
       end
     end
+  end
+
+  def remaining_pieces(color)
+    self.class.includes(:game).where("color = ?", color).to_a
+  end
+
+  def in_check?(x, y, color, game)
+
+    king = self.class.includes(:game).find_by(x_position: x, y_position: y, color: color)
+    enemy = remaining_pieces(!color)
+    
+    enemy.each do |enemy|
+      if enemy.legal_move?(x, y)
+        @enemy_making_check = enemy
+        return true
+      end
+    end
+    false
   end
 
   def is_a_move_on_the_board?
