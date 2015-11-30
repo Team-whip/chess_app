@@ -4,8 +4,17 @@ class Game < ActiveRecord::Base
 	has_many :joined_players, through: :join_games, source: :player
 	belongs_to :players
 
-	def in_check?
-		# Checks to see if either player is in check.
+	def in_check?(color)
+		king = Piece.find_by(type: 'King', color: color, game_id: id )
+		enemies = Piece.where(color: 'true', game_id: id)
+	
+		enemies.each do |enemy|
+      if enemy.legal_move?(king.x_position, king.y_position)
+        @enemy_making_check = enemy
+        return true
+      end
+    end
+    false
 	end
 
 	def in_checkmate?

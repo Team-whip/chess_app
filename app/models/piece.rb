@@ -23,21 +23,6 @@ class Piece < ActiveRecord::Base
     end
   end
 
-  def in_check?(x, y, color, game_id)
-
-    king = self.class.find_by(x_position: x, y_position: y, color: color, game_id: game_id)
-    
-    enemy = self.class.where(game_id: game_id, type: !king, color: !color)
-
-    enemy.each do |enemy|
-      if enemy.legal_move?(king.x_position, king.y_position)
-        @enemy_making_check = enemy
-        return true
-      end
-    end
-    false
-  end
-
   def is_a_move_on_the_board?
     # Check to make sure it is on the board?
   end
