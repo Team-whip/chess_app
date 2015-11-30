@@ -33,6 +33,16 @@ class Piece < ActiveRecord::Base
     end
   end
 
+  def is_piece_on_board?
+    if self.x_position == nil || self.y_position == nil
+      self.alive = false
+      false
+    else
+      self.alive = true
+      true
+    end
+  end
+
   def is_a_move_on_the_board?
     # Check to make sure it is on the board?
   end
