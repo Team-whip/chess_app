@@ -3,10 +3,24 @@
  */
 
 /* Links */
-a,
-a:focus,
-a:hover {
+a {
   color: #fff;
+}
+
+nav .nav-link, .navbar-brand {
+  &:hover {
+    color: #0275d8;
+  }
+}
+
+nav .navbar-toggler {
+  margin: 10px 0px -10px 0px;
+  &:focus {
+    border: none;
+    content: none;
+    outline: none;
+    border-color: none;
+  }
 }
 
 /* Custom default button */

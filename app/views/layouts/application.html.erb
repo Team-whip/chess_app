@@ -11,9 +11,8 @@
   <body>
     <div class = 'container-responsive'>
       <nav class="navbar navbar-static-top">
-	<button type="button" class="navbar-toggler hidden-sm-up rotate-down" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+	<button type="button" id= 'toggle-nav' class="navbar-toggler hidden-sm-up rotate-down mega-octicon octicon-triangle-down" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
 	  <span class="sr-only">Toggle navigation</span>
-	  <span class = 'mega-octicon octicon-triangle-down' id = 'toggle-nav'></span>
 	</button>
       <div class = 'collapse navbar-toggleable-xs' id = 'navbar-collapse-1'>
 	<%= link_to 'Team Whip', root_path, class: "navbar-brand" %>
@@ -40,18 +39,16 @@
       <%= yield %>
 
       <!-- footer --> 
-      <div class="navbar navbar-fixed-bottom">
+      <nav class="navbar navbar-fixed-bottom">
 	  <ul class="navbar-nav nav pull-left">
-	    <li class = "nav-item"><%= link_to "About", "#" %></li>
-	    <li class = "nav-item"><%= link_to "Code", "#" %></li>
+	    <li class = "nav-item"><%= link_to "About", "#", class: 'nav-link' %></li>
+	    <li class = "nav-item"><%= link_to "Code", "#", class: 'nav-link' %></li>
 	  </ul>
 	  <div class="github-icon pull-right">
-	    <%= link_to 'https://github.com/Team-whip/chess_app' do %>
-	      <%= image_tag 'GitHub-Mark-Light-32px.png', :class => 'social-media-icons' %>
-	    <% end %>
+	    <a href = 'https://github.com/Team-whip/chess_app'><span class = 'mega-octicon octicon-mark-github'></span></a>
 	  </div>
       </div>
-    </div>
+    </nav>
 
 
     <script>
