@@ -200,7 +200,38 @@ RSpec.describe Piece, :type => :model do
       expect(rook.legal_move?(rook.x_position + 1, rook.y_position + 1 )).to be false
 	end
 	  end
-
   end
 
+# Attempt Move
+
+	describe "#attempt_move" do
+    before :each do
+      @game = Game.new
+      @board = Board.new
+      @pawn = Pawn.new(x_position: 0, y_position: 1, color: false)
+      @board.board[1][0] = @pawn
+    end
+
+    describe "piece" do
+      it "invalid move distance" do
+	expect(@pawn.attempt_move(@pawn.x_position, @pawn.y_position + 3, @board, @pawn.color, @game.id)).to be false
+      end
+
+      it "path is blocked" do
+	piece = Pawn.new(x_position: 0, y_position: 2)
+	@board.board[2][0] = piece
+	expect(@pawn.attempt_move(@pawn.x_position, @pawn.y_position + 2, @board, @pawn.color, @game.id)).to be false
+      end
+
+      it "invalid move direction" do
+	expect(@pawn.attempt_move(@pawn.x_position + 1, @pawn.y_position, @board, @pawn.color, @game.id)).to be false
+      end
+
+      it "lands on another piece" do
+        piece = Pawn.new(x_position: 0, y_position: 2)
+	@board.board[2][0] = piece
+	expect(@pawn.attempt_move(@pawn.x_position, @pawn.y_position + 1, @board, @pawn.color, @game.id)).to be false
+      end
+    end 
+  end
 end
