@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ChessGame</title>
+    <title>Team Whip Chess</title>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
   <body>
-
     <div class="site-wrapper">
       <div class="site-wrapper-inner">
 	<div class="cover-container">
 
-	  <div class="masthead clearfix">
+	  <div class="masthead masthead-collapse clearfix">
 	    <div class="inner">
 	      <nav class="navbar navbar-static-top">
 	      <div class = 'navbar-header'>
-		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+		<button type="button" class="navbar-toggle collapsed rotate-down" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
 		  <span class="sr-only">Toggle navigation</span>
 		  <i class = 'glyphicon glyphicon-menu-down' id = 'toggle-nav'></i>
 		</button>
@@ -67,18 +67,19 @@
     </div> <!-- /.site-wrapper -->
 
     <script>
-      $('#toggle-nav').click(function() {
-	$this = $(this);
+      $(document).ready(function() {
+	$('#toggle-nav').click(function() {
+	  $this = $(this);
 
-	if ($this.hasClass('rotate-up')) {
-	  $this.removeClass('rotate-up');
-	  $this.addClass('rotate-down');
-	  } else if ($this.hasClass('rotate-down')) {
-	  $this.removeClass('rotate-down');
-	  $this.addClass('rotate-up');
-	  } else {
-	  $this.addClass('rotate-up');
-	}
+	  if ($this.hasClass('rotate-up')) {
+	    $this.removeClass('rotate-up');
+	    $this.addClass('rotate-down');
+	    } else {
+	    $this.removeClass('rotate-down');
+	    $this.addClass('rotate-up');
+	    $('.masthead').addClass('masthead-collapse');
+	  }
+	});
       });
     </script>
   </body>

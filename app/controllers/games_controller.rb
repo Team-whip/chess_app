@@ -1,9 +1,16 @@
 class GamesController < ApplicationController
   respond_to :js, :json, :html
   before_action :authenticate_player!, only: [:new, :create]
-  
+
   def index
     @games = Game.all
+  end
+
+  def show
+    @game = Game.find(params[:id])
+    @pieces = Piece.where(game_id: @game.id)
+    @board = Board.new
+    @board.refresh(@game.id)
   end
 
   def new
@@ -18,12 +25,6 @@ class GamesController < ApplicationController
     redirect_to game_path(@game)
   end
 
-  def show
-    @game = Game.find(params[:id])
-    @pieces = Piece.where(game_id: @game.id)
-    @board = Board.new
-    @board.refresh(@game.id)
-  end
 
   private
 
