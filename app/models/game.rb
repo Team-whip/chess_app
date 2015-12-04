@@ -36,7 +36,7 @@ class Game < ActiveRecord::Base
     if king.color == false
       return false unless king.x_position == 4 && king.y_position == 0
     else
-      return false unless king.x_position == 4 && king_y_position == 7
+      return false unless king.x_position == 4 && king.y_position == 7
     end
 
     #there are no pieces between the king and chosen rook
@@ -68,7 +68,6 @@ class Game < ActiveRecord::Base
 	return false unless queen_rook.x_position == 0 && queen_rook.y_position == 7
       end
     end
-
     true
   end
 
