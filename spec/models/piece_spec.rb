@@ -241,10 +241,11 @@ RSpec.describe Piece, :type => :model do
 
   describe '.capture' do
     before :each do
+      @game = Game.create
       @board = Board.new
-      @board.board[2][2] = Pawn.new(x_position: 2, y_position: 2)
+      @board.board[2][2] = Pawn.new(x_position: 2, y_position: 2, game_id: @game.id)
       @pawn = @board.board[2][2]
-      @attacker = Rook.new(x_position: 2, y_position: 3)
+      @attacker = Rook.new(x_position: 2, y_position: 3, game_id: @game.id)
       @board.board[3][2] = @attacker
       @x = 2
       @y = 2

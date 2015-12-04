@@ -296,9 +296,15 @@ body {
   color: black;
 }
 
-.chess-board {
-  margin: 50px auto; 
-  width: auto;
+#deadPieces {
+  height: 40vh;
+  width: 80px;
+}
+
+#deadPieces2 {
+  margin-top: 174px;
+  height: 40vh;
+  width: 80px;
 }
 
 .chess-board tr:nth-child(odd) td:nth-child(even) { 

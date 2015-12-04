@@ -1,0 +1,11 @@
+<table id= "gameboard", class = "chess-board col-xs-8">
+
+  <% @board.board.each_with_index do |row, y| %>
+	<tr>
+	  <% @board.board.reverse.each_with_index do |column, x| %>
+	    <%= @board.pieces(y, x, @game) %>
+	  <% end %>
+	</tr>
+  <% end %>
+
+</table>
