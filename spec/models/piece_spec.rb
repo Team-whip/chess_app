@@ -286,7 +286,7 @@ RSpec.describe Piece, :type => :model do
     before :each do
       @game = Game.create
       @board = Board.new
-      @pawn = Pawn.new(x_position: 0, y_position: 1, color: false, game_id:  @game.id)
+      @pawn = Pawn.new(x_position: 0, y_position: 1, color: false, game_id: @game.id)
       @board.board[1][0] = @pawn
       @board.refresh(@game.id)
     end
@@ -297,7 +297,7 @@ RSpec.describe Piece, :type => :model do
       end
 
       it "path is blocked" do
-	piece = Pawn.new(x_position: 0, y_position: 2, game_id: @game.id, color: false)
+	piece = Pawn.new(x_position: 0, y_position: 2)
 	@board.board[2][0] = piece
 	@board.refresh(@game.id)
 	expect(@pawn.attempt_move(@pawn.x_position, @pawn.y_position + 2, @board, @pawn.color, @game.id)).to be false
@@ -307,8 +307,8 @@ RSpec.describe Piece, :type => :model do
 	expect(@pawn.attempt_move(@pawn.x_position + 1, @pawn.y_position, @board, @pawn.color, @game.id)).to be false
       end
 
-      it "lands on another piece" do
-	piece = Pawn.new(x_position: 0, y_position: 2, game_id: @game.id, color: false)
+      it "lands on another piece of same color" do
+	piece = Pawn.new(x_position: 0, y_position: 2, color: false)
 	@board.board[2][0] = piece
 	@board.refresh(@game.id)
 	expect(@pawn.attempt_move(@pawn.x_position, @pawn.y_position + 1, @board, @pawn.color, @game.id)).to be false

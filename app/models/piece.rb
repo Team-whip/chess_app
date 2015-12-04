@@ -4,11 +4,11 @@ class Piece < ActiveRecord::Base
 
   def attempt_move(x, y, board, color, game_id)
     game = Game.find_by(id: game_id)
-    king = Piece.find_by(type: 'King')
+    king = King.find_by(color: color, game_id: game_id)
 
-    if self.type == 'King' && game.in_check?(color)
+    if self.type != 'King' && game.in_check?(color)
       return false
-    else 
+    else
       if self.legal_move?(x, y)
 	self.is_move_obstructed?(x, y, board) ? false : true
       else
@@ -21,8 +21,12 @@ class Piece < ActiveRecord::Base
     original_x = self.x_position
     original_y = self.y_position
 
-    if self.class == Knight
-      self.location_obstructed?(x, y, board)
+    if self.class == Knight && self.location_obstructed?(x, y, board)
+      if board.board[y][x].color != self.color
+	capture(x, y, board)
+      else
+	true
+      end
     else
       if self.location_obstructed?(x, y, board)
 	if board.board[y][x].color != self.color
