@@ -21,26 +21,29 @@ class Piece < ActiveRecord::Base
     original_x = self.x_position
     original_y = self.y_position
 
-    if self.class == Knight && self.location_obstructed?(x, y, board)
-      if board.board[y][x].color != self.color
-	capture(x, y, board)
-      else
-	true
-      end
-    else
+    if self.class == Knight
       if self.location_obstructed?(x, y, board)
 	if board.board[y][x].color != self.color
 	  capture(x, y, board)
 	else
 	  true
 	end
-      elsif x != original_x && y != original_y
-	self.diagonal_path_obstructed?(x, y, board)
-      elsif x != original_x && y == original_y
-	self.horizontal_path_obstructed?(x, y, board)
-      elsif y != original_y && x == original_x
-	self.vertical_path_obstructed?(x, y, board)
+	true
+      else
+	false
       end
+    elsif self.location_obstructed?(x, y, board)
+      if board.board[y][x].color != self.color
+	capture(x, y, board)
+      else
+	true
+      end
+    elsif x != original_x && y != original_y
+      self.diagonal_path_obstructed?(x, y, board)
+    elsif x != original_x && y == original_y
+      self.horizontal_path_obstructed?(x, y, board)
+    elsif y != original_y && x == original_x
+      self.vertical_path_obstructed?(x, y, board)
     end
   end
 

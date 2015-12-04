@@ -115,7 +115,7 @@ RSpec.describe Piece, :type => :model do
     describe "knight movement" do
       context "has a pawn in the way" do
 	it "is not obstructed" do
-	  @board.board[3][3] = Knight.new(x_position: 3, y_position: 3)
+	  @board.board[3][3] = Knight.new(x_position: 3, y_position: 3, color: false)
 	  knight = @board.board[3][3]
 	  expect(knight.is_move_obstructed?(knight.x_position + 1, knight.y_position + 2, @board)).to be false
 	end
@@ -123,9 +123,9 @@ RSpec.describe Piece, :type => :model do
 
       context "target space has another piece" do
 	it "move is obstructed" do
-	  @board.board[3][3] = Knight.new(x_position: 3, y_position: 3)
+	  @board.board[3][3] = Knight.new(x_position: 3, y_position: 3, color: false)
 	  knight = @board.board[3][3]
-	  @board.board[5][4] = double('pawn')
+	  @board.board[5][4] = Pawn.new(x_position: 4, y_position: 5, color: false)
 	  expect(knight.is_move_obstructed?(knight.x_position + 1, knight.y_position + 2, @board)).to be true
 	end
       end
