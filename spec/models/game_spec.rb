@@ -22,18 +22,21 @@ RSpec.describe Game, :type => :model do
 
       it "is not in check from enemy rook" do
 	@rook.update_attributes(x_position: 5)
+	@board.refresh(@game.id)
 	expect(@game.in_check?(@king.color)).to be false
       end
 
       it "is not in check from pawn in front" do
 	@rook.destroy
 	@board.board[2][4] = Pawn.create(color: false, x_position: 4, y_position: 2, game_id: @game.id)
+	@board.refresh(@game.id)
 	expect(@game.in_check?(@king.color)).to be false
       end
-      
+
       it "is not in check from pawn behind" do
 	@rook.destroy
 	@board.board[4][4] = Pawn.create(color: false, x_position: 4, y_position: 4, game_id: @game.id)
+	@board.refresh(@game.id)
 	expect(@game.in_check?(@king.color)).to be false
       end
     end
