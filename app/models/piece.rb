@@ -4,11 +4,7 @@ class Piece < ActiveRecord::Base
 
   def attempt_move(x, y, board)
     if self.legal_move?(x, y)
-      if self.is_move_obstructed?(x, y, board)
-	return false
-      else
-	return true
-      end
+      self.is_move_obstructed?(x, y, board) ? false : true
     else
       return false
     end
