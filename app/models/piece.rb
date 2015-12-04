@@ -2,13 +2,16 @@ class Piece < ActiveRecord::Base
   belongs_to :player
   belongs_to :game
 
-  def attempt_move(x, y, board)
-    if self.legal_move?(x, y)
-      if self.is_move_obstructed?(x, y, board)
-	return false
-      else
-	return true
-      end
+  def attempt_move(x, y, board, color, game_id)
+    game = Game.find_by(id: game_id)
+    king = Piece.find_by(type: 'King')
+
+    if self.type == 'King' && game.in_check?(color)
+      return false
+    elsif self.is_move_obstructed?(x, y, board)
+      return false
+    elsif self.legal_move?(x, y)
+      return true
     else
       return false
     end
