@@ -20,6 +20,47 @@
   </table>
 
   <script>
+    <%# var selectedPiece = function() { %>
+    <%#   return $('#gameboard td.selected'); %>
+    <%# } %>
+
+    <%# var selectPiece = function ($piece) { %>
+    <%#   $piece.addClass('selected'); %>
+    <%# } %>
+
+    <%# var deselectPiece = function($piece) { %>
+    <%#   $piece.removeClass('selected'); %>
+    <%# } %>
+
+    <%# var sendMove = function($new_space) { %>
+    <%#   $this = $new_space %>
+    <%#   var $x = $this.data('x'); %>
+    <%#   var $y = $this.data('y'); %>
+    <%#   var $pieceId = $piece.data('piece-id'); %>
+    <%#   jQuery.ajax({ %>
+	<%# url: "<%= pieces_path %1>", %>
+	<%# type: "PATCH", %>
+	<%# data: {new_x: $x, new_y: $y, pieceId: $pieceId}, %>
+	<%# success: function(data) { %>
+	  <%# $(location).attr('href', data.update_url); %>
+	<%# } %>
+    <%#   }); %>
+    <%# } %>
+
+    <%# $( '#gameboard td' ).click(function() { %>
+    <%#   $this = $(this); %>
+    <%#   var pieceIsSelected = $( '#gameboard td' ).hasClass( 'selected' ); %>
+    <%#   if (pieceIsSelected){ %>
+	<%# var $piece = selectedPiece(); %>
+	<%# if ($piece.data( 'piece-id' ) == $this.data( 'piece-id' )) { %>
+	  <%# deselectPiece( $this ); %>
+	  <%# } else { %>
+	  <%# sendMove( $this ); %>
+	<%# } %>
+	<%# } else { %>
+	<%# selectPiece( $this ); %>
+    <%#   } %>
+    <%# }); %>
     $('#gameboard td').click(function() {
       $this = $(this);
       var pieceIsSelected = $('#gameboard td').hasClass('selected');
@@ -32,7 +73,6 @@
 	}
 	} else {
 	selectPiece($this);
-	<%# alert("You have selected a piece with the id #" + $this.data('piece-id') + " at x_position: " + $this.data('x') + " and y_position: " + $this.data('y')); %>
       }
       function selectedPiece() {
 	return $('#gameboard td.selected');

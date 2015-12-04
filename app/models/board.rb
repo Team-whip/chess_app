@@ -25,9 +25,7 @@ class Board
   def refresh(game_id)
     pieces = Piece.where(game_id: game_id)
     pieces.each do |piece|
-      unless piece.y_position == nil || piece.x_position == nil
 	@board[piece.y_position][piece.x_position] = piece
-      end
     end
     @board
   end

@@ -207,81 +207,6 @@ RSpec.describe Piece, :type => :model do
     end
   end
 
-  describe "#legal_move?" do
-    before :each do
-      @board = Board.new
-    end
-
-    describe "king movement" do
-      it "is a legal move" do
-	@board.board[4][0] = King.new(x_position: 4, y_position: 0)
-	king = @board.board[4][0]
-	expect(king.legal_move?(king.x_position + 1, king.y_position)).to be true
-	expect(king.legal_move?(king.x_position + 2, king.y_position)).to be false
-      end
-    end
-
-    describe "bishop movement" do
-      it "is a legal move" do
-	@board.board[2][0] = Bishop.new(x_position: 2, y_position: 0)
-	bishop = @board.board[2][0]
-	expect(bishop.legal_move?(bishop.x_position + 1, bishop.y_position)).to be false
-	expect(bishop.legal_move?(bishop.x_position + 1, bishop.y_position + 1 )).to be true
-      end
-    end
-
-    describe "knight movement" do
-      it "is a legal move" do
-	@board.board[1][0] = Knight.new(x_position: 1, y_position: 0)
-	knight = @board.board[1][0]
-	expect(knight.legal_move?(knight.x_position + 3, knight.y_position + 0)).to be false
-	expect(knight.legal_move?(knight.x_position + 4, knight.y_position + 0)).to be false
-	expect(knight.legal_move?(knight.x_position + 1, knight.y_position + 2)).to be true
-	expect(knight.legal_move?(knight.x_position + 2, knight.y_position + 1)).to be true
-      end
-    end
-
-    describe "pawn movement" do
-      context "first move" do
-	it "is a legal move" do
-	  @board.board[0][1] = Pawn.new(color: false, x_position: 0, y_position: 1)
-	  pawn = @board.board[0][1]
-	  expect(pawn.legal_move?(pawn.x_position + 1, pawn.y_position)).to be false
-	  expect(pawn.legal_move?(pawn.x_position, pawn.y_position + 2)).to be true
-	  expect(pawn.legal_move?(pawn.x_position, pawn.y_position + 1)).to be true
-	end
-      end
-    end
-
-    context "not the first move" do
-      it "is a legal move" do
-	@board.board[2][4] = Pawn.new(color: true, x_position: 2, y_position: 4)
-	pawn = @board.board[2][4]
-	expect(pawn.legal_move?(pawn.x_position, pawn.y_position + 1)).to be false
-	expect(pawn.legal_move?(pawn.x_position, pawn.y_position - 2)).to be false
-	expect(pawn.legal_move?(pawn.x_position, pawn.y_position - 1)).to be true
-      end
-    end
-
-    describe "queen movement" do
-      it "is a legal move" do
-	@board.board[3][0] = Queen.new(x_position: 3, y_position: 0)
-	queen = @board.board[3][0]
-	expect(queen.legal_move?(queen.x_position, queen.y_position + 4 )).to be true
-	expect(queen.legal_move?(queen.x_position + 1, queen.y_position + 1 )).to be true
-      end
-    end
-
-    describe "rook movement" do
-      it "is a legal move" do
-	@board.board[0][0] = Rook.new(x_position: 0, y_position: 0)
-	rook = @board.board[0][0]
-	expect(rook.legal_move?(rook.x_position, rook.y_position + 4 )).to be true
-	expect(rook.legal_move?(rook.x_position + 1, rook.y_position + 1 )).to be false
-      end
-    end
-  end
-
   describe "#attempt_move" do
     before :each do
       @game = Game.create
@@ -331,12 +256,6 @@ RSpec.describe Piece, :type => :model do
       it 'the board space is nil' do
 	@attacker.capture(@x, @y, @board)
 	expect(@board.board[2][2]).to equal nil
-      end
-
-      it 'the piece x and y positions are nil' do
-	@attacker.capture(@x, @y, @board)
-	expect(@pawn.x_position).to equal nil
-	expect(@pawn.y_position).to equal nil
       end
     end
   end
