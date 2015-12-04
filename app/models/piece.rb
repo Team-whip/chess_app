@@ -8,12 +8,12 @@ class Piece < ActiveRecord::Base
 
     if self.type == 'King' && game.in_check?(color)
       return false
-    elsif self.is_move_obstructed?(x, y, board)
-      return false
-    elsif self.legal_move?(x, y)
-      return true
-    else
-      return false
+    else 
+      if self.legal_move?(x, y)
+	self.is_move_obstructed?(x, y, board) ? false : true
+      else
+	return false
+      end
     end
   end
 
@@ -25,7 +25,11 @@ class Piece < ActiveRecord::Base
       self.location_obstructed?(x, y, board)
     else
       if self.location_obstructed?(x, y, board)
-	true
+	if board.board[y][x].color != self.color
+	  capture(x, y, board)
+	else
+	  true
+	end
       elsif x != original_x && y != original_y
 	self.diagonal_path_obstructed?(x, y, board)
       elsif x != original_x && y == original_y
@@ -39,6 +43,7 @@ class Piece < ActiveRecord::Base
   def is_a_move_on_the_board?
     # Check to make sure it is on the board?
   end
+
 
   def location_obstructed?(x, y, board)
     board.board[y][x] != nil ? true : false
@@ -110,5 +115,10 @@ class Piece < ActiveRecord::Base
 	board.board[self.y_position][new_x] != nil ? (return true) : (return false)
       end
     end
+  end
+
+  def capture(x, y, board)
+    board.board[y][x].update_attributes(x_position: nil, y_position: nil)
+    board.board[y][x] = nil
   end
 end

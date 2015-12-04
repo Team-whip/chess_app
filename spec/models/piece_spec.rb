@@ -4,15 +4,16 @@ RSpec.describe Piece, :type => :model do
   describe "#is_move_obstructed?" do
     before :each do
       @board = Board.new
-      @board.board[3][3] = Queen.new(x_position: 3, y_position: 3)
-      @board.board[2][2] = double('pawn')
-      @board.board[2][3] = double('pawn')
-      @board.board[2][4] = double('pawn')
-      @board.board[3][2] = double('pawn')
-      @board.board[3][4] = double('pawn')
-      @board.board[4][2] = double('pawn')
-      @board.board[4][3] = double('pawn')
-      @board.board[4][4] = double('pawn')
+      @board.board[3][3] = Queen.new(x_position: 3, y_position: 3, color: false)
+      @board.board[2][2] = Pawn.new(x_position: 2, y_position: 2, color: false)
+      @board.board[2][3] = Pawn.new(x_position: 3, y_position: 2, color: false)
+      @board.board[2][4] = Pawn.new(x_position: 4, y_position: 2, color: false)
+      @board.board[3][2] = Pawn.new(x_position: 2, y_position: 3, color: false)
+      @board.board[3][4] = Pawn.new(x_position: 4, y_position: 3, color: false)
+      @board.board[4][2] = Pawn.new(x_position: 2, y_position: 4, color: false)
+      @board.board[4][3] = Pawn.new(x_position: 3, y_position: 4, color: false)
+      @board.board[4][4] = Pawn.new(x_position: 4, y_position: 4, color: false)
+
       @queen = @board.board[3][3]
     end
 
@@ -206,7 +207,7 @@ RSpec.describe Piece, :type => :model do
     end
   end
 
-describe "#legal_move?" do
+  describe "#legal_move?" do
     before :each do
       @board = Board.new
     end
@@ -281,12 +282,13 @@ describe "#legal_move?" do
     end
   end
 
-	describe "#attempt_move" do
+  describe "#attempt_move" do
     before :each do
-      @game = Game.new
+      @game = Game.create
       @board = Board.new
-      @pawn = Pawn.new(x_position: 0, y_position: 1, color: false)
+      @pawn = Pawn.new(x_position: 0, y_position: 1, color: false, game_id:  @game.id)
       @board.board[1][0] = @pawn
+      @board.refresh(@game.id)
     end
 
     describe "piece" do
@@ -295,8 +297,9 @@ describe "#legal_move?" do
       end
 
       it "path is blocked" do
-	piece = Pawn.new(x_position: 0, y_position: 2)
+	piece = Pawn.new(x_position: 0, y_position: 2, game_id: @game.id, color: false)
 	@board.board[2][0] = piece
+	@board.refresh(@game.id)
 	expect(@pawn.attempt_move(@pawn.x_position, @pawn.y_position + 2, @board, @pawn.color, @game.id)).to be false
       end
 
@@ -305,10 +308,36 @@ describe "#legal_move?" do
       end
 
       it "lands on another piece" do
-        piece = Pawn.new(x_position: 0, y_position: 2)
+	piece = Pawn.new(x_position: 0, y_position: 2, game_id: @game.id, color: false)
 	@board.board[2][0] = piece
+	@board.refresh(@game.id)
 	expect(@pawn.attempt_move(@pawn.x_position, @pawn.y_position + 1, @board, @pawn.color, @game.id)).to be false
       end
     end 
+  end
+
+  describe '.capture' do
+    before :each do
+      @board = Board.new
+      @board.board[2][2] = Pawn.new(x_position: 2, y_position: 2)
+      @pawn = @board.board[2][2]
+      @attacker = Rook.new(x_position: 2, y_position: 3)
+      @board.board[3][2] = @attacker
+      @x = 2
+      @y = 2
+    end
+
+    context 'when captured' do
+      it 'the board space is nil' do
+	@attacker.capture(@x, @y, @board)
+	expect(@board.board[2][2]).to equal nil
+      end
+
+      it 'the piece x and y positions are nil' do
+	@attacker.capture(@x, @y, @board)
+	expect(@pawn.x_position).to equal nil
+	expect(@pawn.y_position).to equal nil
+      end
+    end
   end
 end

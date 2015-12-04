@@ -25,7 +25,9 @@ class Board
   def refresh(game_id)
     pieces = Piece.where(game_id: game_id)
     pieces.each do |piece|
-      @board[piece.y_position][piece.x_position] = piece
+      unless piece.y_position == nil || piece.x_position == nil
+	@board[piece.y_position][piece.x_position] = piece
+      end
     end
     @board
   end
@@ -33,8 +35,8 @@ class Board
   def pieces(y, x, game)
     piece = @board[y][x]
     unless piece.nil?
-    piece_id = game.pieces.where(x_position: x, y_position: y).first.id
-    table_data = "<td data-x = #{x}, data-y = #{y}, data-piece-id = #{piece_id}, class = 'text-center chess-square'>"
+      piece_id = game.pieces.where(x_position: x, y_position: y).first.id
+      table_data = "<td data-x = #{x}, data-y = #{y}, data-piece-id = #{piece_id}, class = 'text-center chess-square'>"
       case [piece.type, piece.color]
       when ["Rook", false]
 	table_data += "<i class = 'glyphicon glyphicon-tower black'></i>"
@@ -61,8 +63,8 @@ class Board
       when ["Pawn", true]
 	table_data += "<i class = 'glyphicon glyphicon-pawn white'></i>"
       end
-    table_data += "</td>"
-    table_data.html_safe
+      table_data += "</td>"
+      table_data.html_safe
     else 
       "<td data-x = #{x}, data-y = #{y}, data-piece-id = #{nil}, class = 'text-center chess-square'>".html_safe
     end
