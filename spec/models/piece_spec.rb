@@ -137,7 +137,7 @@ RSpec.describe Piece, :type => :model do
       @board = Board.new
     end
 
-    describe "king movement" do
+    context "king movement" do
       it "is a legal move" do
 	@board.board[4][0] = King.new(x_position: 4, y_position: 0)
 	king = @board.board[4][0]
@@ -146,7 +146,7 @@ RSpec.describe Piece, :type => :model do
       end
     end
 
-    describe "bishop movement" do
+    context "bishop movement" do
       it "is a legal move" do
 	@board.board[2][0] = Bishop.new(x_position: 2, y_position: 0)
 	bishop = @board.board[2][0]
@@ -155,7 +155,7 @@ RSpec.describe Piece, :type => :model do
       end
     end
 
-    describe "knight movement" do
+    context "knight movement" do
       it "is a legal move" do
 	@board.board[1][0] = Knight.new(x_position: 1, y_position: 0)
 	knight = @board.board[1][0]
@@ -166,15 +166,13 @@ RSpec.describe Piece, :type => :model do
       end
     end
 
-    describe "pawn movement" do
-      context "first move" do
-	it "is a legal move" do
-	  @board.board[0][1] = Pawn.new(color: false, x_position: 0, y_position: 1)
-	  pawn = @board.board[0][1]
-	  expect(pawn.legal_move?(pawn.x_position + 1, pawn.y_position)).to be false
-	  expect(pawn.legal_move?(pawn.x_position, pawn.y_position + 2)).to be true
-	  expect(pawn.legal_move?(pawn.x_position, pawn.y_position + 1)).to be true
-	end
+    context "pawn movement" do
+      it "first move is a legal move" do
+	@board.board[0][1] = Pawn.new(color: false, x_position: 0, y_position: 1)
+	pawn = @board.board[0][1]
+	expect(pawn.legal_move?(pawn.x_position + 1, pawn.y_position)).to be false
+	expect(pawn.legal_move?(pawn.x_position, pawn.y_position + 2)).to be true
+	expect(pawn.legal_move?(pawn.x_position, pawn.y_position + 1)).to be true
       end
     end
 
@@ -188,7 +186,7 @@ RSpec.describe Piece, :type => :model do
       end
     end
 
-    describe "queen movement" do
+    context "queen movement" do
       it "is a legal move" do
 	@board.board[3][0] = Queen.new(x_position: 3, y_position: 0)
 	queen = @board.board[3][0]
@@ -197,7 +195,7 @@ RSpec.describe Piece, :type => :model do
       end
     end
 
-    describe "rook movement" do
+    context "rook movement" do
       it "is a legal move" do
 	@board.board[0][0] = Rook.new(x_position: 0, y_position: 0)
 	rook = @board.board[0][0]
@@ -216,7 +214,7 @@ RSpec.describe Piece, :type => :model do
       @board.refresh(@game.id)
     end
 
-    describe "piece" do
+    context "piece" do
       it "invalid move distance" do
 	expect(@pawn.attempt_move(@pawn.x_position, @pawn.y_position + 3, @board, @pawn.color, @game.id)).to be false
       end
