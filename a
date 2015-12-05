@@ -1,0 +1,25 @@
+
+[1mFrom:[0m /vagrant/src/chess_app/app/models/piece.rb @ line 27 Piece#in_check?:
+
+    [1;34m26[0m: [32mdef[0m [1;34min_check?[0m(x, y, board)
+ => [1;34m27[0m:   binding.pry
+    [1;34m28[0m: 
+    [1;34m29[0m:   [32mif[0m [1;36mself[0m.class == [1;34;4mKing[0m
+    [1;34m30[0m:     king = [1;34;4mKing[0m
+    [1;34m31[0m:   [32mend[0m
+    [1;34m32[0m: 
+    [1;34m33[0m:   not_king = !king
+    [1;34m34[0m: 
+    [1;34m35[0m:   enemy = [1;36mself[0m.class.includes([33m:game_id[0m).where([35mtype[0m: not_king)
+    [1;34m36[0m: 
+    [1;34m37[0m:   enemy.each [32mdo[0m |enemy|
+    [1;34m38[0m:     [32mif[0m enemy.valid_move?(king.x_position, king.y_position)
+    [1;34m39[0m:       @enemy_making_check = enemy
+    [1;34m40[0m:       [32mreturn[0m [1;36mtrue[0m
+    [1;34m41[0m:     [32mend[0m
+    [1;34m42[0m:   [32mend[0m
+    [1;34m43[0m:   [1;36mfalse[0m
+    [1;34m44[0m: 
+    [1;34m45[0m:   puts i
+    [1;34m46[0m: [32mend[0m
+

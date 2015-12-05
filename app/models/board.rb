@@ -25,7 +25,7 @@ class Board
   def refresh(game_id)
     pieces = Piece.where(game_id: game_id)
     pieces.each do |piece|
-      @board[piece.y_position][piece.x_position] = piece
+	@board[piece.y_position][piece.x_position] = piece
     end
     @board
   end
@@ -33,8 +33,8 @@ class Board
   def pieces(y, x, game)
     piece = @board[y][x]
     unless piece.nil?
-    piece_id = game.pieces.where(x_position: x, y_position: y).first.id
-    table_data = "<td data-x = #{x}, data-y = #{y}, data-piece-id = #{piece_id}, class = 'text-center chess-square'>"
+      piece_id = game.pieces.where(x_position: x, y_position: y).first.id
+      table_data = "<td data-x = #{x}, data-y = #{y}, data-piece-id = #{piece_id}, class = 'text-center chess-square'>"
       case [piece.type, piece.color]
       when ["Rook", false]
 	table_data += "<img src = '/assets/black_rook.png' class = 'img-responsive' />"
@@ -61,12 +61,38 @@ class Board
       when ["Pawn", true]
 	table_data += "<img src = '/assets/white_pawn.png' class = 'img-responsive' />"
       end
-    table_data += "</td>"
-    table_data.html_safe
+      table_data += "</td>"
+      table_data.html_safe
     else 
       "<td data-x = #{x}, data-y = #{y}, data-piece-id = #{nil}, class = 'text-center chess-square'>".html_safe
     end
 
+  end
+
+  def dead_table(game, bool)
+    table_data = "<td>"
+    color = nil
+    bool == 'f' ? color = 'black' : color = 'white' 
+    game.dead_pieces.each do |piece|
+      if piece[1] == bool
+	case [piece[0], bool]
+	when ["Rook", bool]
+	  table_data += "<i class = \"glyphicon glyphicon-tower #{color}\"></i>"
+	when ["Knight", bool]
+	  table_data += "<i class = \"glyphicon glyphicon-knight #{color}\"></i>"
+	when ["Bishop", bool]
+	  table_data += "<i class = \"glyphicon glyphicon-bishop #{color}\"></i>"
+	when ["Queen", bool]
+	  table_data += "<i class = \"glyphicon glyphicon-queen #{color}\"></i>"
+	when ["King", bool]
+	  table_data += "<i class = \"glyphicon glyphicon-king #{color}\"></i>"
+	when ["Pawn", bool]
+	  table_data += "<i class = \"glyphicon glyphicon-pawn #{color}\"></i>"
+	end
+      end
+    end
+    table_data += "</td>"
+    table_data.html_safe
   end
 
   def create_black_rooks(game_id)
