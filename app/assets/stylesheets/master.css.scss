@@ -204,14 +204,9 @@ to {
   color: black;
 }
 
-#deadPieces {
+#deadPieces, #deadPieces2 {
   height: 350px;
-  width: 80px;
-}
-
-#deadPieces2 {
-  height: 350px;
-  width: 80px;
+  width: 100px;
 }
 
 #deadPieceContainer, #deadPieceContainer2 {
@@ -245,19 +240,19 @@ to {
 }
 
 .chess-board tr:nth-child(odd) td:nth-child(even) { 
-  background: white;
+  background: gray;
 }
 
 .chess-board tr:nth-child(even) td:nth-child(odd) {
-  background: white;
+  background: gray;
 }
 
 .chess-board tr:nth-child(even) td:nth-child(even) {
-  background: gray;
+  background: white;
 }
 
 .chess-board tr:nth-child(odd) td:nth-child(odd) {
-  background: gray;
+  background: white;
 }
 
 .chess-square {
