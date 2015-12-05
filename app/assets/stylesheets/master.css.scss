@@ -6,26 +6,28 @@ body {
   background: url('background.png');
 }
 
-#gameboard img, #deadPieces img, #deadPieces2 img {
-  height: 48px;
-  width: 48px;
+@media only screen and (min-width: 461px) {
+  #gameboard img, #deadPieces img, #deadPieces2 img {
+    height: 48px;
+    width: 48px;
+}
 }
 
 @media only screen and (max-width: 460px) {
   #gameboard {
     img {
-    height: 24px;
-    width: 24px;
-    }
-
-    tr {
-      height: 40px;
-    }
-
-    td {
-      height: 40px;
-    }
+      height: 24px;
+      width: 24px;
   }
+
+  tr {
+    height: 40px;
+  }
+
+  td {
+    height: 40px;
+  }
+}
 }
 
 #gameboard {
@@ -43,7 +45,7 @@ a {
 nav .nav-link, .navbar-brand {
   &:hover {
     color: #0275d8;
-  }
+}
 }
 
 nav .navbar-toggler {
@@ -54,7 +56,7 @@ nav .navbar-toggler {
     content: none;
     outline: none;
     border-color: none;
-  }
+}
 }
 
 /* Custom default button */
@@ -91,7 +93,7 @@ body {
   margin-top: -10px;
   &:hover {
     color: silver;
-  }
+}
 }
 
 
@@ -114,72 +116,72 @@ body {
 @-webkit-keyframes spin-up {
   from {
     -webkit-transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(180deg);
-  }
+}
+to {
+  -webkit-transform: rotate(180deg);
+}
 }
 
 @-moz-keyframes spin-up {
   from {
     -moz-transform: rotate(0deg);
-  }
-  to {
-    -moz-transform: rotate(180deg);
-  }
+}
+to {
+  -moz-transform: rotate(180deg);
+}
 }
 
 @-o-keyframes spin-up {
   from {
     -o-transform: rotate(0deg);
-  }
-  to {
-    -o-transform: rotate(180deg);
-  }
+}
+to {
+  -o-transform: rotate(180deg);
+}
 }
 
 @keyframes spin-up {
   from {
     transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(180deg);
-  }
+}
+to {
+  transform: rotate(180deg);
+}
 }
 @-webkit-keyframes spin-down {
   from {
     -webkit-transform: rotate(180deg);
-  }
-  to {
-    -webkit-transform: rotate(360deg);
-  }
+}
+to {
+  -webkit-transform: rotate(360deg);
+}
 }
 
 @-moz-keyframes spin-down {
   from {
     -moz-transform: rotate(180deg);
-  }
-  to {
-    -moz-transform: rotate(360deg);
-  }
+}
+to {
+  -moz-transform: rotate(360deg);
+}
 }
 
 @-o-keyframes spin-down {
   from {
     -o-transform: rotate(180deg);
-  }
-  to {
-    -o-transform: rotate(360deg);
-  }
+}
+to {
+  -o-transform: rotate(360deg);
+}
 }
 
 @keyframes spin-down {
   from {
     transform: rotate(180deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+}
+to {
+  transform: rotate(360deg);
+}
 }
 
 /*
@@ -239,7 +241,7 @@ body {
 @media only screen and (max-width: 900px) {
   #deadPieces, #deadPieces2 {
     display: none;
-  }
+}
 }
 
 .chess-board tr:nth-child(odd) td:nth-child(even) { 
@@ -280,7 +282,7 @@ body {
     box-shadow: 0 0 8px, rgba(0,0,0,.5);
     -o-box-shadow: 0 0 8px, rgba(0,0,0,.5); 
     -moz-box-shadow: 0 0 8px, rgba(0,0,0,.5); 
-  }
+}
 } 
 
 #gameName {
