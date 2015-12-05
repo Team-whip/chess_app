@@ -1,0 +1,32 @@
+<div id = 'gameContainer' class = 'col-xs-12'>
+  <div id = 'deadPieceContainer' class = 'col-xs-2'>
+    <table id = 'deadPieces'>
+	<tr>
+	  <%= @board.dead_table(@game, 'f') %>
+	</tr>
+    </table>
+  </div>
+
+  <div id = 'gameboardContainer' class = 'col-xs-8'>
+    <table id= "gameboard", class = "chess-board">
+
+	<% @board.board.each_with_index do |row, y| %>
+	  <tr>
+	    <% @board.board.reverse.each_with_index do |column, x| %>
+	      <%= @board.pieces(y, x, @game) %>
+	    <% end %>
+	  </tr>
+	<% end %>
+
+    </table>
+  </div>
+
+  <div class = 'col-xs-2'>
+    <table id = 'deadPieces2'>
+	<tr>
+	  <%= @board.dead_table(@game, 't') %>
+	</tr>
+    </table>
+  </div>
+
+</div>

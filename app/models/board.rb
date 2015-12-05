@@ -69,6 +69,32 @@ class Board
 
   end
 
+  def dead_table(game, bool)
+    table_data = "<td>"
+    color = nil
+    bool == 'f' ? color = 'black' : color = 'white' 
+    game.dead_pieces.each do |piece|
+      if piece[1] == bool
+	case [piece[0], bool]
+	when ["Rook", bool]
+	  table_data += "<i class = \"glyphicon glyphicon-tower #{color}\"></i>"
+	when ["Knight", bool]
+	  table_data += "<i class = \"glyphicon glyphicon-knight #{color}\"></i>"
+	when ["Bishop", bool]
+	  table_data += "<i class = \"glyphicon glyphicon-bishop #{color}\"></i>"
+	when ["Queen", bool]
+	  table_data += "<i class = \"glyphicon glyphicon-queen #{color}\"></i>"
+	when ["King", bool]
+	  table_data += "<i class = \"glyphicon glyphicon-king #{color}\"></i>"
+	when ["Pawn", bool]
+	  table_data += "<i class = \"glyphicon glyphicon-pawn #{color}\"></i>"
+	end
+      end
+    end
+    table_data += "</td>"
+    table_data.html_safe
+  end
+
   def create_black_rooks(game_id)
     Rook.create(color: false, x_position: 7, y_position: 0, game_id: game_id)
     Rook.create(color: false, x_position: 0, y_position: 0, game_id: game_id)

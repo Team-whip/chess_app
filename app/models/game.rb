@@ -18,6 +18,11 @@ class Game < ActiveRecord::Base
     false
   end
 
+  def captured_pieces(x, y, board)
+    self.dead_pieces << [board.board[y][x].type, board.board[y][x].color]
+    self.save!
+  end
+
   def in_checkmate?
     # Checks to see if either player is in checkmate.
   end

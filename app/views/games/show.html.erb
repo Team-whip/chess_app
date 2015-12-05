@@ -2,102 +2,71 @@
 <div class="container col-xs-12">
   <section class="my-games">
   <h1 class="text-center"><%= @game.name %></h1>
-  
+
   <% flash.each do |key, value| %>
-    <div class="alert alert-info col-xs-4 col-xs-offset-4 clearfix"><%= value %></div>
+    <div class = 'col-xs-4'></div>
+    <div class="alert alert-info col-xs-4"><%= value %></div>
+    <div class = 'col-xs-4'></div>
   <% end %>
-  
-  <table id= "gameboard", class = "chess-board">
 
-    <% @board.board.each_with_index do |row, y| %>
-      <tr>
-	<% @board.board.reverse.each_with_index do |column, x| %>
-	  <%= @board.pieces(y, x, @game) %>
-	<% end %>
-      </tr>
-    <% end %>
+  <%= render "gameboard" %>
 
-  </table>
-
+  </section>
   <script>
-    <%# var selectedPiece = function() { %>
-    <%#   return $('#gameboard td.selected'); %>
-    <%# } %>
+    $(document).ready(function() {
+      if ($(window).width() < 768) {
+	$('#gameboardContainer').removeClass('col-xs-8');
+	$('#gameboardContainer').addClass('col-xs-12');
+      }
 
-    <%# var selectPiece = function ($piece) { %>
-    <%#   $piece.addClass('selected'); %>
-    <%# } %>
-
-    <%# var deselectPiece = function($piece) { %>
-    <%#   $piece.removeClass('selected'); %>
-    <%# } %>
-
-    <%# var sendMove = function($new_space) { %>
-    <%#   $this = $new_space %>
-    <%#   var $x = $this.data('x'); %>
-    <%#   var $y = $this.data('y'); %>
-    <%#   var $pieceId = $piece.data('piece-id'); %>
-    <%#   jQuery.ajax({ %>
-	<%# url: "<%= pieces_path %1>", %>
-	<%# type: "PATCH", %>
-	<%# data: {new_x: $x, new_y: $y, pieceId: $pieceId}, %>
-	<%# success: function(data) { %>
-	  <%# $(location).attr('href', data.update_url); %>
-	<%# } %>
-    <%#   }); %>
-    <%# } %>
-
-    <%# $( '#gameboard td' ).click(function() { %>
-    <%#   $this = $(this); %>
-    <%#   var pieceIsSelected = $( '#gameboard td' ).hasClass( 'selected' ); %>
-    <%#   if (pieceIsSelected){ %>
-	<%# var $piece = selectedPiece(); %>
-	<%# if ($piece.data( 'piece-id' ) == $this.data( 'piece-id' )) { %>
-	  <%# deselectPiece( $this ); %>
-	  <%# } else { %>
-	  <%# sendMove( $this ); %>
-	<%# } %>
-	<%# } else { %>
-	<%# selectPiece( $this ); %>
-    <%#   } %>
-    <%# }); %>
-    $('#gameboard td').click(function() {
-      $this = $(this);
-      var pieceIsSelected = $('#gameboard td').hasClass('selected');
-      if (pieceIsSelected){
-	var $piece = selectedPiece();
-	if ($piece.data('piece-id') == $this.data('piece-id')) {
-	  deselectPiece( $this );
-	  } else {
-	  sendMove( $this );
+      $(window).resize(function() {
+	if ($(window).width() < 768) {
+	  $('#gameboardContainer').removeClass('col-xs-8');
+	  $('#gameboardContainer').addClass('col-xs-12');
+	  } else if ($(window).width() > 768) {
+	  $('#gameboardContainer').removeClass('col-xs-12');
+	  $('#gameboardContainer').addClass('col-xs-8');
 	}
-	} else {
-	selectPiece($this);
-      }
-      function selectedPiece() {
-	return $('#gameboard td.selected');
-      }
-      function selectPiece($piece) {
-	$piece.addClass('selected');
-      }
-      function deselectPiece($piece) {
-	$piece.removeClass('selected');
-      }
-      function sendMove($new_space) {
-	$this = $new_space
-	var $x = $this.data('x');
-	var $y = $this.data('y');
-	var $pieceId = $piece.data('piece-id');
-	jQuery.ajax({
-	  url: "<%= pieces_path %>",
-	  type: "PATCH",
-	  data: {new_x: $x, new_y: $y, pieceId: $pieceId},
-	  success: function(data) {
-	    $(location).attr('href', data.update_url);
+      });
+
+
+      $('#gameboard td').click(function() {
+	$this = $(this);
+	var pieceIsSelected = $('#gameboard td').hasClass('selected');
+	if (pieceIsSelected){
+	  var $piece = selectedPiece();
+	  if ($piece.data('piece-id') == $this.data('piece-id')) {
+	    deselectPiece( $this );
+	    } else {
+	    sendMove( $this );
 	  }
-	});
-      }
+	  } else {
+	  selectPiece($this);
+	}
+	function selectedPiece() {
+	  return $('#gameboard td.selected');
+	}
+	function selectPiece($piece) {
+	  $piece.addClass('selected');
+	}
+	function deselectPiece($piece) {
+	  $piece.removeClass('selected');
+	}
+	function sendMove($new_space) {
+	  $this = $new_space
+	  var $x = $this.data('x');
+	  var $y = $this.data('y');
+	  var $pieceId = $piece.data('piece-id');
+	  jQuery.ajax({
+	    url: "<%= pieces_path %>",
+	    type: "PATCH",
+	    data: {new_x: $x, new_y: $y, pieceId: $pieceId},
+	    success: function(data) {
+	      $(location).attr('href', data.update_url);
+	    }
+	  });
+	}
+      });
     });
   </script>
-  </section>
 </div>
