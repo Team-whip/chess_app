@@ -1,5 +1,5 @@
 <div id = 'gameContainer' class = 'col-xs-12'>
-  <div id = 'deadPieceContainer' class = 'col-xs-2'>
+  <div id = 'deadPieceContainer'>
     <table id = 'deadPieces'>
 	<tr>
 	  <%= @board.dead_table(@game, 'f') %>
@@ -7,7 +7,7 @@
     </table>
   </div>
 
-  <div id = 'gameboardContainer' class = 'col-xs-8'>
+  <div id = 'gameboardContainer'>
     <table id= "gameboard", class = "chess-board">
 
 	<% @board.board.each_with_index do |row, y| %>
@@ -21,7 +21,7 @@
     </table>
   </div>
 
-  <div class = 'col-xs-2'>
+  <div id = 'deadPieceContainer2'>
     <table id = 'deadPieces2'>
 	<tr>
 	  <%= @board.dead_table(@game, 't') %>

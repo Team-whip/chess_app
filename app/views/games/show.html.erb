@@ -1,5 +1,5 @@
 <br />
-<div class="container col-xs-12">
+<div class="container-responsive">
   <section class="my-games">
   <h1 class="text-center"><%= @game.name %></h1>
 
@@ -14,19 +14,28 @@
   </section>
   <script>
     $(document).ready(function() {
-      if ($(window).width() < 768) {
-	$('#gameboardContainer').removeClass('col-xs-8');
-	$('#gameboardContainer').addClass('col-xs-12');
+      var board = $('#gameboard');
+      var deadPieces = $('#deadPieceContainer');
+      var deadPieces2 = $('#deadPieceContainer2');
+
+      var calculateLeft = function(board, deadPieces) {
+	var screen = $(document).width() / 2;
+	var boardWidth = board.width() / 2;
+	var deadWidth = deadPieces.width();
+	return screen - boardWidth - deadWidth - 1;
       }
 
-      $(window).resize(function() {
-	if ($(window).width() < 768) {
-	  $('#gameboardContainer').removeClass('col-xs-8');
-	  $('#gameboardContainer').addClass('col-xs-12');
-	  } else if ($(window).width() > 768) {
-	  $('#gameboardContainer').removeClass('col-xs-12');
-	  $('#gameboardContainer').addClass('col-xs-8');
-	}
+      var calculateRight = function (board) {
+	var screen = $(document).width() / 2;
+	var boardWidth = board.width() / 2;
+	return screen + boardWidth + 1;
+      }
+      deadPieces.css({'left':calculateLeft(board, deadPieces),'display':'initial'});
+      deadPieces2.css({'left':calculateRight(board),'display':'initial'});
+
+      $(window).on('resize', function() {
+	deadPieces.css('left', calculateLeft(board, deadPieces));
+	deadPieces2.css('left', calculateRight(board));
       });
 
 

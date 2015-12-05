@@ -77,17 +77,17 @@ class Board
       if piece[1] == bool
 	case [piece[0], bool]
 	when ["Rook", bool]
-	  table_data += "<i class = \"glyphicon glyphicon-tower #{color}\"></i>"
+	table_data += "<img src = \"/assets/#{color}_rook.png\" class = 'img-responsive' />"
 	when ["Knight", bool]
-	  table_data += "<i class = \"glyphicon glyphicon-knight #{color}\"></i>"
+	table_data += "<img src = \"/assets/#{color}_knight.png\" class = 'img-responsive' />"
 	when ["Bishop", bool]
-	  table_data += "<i class = \"glyphicon glyphicon-bishop #{color}\"></i>"
+	table_data += "<img src = \"/assets/#{color}_bishop.png\" class = 'img-responsive' />"
 	when ["Queen", bool]
-	  table_data += "<i class = \"glyphicon glyphicon-queen #{color}\"></i>"
+	table_data += "<img src = \"/assets/#{color}_queen.png\" class = 'img-responsive' />"
 	when ["King", bool]
-	  table_data += "<i class = \"glyphicon glyphicon-king #{color}\"></i>"
+	table_data += "<img src = \"/assets/#{color}_king.png\" class = 'img-responsive' />"
 	when ["Pawn", bool]
-	  table_data += "<i class = \"glyphicon glyphicon-pawn #{color}\"></i>"
+	table_data += "<img src = \"/assets/#{color}_pawn.png\" class = 'img-responsive' />"
 	end
       end
     end
