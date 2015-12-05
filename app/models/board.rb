@@ -37,29 +37,29 @@ class Board
       table_data = "<td data-x = #{x}, data-y = #{y}, data-piece-id = #{piece_id}, class = 'text-center chess-square'>"
       case [piece.type, piece.color]
       when ["Rook", false]
-	table_data += "<img src = '/assets/black_rook.png' class = 'img-responsive' />"
+	table_data += "<img src = '/assets/black_rook.png' />"
       when ["Knight", false]
-	table_data += "<img src = '/assets/black_knight.png' class = 'img-responsive' />"
+	table_data += "<img src = '/assets/black_knight.png' />"
       when ["Bishop", false]
-	table_data += "<img src = '/assets/black_bishop.png' class = 'img-responsive' />"
+	table_data += "<img src = '/assets/black_bishop.png' />"
       when ["Queen", false]
-	table_data += "<img src = '/assets/black_queen.png' class = 'img-responsive' />"
+	table_data += "<img src = '/assets/black_queen.png' />"
       when ["King", false]
-	table_data += "<img src = '/assets/black_king.png' class = 'img-responsive' />"
+	table_data += "<img src = '/assets/black_king.png' />"
       when ["Pawn", false]
-	table_data += "<img src = '/assets/black_pawn.png' class = 'img-responsive' />"
+	table_data += "<img src = '/assets/black_pawn.png' />"
       when ["Rook", true]
-	table_data += "<img src = '/assets/white_rook.png' class = 'img-responsive' />"
+	table_data += "<img src = '/assets/white_rook.png' />"
       when ["Knight", true]
-	table_data += "<img src = '/assets/white_knight.png' class = 'img-responsive' />"
+	table_data += "<img src = '/assets/white_knight.png' />"
       when ["Bishop", true]
-	table_data += "<img src = '/assets/white_bishop.png' class = 'img-responsive' />"
+	table_data += "<img src = '/assets/white_bishop.png' />"
       when ["Queen", true]
-	table_data += "<img src = '/assets/white_queen.png' class = 'img-responsive' />"
+	table_data += "<img src = '/assets/white_queen.png' />"
       when ["King", true]
-	table_data += "<img src = '/assets/white_king.png' class = 'img-responsive' />"
+	table_data += "<img src = '/assets/white_king.png' />"
       when ["Pawn", true]
-	table_data += "<img src = '/assets/white_pawn.png' class = 'img-responsive' />"
+	table_data += "<img src = '/assets/white_pawn.png' />"
       end
       table_data += "</td>"
       table_data.html_safe
@@ -77,17 +77,17 @@ class Board
       if piece[1] == bool
 	case [piece[0], bool]
 	when ["Rook", bool]
-	table_data += "<img src = \"/assets/#{color}_rook.png\" class = 'img-responsive' />"
+	table_data += "<img src = \"/assets/#{color}_rook.png\" />"
 	when ["Knight", bool]
-	table_data += "<img src = \"/assets/#{color}_knight.png\" class = 'img-responsive' />"
+	table_data += "<img src = \"/assets/#{color}_knight.png\" />"
 	when ["Bishop", bool]
-	table_data += "<img src = \"/assets/#{color}_bishop.png\" class = 'img-responsive' />"
+	table_data += "<img src = \"/assets/#{color}_bishop.png\" />"
 	when ["Queen", bool]
-	table_data += "<img src = \"/assets/#{color}_queen.png\" class = 'img-responsive' />"
+	table_data += "<img src = \"/assets/#{color}_queen.png\" />"
 	when ["King", bool]
-	table_data += "<img src = \"/assets/#{color}_king.png\" class = 'img-responsive' />"
+	table_data += "<img src = \"/assets/#{color}_king.png\" />"
 	when ["Pawn", bool]
-	table_data += "<img src = \"/assets/#{color}_pawn.png\" class = 'img-responsive' />"
+	table_data += "<img src = \"/assets/#{color}_pawn.png\" />"
 	end
       end
     end
