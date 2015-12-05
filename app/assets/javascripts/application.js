@@ -14,5 +14,5 @@
 //= require jquery_ujs
 //= require dataTables/jquery.dataTables
 //= require bootstrap-sprockets
-//= require turbolinks
+//= require games
 //= require_tree .
