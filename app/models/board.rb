@@ -37,29 +37,29 @@ class Board
     table_data = "<td data-x = #{x}, data-y = #{y}, data-piece-id = #{piece_id}, class = 'text-center chess-square'>"
       case [piece.type, piece.color]
       when ["Rook", false]
-	table_data += "<i class = 'glyphicon glyphicon-tower black'></i>"
+	table_data += "<img src = '/assets/black_rook.png' class = 'img-responsive' />"
       when ["Knight", false]
-	table_data += "<i class = 'glyphicon glyphicon-knight black'></i>"
+	table_data += "<img src = '/assets/black_knight.png' class = 'img-responsive' />"
       when ["Bishop", false]
-	table_data += "<i class = 'glyphicon glyphicon-bishop black'></i>"
+	table_data += "<img src = '/assets/black_bishop.png' class = 'img-responsive' />"
       when ["Queen", false]
-	table_data += "<i class = 'glyphicon glyphicon-queen black'></i>"
+	table_data += "<img src = '/assets/black_queen.png' class = 'img-responsive' />"
       when ["King", false]
-	table_data += "<i class = 'glyphicon glyphicon-king black'></i>"
+	table_data += "<img src = '/assets/black_king.png' class = 'img-responsive' />"
       when ["Pawn", false]
-	table_data += "<i class = 'glyphicon glyphicon-pawn black'></i>"
+	table_data += "<img src = '/assets/black_pawn.png' class = 'img-responsive' />"
       when ["Rook", true]
-	table_data += "<i class = 'glyphicon glyphicon-tower white'></i>"
+	table_data += "<img src = '/assets/white_rook.png' class = 'img-responsive' />"
       when ["Knight", true]
-	table_data += "<i class = 'glyphicon glyphicon-knight white'></i>"
+	table_data += "<img src = '/assets/white_knight.png' class = 'img-responsive' />"
       when ["Bishop", true]
-	table_data += "<i class = 'glyphicon glyphicon-bishop white'></i>"
+	table_data += "<img src = '/assets/white_bishop.png' class = 'img-responsive' />"
       when ["Queen", true]
-	table_data += "<i class = 'glyphicon glyphicon-queen white'></i>"
+	table_data += "<img src = '/assets/white_queen.png' class = 'img-responsive' />"
       when ["King", true]
-	table_data += "<i class = 'glyphicon glyphicon-king white'></i>"
+	table_data += "<img src = '/assets/white_king.png' class = 'img-responsive' />"
       when ["Pawn", true]
-	table_data += "<i class = 'glyphicon glyphicon-pawn white'></i>"
+	table_data += "<img src = '/assets/white_pawn.png' class = 'img-responsive' />"
       end
     table_data += "</td>"
     table_data.html_safe

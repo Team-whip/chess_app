@@ -2,6 +2,18 @@
  * Globals
  */
 
+body {
+  background: url('background.png');
+}
+
+#gameboard img {
+  height: 48px;
+  width: 48px;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  color: white;
+}
 /* Links */
 a {
   color: #fff;
@@ -196,7 +208,6 @@ body {
 }
 
 .game-list-item {
-  width: 65%;
   background: #777777;
   margin-top: 25px;
   margin-bottom: 15px;
@@ -205,21 +216,32 @@ body {
   padding: 20px;
   border-radius: 5px;
   color: black;
+  box-shadow: 0 0 2px, rgba(0,0,0,.4);
+  -o-box-shadow: 0 0 2px, rgba(0,0,0,.4); 
+  -moz-box-shadow: 0 0 2px, rgba(0,0,0,.4); 
+  &:hover {
+    box-shadow: 0 0 8px, rgba(0,0,0,.5);
+    -o-box-shadow: 0 0 8px, rgba(0,0,0,.5); 
+    -moz-box-shadow: 0 0 8px, rgba(0,0,0,.5); 
+  }
 } 
 
-.my-games {
-  position: static;
-  padding: 75px;
+#gameName {
+  &:hover {
+    color: silver;
+    text-decoration: none;
+}
 }
 
-.my-games h2 {
-  color: white;
+.my-games {
+}
+
+.my-games h1, .my-games h2 {
   margin-top: 50px;
 }
 
 .dashboard-heading {
   margin: 0px 0px 40px 40px;
-  color: white;
 }
 
 .clear {
@@ -240,4 +262,8 @@ td {
   box-shadow:inset 0px 0px 4px 2px rgba(212,175,55,1);
   -o-box-shadow:inset 0px 0px 4px 2px rgba(212,175,55,1);
   -moz-box-shadow:inset 0px 0px 4px 2px rgba(212,175,55,1);
+}
+
+.padding-top {
+  margin-top: 50px;
 }

@@ -1,11 +1,12 @@
-<div class="container col-xs-12">
+<div class="container-responsive col-xs-12 col-md-6 col-md-offset-3">
   <section class="my-games">
 
-    <h2 class="text-center">Open Games</h2>
+    <h1 class="text-center display-4 hidden-sm-down">Open Games</h1>
+    <h2 class = 'text-center hidden-md-up'>Open Games</h2>
     <% @games.where(player_two_id: nil).each do |game| %>
       <div class="game-list-item">
         <ul class="list-unstyled">
-          <li class="text-center"><h3><%= link_to game.name, game_path(game) %></h3></li>
+          <li class="text-center"><h3><%= link_to game.name, game_path(game), id: 'gameName' %></h3></li>
           <% player1 = Player.find(game.player_one_id) %>
           <% case player1.first_name.nil? %>
             <% when true %>
@@ -13,7 +14,7 @@
                 <%= player1.email + " vs " %>&nbsp;<%= link_to "Join Game", game_join_games_path(game.id), class: 'btn btn-sm btn-default', method: :post %></h4>
               </li>
             <% when false %>
-              <li class ="text-center"><h4><%= player1.first_name + " vs " %>&nbsp;<%= link_to "Join Game", game_join_games_path(game.id), class: 'btn btn-sm btn-default', method: :post %></h4>
+              <li class ="text-center"><h4><%= player1.first_name + " vs " %>&nbsp;<%= link_to "Join Game", game_join_games_path(game.id), class: 'btn btn-success-outline', method: :post %></h4>
               </li>
             <% end %>
         </ul>
@@ -22,13 +23,14 @@
       
   <div class="clear"></div>
 
-    <h2 class="text-center">Current Games</h2>
+    <h1 class="text-center display-4 hidden-sm-down">Current Games</h1>
+    <h2 class = 'text-center hidden-md-up'>Current Games</h2>
     <% @games.each do |game| %>
       <% if game.player_two_id != nil %>
         <div class="game-list-item">
           <ul class="list-unstyled">
             <li class="text-center">
-              <h3><%= link_to game.name, game_path(game) %></h3>
+              <h3><%= link_to game.name, game_path(game), id: 'gameName' %></h3>
             </li>
             <% player1, player2 = Player.find(game.player_one_id), Player.find(game.player_two_id) %>
             <% case [player1.first_name.nil?, player2.first_name.nil?] %>

@@ -1,44 +1,44 @@
 <br />
 
-<div class="hero">
-  <br />
-  <br />
-  <br />
-  <section class="my-games container text-center">
-  <h2 class=>My Games</h2>
+<div class="my-games">
+  <section class="container-responsive text-center col-xs-12 col-md-6 col-md-offset-3">
+  <h1 class = 'display-4 hidden-sm-down'>My Games</h1>
+  <h2 class = 'hidden-md-up'>My Games</h2>
   <% current_player.joined_games.each do |game| %>
     <% if game.player_two_id != nil %>
       <div class="game-list-item">
-	<ul class="list-unstyled">
-	  <li class="text-center"><h2><%= link_to game.name, game_path(game) %></h2></li>
+	<ul class="list-unstyled text-center">
+	  <li><h3><%= link_to game.name, game_path(game), id: 'gameName' %></h3></li>
 	  <% player1, player2 = Player.find(game.player_one_id), Player.find(game.player_two_id) %>
 	  <% case [player1.first_name.nil?, player2.first_name.nil?] %>
 	  <% when [true, true] %>
-	    <li class="text-center"><h4><%= player1.email + " vs " + player2.email %></h4></li>
+	    <li><h4><%= player1.email + " vs " + player2.email %></h4></li>
 	  <% when [true, false] %>
-	    <li class="text-center"><h4><%= player1.email + " vs " + player2.first_name %></h4></li>
+	    <li><h4><%= player1.email + " vs " + player2.first_name %></h4></li>
 	  <% when [false, true] %>
-	    <li class="text-center"><h4><%= player1.first_name + " vs " + player2.email %></h4></li>
+	    <li><h4><%= player1.first_name + " vs " + player2.email %></h4></li>
 	  <% when [false, false] %>
-	    <li class="text-center"><h4><%= player1.first_name + " vs " + player2.first_name %></h4></li>
+	    <li><h4><%= player1.first_name + " vs " + player2.first_name %></h4></li>
 	  <% end %>
 	</ul>
       </div>    	
     <% end %>
   <% end %>
   <div class = 'clear' ></div>
-  <h2 class = 'text-center'>My Open Games</h2>
+
+  <h1 class = 'hidden-sm-down display-4'>My Open Games</h1>
+  <h2 class = 'hidden-md-up'>My Open Games</h2>
   <% current_player.joined_games.each do |game| %>
     <% if game.player_two_id == nil %>
       <% player1 = Player.find(game.player_one_id) %>
       <div class = "game-list-item"> 
-	<ul class = "list-unstyled">
-	  <li class = 'text-center'><h2><%= link_to game.name, game_path(game) %></h2><li>
+	<ul class = "list-unstyled text-center">
+	  <li><h3><%= link_to game.name, game_path(game), id: 'gameName' %></h3><li>
 	  <% case player1.first_name.nil? %>
 	  <% when true %>
-	    <li class = 'text-center'><h3><%= player1.email + " vs " %><% link_to "Join Game", game_join_games_path(game.id), class: 'btn btn-sm btn-success', method: :post %><h3></li>
+	    <li><h3><%= player1.email + " vs " %><% link_to "Join Game", game_join_games_path(game.id), class: 'btn btn-secondary-outline', method: :post %><h3></li>
 	  <% when false %>
-	    <li class = 'text-center'><h3><%= player1.first_name + " vs " %><%= link_to "Join Game", game_join_games_path(game.id), class: 'btn btn-sm btn-success', method: :post %><h3></li>
+	    <li><h3><%= player1.first_name + " vs " %><%= link_to "Join Game", game_join_games_path(game.id), class: 'btn btn-secondary-outline', method: :post %><h3></li>
 	  <% end %>
 	</ul>
       </div>
