@@ -2,11 +2,59 @@
  * Globals
  */
 
+body {
+  background: url('background.png');
+}
+
+#gameboard img, #deadPieces img, #deadPieces2 img {
+  height: 48px;
+  width: 48px;
+}
+
+@media only screen and (max-width: 460px) {
+  #gameboard {
+    img {
+    height: 24px;
+    width: 24px;
+    }
+
+    tr {
+      height: 40px;
+    }
+
+    td {
+      height: 40px;
+    }
+  }
+}
+
+#gameboard {
+  margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  color: white;
+}
 /* Links */
-a,
-a:focus,
-a:hover {
+a {
   color: #fff;
+}
+
+nav .nav-link, .navbar-brand {
+  &:hover {
+    color: #0275d8;
+  }
+}
+
+nav .navbar-toggler {
+  margin: 10px 0px -10px 0px;
+  size: 200%;
+  &:focus {
+    border: none;
+    content: none;
+    outline: none;
+    border-color: none;
+  }
 }
 
 /* Custom default button */
@@ -33,42 +81,11 @@ body {
   text-align: center;
 }
 
-/* Extra markup and styles for table-esque vertical and horizontal centering */
-.site-wrapper {
-  display: table;
-  width: 100%;
-  height: 100%; /* For at least Firefox */
-  min-height: 100%;
-  -webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);
-          box-shadow: inset 0 0 100px rgba(0,0,0,.5);
-  position: relative;
-}
-.site-wrapper-inner {
-  display: table-cell;
-  vertical-align: top;
-}
-.cover-container {
-  margin-right: auto;
-  margin-left: auto;
-}
-
-/* Padding for spacing */
-.inner {
-  padding: 30px;
-}
 
 /*
  * Header
  */
-.masthead-brand {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  float: left;
-}
 
-.masthead-collapse {
-  margin-bottom: -146px;
-}
 
 #toggle-nav {
   margin-top: -10px;
@@ -165,52 +182,6 @@ body {
   }
 }
 
-.masthead-brand a {
-  text-decoration: none;
-}
-
-.masthead-nav > li {
-  display: inline-block;
-}
-.masthead-nav > li + li {
-  margin-left: 20px;
-}
-.masthead-nav > li > a {
-  padding-right: 0;
-  padding-left: 0;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff; /* IE8 proofing */
-  color: rgba(255,255,255,.75);
-  border-bottom: 2px solid transparent;
-}
-.masthead-nav > li > a:hover,
-.masthead-nav > li > a:focus {
-  background-color: transparent;
-  border-bottom-color: #a9a9a9;
-  border-bottom-color: rgba(255,255,255,.25);
-}
-.masthead-nav > .active > a,
-.masthead-nav > .active > a:hover,
-.masthead-nav > .active > a:focus {
-  color: #fff;
-  border-bottom-color: #fff;
-}
-
-.navbar-left {
-  margin-left: 40px;
-}
-
-@media (min-width: 768px) {
-  .masthead-brand {
-    float: left;
-  }
-  .masthead-nav {
-  float: right;
-  }
-}
-
-
 /*
  * Cover
  */
@@ -223,71 +194,6 @@ body {
   font-weight: bold;
 }
 
-
-/*
- * Footer
- */
-
-.mastfoot {
-  color: #999; /* IE8 proofing */
-  color: rgba(255,255,255,.5);
-}
-
-.about-us {
-  height: 32px;
-  vertical-align: bottom;
-}
-
-.github-icon {
-  height: 32px;
-  vertical-align: bottom;
-}
-
-.social-media-icons a:hover {
-  text-decoration: none;
-}
-
-/*
- * Affix and center
- */
-
-@media (min-width: 768px) {
-  /* Pull out the header and footer */
-  .masthead {
-    position: absolute;
-    top: 0;
-}
-.mastfoot {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  margin-bottom: 20px;
-
-}
-}
-/* Start the vertical centering */
-.site-wrapper-inner {
-  vertical-align: middle;
-}
-/* Handle the widths */
-.masthead,
-.mastfoot,
-.cover-container {
-  width: 100%; /* Must be percentage or pixels for horizontal alignment */
-}
-
-@media (min-width: 992px) {
-  .masthead,
-  .mastfoot,
-  .cover-container {
-    width: 960px;
-}
-}
-
-/*
- * End Cover CSS 
- */
-
 .booyah-box {
   background: #777777;
   border-radius: 5px;
@@ -296,9 +202,44 @@ body {
   color: black;
 }
 
-.chess-board {
-  margin: 50px auto; 
-  width: auto;
+#deadPieces {
+  height: 350px;
+  width: 80px;
+}
+
+#deadPieces2 {
+  height: 350px;
+  width: 80px;
+}
+
+#deadPieceContainer, #deadPieceContainer2 {
+  position: absolute;
+}
+
+#deadPieceContainer2 {
+  top: 130px;
+  left: 0px;
+  display: none;
+}
+
+#deadPieceContainer {
+  top: 1px;
+  left: 0px;
+  display: none;
+}
+
+#deadPieces, #deadPieces2 {
+  border: solid 2px tan;
+  box-shadow: 0 0 3px, rgba(0,0,0,.3);
+  -o-box-shadow: 0 0 3px, rgba(0,0,0,.3);
+  -moz-box-shadow: 0 0 3px, rgba(0,0,0,.3);
+}
+
+
+@media only screen and (max-width: 900px) {
+  #deadPieces, #deadPieces2 {
+    display: none;
+  }
 }
 
 .chess-board tr:nth-child(odd) td:nth-child(even) { 
@@ -324,7 +265,6 @@ body {
 }
 
 .game-list-item {
-  width: 65%;
   background: #777777;
   margin-top: 25px;
   margin-bottom: 15px;
@@ -333,21 +273,32 @@ body {
   padding: 20px;
   border-radius: 5px;
   color: black;
+  box-shadow: 0 0 2px, rgba(0,0,0,.4);
+  -o-box-shadow: 0 0 2px, rgba(0,0,0,.4); 
+  -moz-box-shadow: 0 0 2px, rgba(0,0,0,.4); 
+  &:hover {
+    box-shadow: 0 0 8px, rgba(0,0,0,.5);
+    -o-box-shadow: 0 0 8px, rgba(0,0,0,.5); 
+    -moz-box-shadow: 0 0 8px, rgba(0,0,0,.5); 
+  }
 } 
 
-.my-games {
-  position: static;
-  padding: 75px;
+#gameName {
+  &:hover {
+    color: silver;
+    text-decoration: none;
+}
 }
 
-.my-games h2 {
-  color: white;
+.my-games {
+}
+
+.my-games h1, .my-games h2 {
   margin-top: 50px;
 }
 
 .dashboard-heading {
   margin: 0px 0px 40px 40px;
-  color: white;
 }
 
 .clear {
@@ -355,7 +306,7 @@ body {
 }
 
 
-td {
+#gameboard td {
   border-collapse: collapse;
   &:hover {
     box-shadow:inset 0px 0px 4px 2px rgba(11, 181, 255, 1);
@@ -364,8 +315,13 @@ td {
 }
 }
 
+
 .selected {
   box-shadow:inset 0px 0px 4px 2px rgba(212,175,55,1);
   -o-box-shadow:inset 0px 0px 4px 2px rgba(212,175,55,1);
   -moz-box-shadow:inset 0px 0px 4px 2px rgba(212,175,55,1);
+}
+
+.padding-top {
+  margin-top: 50px;
 }

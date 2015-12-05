@@ -139,6 +139,9 @@ class Piece < ActiveRecord::Base
     end
 
     def capture(x, y, board)
+      game_id = board.board[y][x].game_id
+      game = Game.find(game_id)
+      game.captured_pieces(x, y, board)
       board.board[y][x].destroy
       board.board[y][x] = nil
     end
