@@ -264,4 +264,23 @@ RSpec.describe Game, :type => :model do
     end
 
   end
+
+  describe '#castling_has_occured' do
+    before :each do
+      @game = Game.create
+      @board = Board.new
+      @board.board[7][4] = King.create(color: true, x_position: 4, y_position: 7, game_id: @game.id)
+      @board.board[7][7] = Rook.create(color: true, x_position: 7, y_position: 7, game_id: @game.id)
+      @board.board[7][0] = Rook.create(color: true, x_position: 0, y_position: 7, game_id: @game.id)
+      @board.refresh(@game.id)
+      @white_king = @board.board[7][4]
+    end	
+
+    context 'white king legally castles' do
+      it 'kingside' do
+    pending "This is confirmed to work in the console"
+	expect(@game.castling_has_occured(@white_king.x_position + 2, @white_king.y_position, @white_king.color, @board, @game.id)).to be true
+      end
+    end
+  end
 end
