@@ -206,32 +206,95 @@ RSpec.describe Piece, :type => :model do
     end
   end
 
-  describe "#attempt_move" do
+	describe "#attempt_move" do
     before :each do
+      @game = Game.create
       @board = Board.new
-      @pawn = Pawn.new(x_position: 0, y_position: 1)
+      @pawn = Pawn.new(x_position: 0, y_position: 1, color: false, game_id: @game.id)
+      @king = King.new(x_position: 4, y_position: 0, color: false, game_id: @game.id)
       @board.board[1][0] = @pawn
+      @board.board[4][0] = @king
+      @board.refresh(@game.id)
     end
 
-    describe "piece" do
+    context "piece" do
       it "invalid move distance" do
-	expect(@pawn.attempt_move(@pawn.x_position, @pawn.y_position + 3, @board)).to be false
+	expect(@pawn.attempt_move(@pawn.x_position, @pawn.y_position + 3, @board, @pawn.color, @game.id)).to be false
       end
 
       it "path is blocked" do
 	piece = Pawn.new(x_position: 0, y_position: 2)
 	@board.board[2][0] = piece
-	expect(@pawn.attempt_move(@pawn.x_position, @pawn.y_position + 2, @board)).to be false
+	@board.refresh(@game.id)
+	expect(@pawn.attempt_move(@pawn.x_position, @pawn.y_position + 2, @board, @pawn.color, @game.id)).to be false
       end
 
       it "invalid move direction" do
-	expect(@pawn.attempt_move(@pawn.x_position + 1, @pawn.y_position, @board)).to be false
+	expect(@pawn.attempt_move(@pawn.x_position + 1, @pawn.y_position, @board, @pawn.color, @game.id)).to be false
       end
 
-      it "lands on another piece" do
-        piece = Pawn.new(x_position: 0, y_position: 2)
+      it "lands on another piece of same color" do
+	piece = Pawn.new(x_position: 0, y_position: 2, color: false)
 	@board.board[2][0] = piece
-	expect(@pawn.attempt_move(@pawn.x_position, @pawn.y_position + 1, @board)).to be false
+	@board.refresh(@game.id)
+	expect(@pawn.attempt_move(@pawn.x_position, @pawn.y_position + 1, @board, @pawn.color, @game.id)).to be false
+      end
+    end
+
+    context "king attempts to move into check" do
+    	it "invalid move into check" do
+  pending "This works in the console but not with the test"
+  check_piece = Bishop.new(x_position: 6, y_position: 3, color: true, game_id: @game.id)
+  @board.board[6][3] = check_piece
+  @board.refresh(@game.id)
+  expect(@king.attempt_move(@king.x_position, @king.y_position + 1, @board, @king.color, @game.id)).to be false
+    	end
+    end
+
+    context 'king tries to castle' do
+    	it 'is a legal move' do
+   pending 
+   rook = Rook.new(x_position: 0, y_position: 0, color: false, game_id: @game.id)
+   @board.board[0][0] = rook
+   @board.refresh(@game.id)
+   expect(@king.attempt_move(@king.x_position - 2, @king.y_position, @board, @king.color, @game.id)).to be true
+    	end
+    end
+
+    context 'king tries to castle with pieces in the way' do
+      it 'fails kingside' do
+	pending
+	@board.board[7][5] = Bishop.create(x_position: 5, y_position: 7, color: true, game_id: @game.id)
+	@board.refresh(@game.id)
+	expect(@king.attempt_move(@king.x_position + 2, @king.y_position, @king.color, @game.id)).to be false
+      end
+
+      it 'fails queenside' do
+	pending
+	@board.board[7][2] = Bishop.create(x_position: 2, y_position: 7, color: true, game_id: @game.id)
+	@board.refresh(@game.id)
+	expect(@game.legal_castle_move?(@white_king.x_position - 2, @white_king.y_position, @white_king.color, @game.id)).to be false
+      end
+    end
+  end
+
+  describe '.capture' do
+    before :each do
+      @game = Game.create
+      @board = Board.new
+      @board.board[2][2] = Pawn.new(x_position: 2, y_position: 2, game_id: @game.id)
+      @pawn = @board.board[2][2]
+      @attacker = Rook.new(x_position: 2, y_position: 3, game_id: @game.id)
+      @board.board[3][2] = @attacker
+      @x = 2
+      @y = 2
+    end
+
+    context 'when captured' do
+      it 'the board space is nil' do
+      	pending "Dead pieces method"
+				@attacker.capture(@x, @y, @board)
+				expect(@board.board[2][2]).to equal nil
       end
     end
   end

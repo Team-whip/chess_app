@@ -2,12 +2,21 @@ class Piece < ActiveRecord::Base
   belongs_to :player
   belongs_to :game
 
-  def attempt_move(x, y, board)
-    if self.legal_move?(x, y)
-      self.is_move_obstructed?(x, y, board) ? false : true
+  def attempt_move(x, y, board, color, game_id)
+    game = Game.find_by(id: game_id)
+
+    if self.legal_move?(x, y) && self.is_move_obstructed?(x, y, board) == false
+      return true
+    elsif self.type = 'King' && game.in_check?(x, y, color) == true
+      return false
+    
+    #Pending - cannot get this logic to work. Get error: undefined color method for Nil Class
+    #elsif game.legal_castle_move?(x, y, color, game_id) && self.is_move_obstructed?(x, y, board) == false
+    #  return true
     else
       return false
     end
+
   end
 
   def is_move_obstructed?(x, y, board)
@@ -31,6 +40,16 @@ class Piece < ActiveRecord::Base
 
   def is_a_move_on_the_board?
     # Check to make sure it is on the board?
+  end
+
+  def is_piece_on_board?
+    if self.x_position == nil || self.y_position == nil
+      self.alive = false
+      false
+    else
+      self.alive = true
+      true
+    end
   end
 
   def location_obstructed?(x, y, board)
@@ -103,5 +122,13 @@ class Piece < ActiveRecord::Base
 	board.board[self.y_position][new_x] != nil ? (return true) : (return false)
       end
     end
+  end
+
+   def capture(x, y, board)
+    game_id = board.board[y][x].game_id
+    game = Game.find(game_id)
+    game.captured_pieces(x, y, board)
+    board.board[y][x].destroy
+    board.board[y][x] = nil
   end
 end
