@@ -4,13 +4,27 @@ class Game < ActiveRecord::Base
   has_many :joined_players, through: :join_games, source: :player
   belongs_to :players
 
-  def in_check?(x, y, color)
+  def in_check?(color)
     king = Piece.find_by(type: 'King', color: color, game_id: id )
     color == true ? enemy_color = false : enemy_color = true
     enemies = Piece.where(color: enemy_color , game_id: id)
 
     enemies.each do |enemy|
-      if enemy.legal_move?(king.x_position, king.y_position) || enemy.legal_move?(x, y)
+      if enemy.legal_move?(king.x_position, king.y_position)
+        @enemy_making_check = enemy
+        return true
+      end
+    end
+    false
+  end
+
+  def moving_in_to_check?(x, y, color)
+    king = Piece.find_by(type: 'King', color: color, game_id: id )
+    color == true ? enemy_color = false : enemy_color = true
+    enemies = Piece.where(color: enemy_color , game_id: id)
+
+    enemies.each do |enemy|
+      if enemy.legal_move?(x, y)
         @enemy_making_check = enemy
         return true
       end

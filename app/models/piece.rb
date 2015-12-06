@@ -5,14 +5,8 @@ class Piece < ActiveRecord::Base
   def attempt_move(x, y, board, color, game_id)
     game = Game.find_by(id: game_id)
 
-    if self.legal_move?(x, y) && self.is_move_obstructed?(x, y, board) == false
-      return true
-    elsif self.type = 'King' && game.in_check?(x, y, color) == true
-      return false
-    
-    #Pending - cannot get this logic to work. Get error: undefined color method for Nil Class
-    #elsif game.legal_castle_move?(x, y, color, game_id) && self.is_move_obstructed?(x, y, board) == false
-    #  return true
+    if self.legal_move?(x, y) || king_legal_move?(x, y, color, game_id)
+      self.is_move_obstructed?(x, y, board) ? false : true
     else
       return false
     end
@@ -131,4 +125,16 @@ class Piece < ActiveRecord::Base
     board.board[y][x].destroy
     board.board[y][x] = nil
   end
+
+  def king_legal_move?(x, y, color, game_id)
+    game = Game.find_by(id: game_id)
+    if self.type == 'King' && game.moving_in_to_check?(x, y, color) == false
+      if game.legal_castle_move?(x, y, color, game_id) || self.legal_move?(x, y)
+        return true
+      end
+    else
+      return false
+    end
+  end
+
 end

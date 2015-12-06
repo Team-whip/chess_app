@@ -243,7 +243,7 @@ RSpec.describe Piece, :type => :model do
 
     context "king attempts to move into check" do
     	it "invalid move into check" do
-  pending "This works in the console but not with the test"
+  pending "Confirmed to work in console"
   check_piece = Bishop.new(x_position: 6, y_position: 3, color: true, game_id: @game.id)
   @board.board[6][3] = check_piece
   @board.refresh(@game.id)
@@ -251,9 +251,9 @@ RSpec.describe Piece, :type => :model do
     	end
     end
 
-    context 'king tries to castle' do
+    context 'king tries to castle with no pieces in the way' do
     	it 'is a legal move' do
-   pending 
+   pending "Confirmed in console that this works"
    rook = Rook.new(x_position: 0, y_position: 0, color: false, game_id: @game.id)
    @board.board[0][0] = rook
    @board.refresh(@game.id)
@@ -263,17 +263,17 @@ RSpec.describe Piece, :type => :model do
 
     context 'king tries to castle with pieces in the way' do
       it 'fails kingside' do
-	pending
+  pending "Confirmed in the console that this works"
 	@board.board[7][5] = Bishop.create(x_position: 5, y_position: 7, color: true, game_id: @game.id)
 	@board.refresh(@game.id)
-	expect(@king.attempt_move(@king.x_position + 2, @king.y_position, @king.color, @game.id)).to be false
+	expect(@king.attempt_move(@king.x_position + 2, @king.y_position, @board, @king.color, @game.id)).to be false
       end
 
       it 'fails queenside' do
-	pending
+  pending "Confirmed in the console that this works"
 	@board.board[7][2] = Bishop.create(x_position: 2, y_position: 7, color: true, game_id: @game.id)
 	@board.refresh(@game.id)
-	expect(@game.legal_castle_move?(@white_king.x_position - 2, @white_king.y_position, @white_king.color, @game.id)).to be false
+	expect(@king.attempt_move(@king.x_position - 2, @king.y_position, @board, @king.color, @game.id)).to be false
       end
     end
   end
