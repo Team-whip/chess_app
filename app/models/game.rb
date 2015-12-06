@@ -92,4 +92,33 @@ class Game < ActiveRecord::Base
     true
   end
 
+  def castling_occured(x, y, board, color, game_id)
+    king = Piece.find_by(type: 'King', color: color, game_id: game_id)
+
+    if king.king_legal_move?(x, y, color, game_id) == true && king.is_move_obstructed?(x, y, board) == false
+      castling = true
+    else
+      castling = false
+    end
+
+    if castling == true
+      if x > king.x_position && king.color == false
+        black_king_rook = Piece.find_by(x_position: 7, y_position: 0, type: 'Rook', color: color, game_id: game_id)
+        black_king_rook.update_attributes(x_position: 5)
+      elsif x > king.x_position && king.color == true
+        white_king_rook = Piece.find_by(x_position: 7, y_position: 7, type: 'Rook', color: color, game_id: game_id)
+        white_king_rook.update_attributes(x_position: 5)
+      elsif x < king.x_position && king.color == false
+        black_queen_rook = Piece.find_by(x_position: 0, y_position: 0, type: 'Rook', color: color, game_id: game_id)
+        black_queen_rook.update_attributes(x_position: 2)
+      elsif x < king.x_position && king.color == true
+        white_queen_rook = Piece.find_by(x_position: 0, y_position: 7, type: 'Rook', color: color, game_id: game_id)
+        white_queen_rook.update_attributes(x_position: 2)
+      end
+    else
+      return false
+  end  
+
+  end
+
 end
