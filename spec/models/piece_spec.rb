@@ -266,12 +266,13 @@ RSpec.describe Piece, :type => :model do
       end
 
       it 'fails queenside' do
-      	@rook = Rook.create(x_position: 0, y_position: 0, color: false, game_id: @game.id)
-				Bishop.create(x_position: 2, y_position: 0, color: true, game_id: @game.id)
-				@board.refresh(@game.id)
-				expect(@king.attempt_move(@king.x_position - 2, @king.y_position, @board, @king.color, @game.id)).to be false
+	@rook = Rook.create(x_position: 0, y_position: 0, color: false, game_id: @game.id)
+	Bishop.create(x_position: 2, y_position: 0, color: true, game_id: @game.id)
+	@board.refresh(@game.id)
+	expect(@king.attempt_move(@king.x_position - 2, @king.y_position, @board, @king.color, @game.id)).to be false
     end 
   end
+end
 
   describe '.capture' do
     before :each do
@@ -292,5 +293,4 @@ RSpec.describe Piece, :type => :model do
       end
     end
   end
-
 end

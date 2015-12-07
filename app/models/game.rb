@@ -8,14 +8,15 @@ class Game < ActiveRecord::Base
     king = Piece.find_by(type: 'King', color: color, game_id: id )
     color == true ? enemy_color = false : enemy_color = true
     enemies = Piece.where(color: enemy_color , game_id: id)
+    in_check = false
 
     enemies.each do |enemy|
       if enemy.legal_move?(king.x_position, king.y_position)
         @enemy_making_check = enemy
-        return true
+        in_check = true
       end
     end
-    false
+    in_check
   end
 
   def moving_in_to_check?(x, y, color)
