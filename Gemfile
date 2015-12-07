@@ -36,10 +36,12 @@ gem 'rubocop'
 gem 'simple_form'
 gem 'devise', '>= 3.2.4'
 # Bootstrap
-gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bootstrap', '~> 4.0.0.alpha1'
 gem 'autoprefixer-rails'
 # Capybara is for feature testing in rspec
 gem 'capybara'
+# Add octicons
+gem 'octicons-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -62,5 +64,6 @@ end
 # Rspec for testing
 group :development, :test do
   gem "rspec-rails", "~> 3.0"
+  gem "database_cleaner"
 end
 

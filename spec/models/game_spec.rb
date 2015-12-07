@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Game, :type => :model do
+
   describe "#in_check?" do
     before :each do
       @game = Game.create
@@ -9,10 +10,6 @@ RSpec.describe Game, :type => :model do
       @board.board[5][4] = Rook.create(color: false, x_position: 4, y_position: 5, game_id: @game.id)
       @board.board[5][5] = King.create(color: false, x_position: 5, y_position: 5, game_id: @game.id)
       @board.board[3][6] = Rook.create(color: true, x_position: 6, y_position: 3, game_id: @game.id)
-      @board.refresh(@game.id)
-      @king = @board.board[3][4]
-      @rook = @board.board[5][4]
-      @king2 = @board.board[5][5]
       @rook2 = @board.board[3][6]
     end
 

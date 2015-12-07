@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20151206235007) do
 
   # These are extensions that must be enabled in order to support this database
@@ -31,6 +32,7 @@ ActiveRecord::Schema.define(version: 20151206235007) do
     t.integer  "player_two_id"
     t.boolean  "player_one_color", default: true
     t.boolean  "player_two_color", default: false
+    t.string   "dead_pieces",      default: [],                 array: true
   end
 
   add_index "games", ["player_id"], name: "index_games_on_player_id", using: :btree
