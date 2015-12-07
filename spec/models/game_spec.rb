@@ -109,8 +109,7 @@ RSpec.describe Game, :type => :model do
 
     context 'black king moves out and back, then tries to castle' do
       it 'is illegal kingside' do
-	pending
-	@black_king.update_attributes(y_position: 1)
+	@black_king.update_attributes(y_position: 1, moved: true)
 	@board.refresh(@game.id)
 	@black_king.update_attributes(y_position: 0)
 	@board.refresh(@game.id)
@@ -118,8 +117,7 @@ RSpec.describe Game, :type => :model do
       end
 
       it 'is illegal queenside' do
-	pending
-	@black_king.update_attributes(y_position: 1)
+	@black_king.update_attributes(y_position: 1, moved: true)
 	@board.refresh(@game.id)
 	@black_king.update_attributes(y_position: 0)
 	@board.refresh(@game.id)
@@ -129,8 +127,7 @@ RSpec.describe Game, :type => :model do
 
     context 'black rook forward and back, then tries to castle' do
       it 'is illegal for queenside rook' do
-	pending
-	@board.board[0][0].update_attributes(y_position: 1)
+	@board.board[0][0].update_attributes(y_position: 1, moved: true)
 	@board.refresh(@game.id)
 	@board.board[0][0].update_attributes(y_position: 0)
 	@board.refresh(@game.id)
@@ -138,8 +135,7 @@ RSpec.describe Game, :type => :model do
       end
 
       it 'is illegal for kingside rook' do
-	pending
-	@board.board[0][7].update_attributes(y_position: 1)
+	@board.board[0][7].update_attributes(y_position: 1, moved: true)
 	@board.refresh(@game.id)
 	@board.board[0][7].update_attributes(y_position: 0)
 	@board.refresh(@game.id)
@@ -149,8 +145,7 @@ RSpec.describe Game, :type => :model do
 
     context 'black rook moves in and back, then tries to castle' do
       it 'is illegal for queenside rook' do
-	pending
-	@board.board[0][0].update_attributes(x_position: 1)
+	@board.board[0][0].update_attributes(x_position: 1, moved: true)
 	@board.refresh(@game.id)
 	@board.board[0][0].update_attributes(x_position: 0)
 	@board.refresh(@game.id)
@@ -158,8 +153,7 @@ RSpec.describe Game, :type => :model do
       end
 
       it 'is illegal for kingside rook' do
-	pending
-	@board.board[0][7].update_attributes(x_position: 6)
+	@board.board[0][7].update_attributes(x_position: 6, moved: true)
 	@board.refresh(@game.id)
 	@board.board[0][7].update_attributes(x_position: 7)
 	@board.refresh(@game.id)
@@ -205,8 +199,7 @@ RSpec.describe Game, :type => :model do
 
     context 'white king moves out and back, then tries to castle' do
       it 'is illegal kingside' do
-	pending
-	@white_king.update_attributes(y_position: 6)
+	@white_king.update_attributes(y_position: 6, moved: true)
 	@board.refresh(@game.id)
 	@white_king.update_attributes(y_position: 7)
 	@board.refresh(@game.id)
@@ -214,8 +207,7 @@ RSpec.describe Game, :type => :model do
       end
 
       it 'is illegal queenside' do
-	pending
-	@white_king.update_attributes(y_position: 6)
+	@white_king.update_attributes(y_position: 6, moved: true)
 	@board.refresh(@game.id)
 	@white_king.update_attributes(y_position: 7)
 	@board.refresh(@game.id)
@@ -225,8 +217,7 @@ RSpec.describe Game, :type => :model do
 
     context 'white rook moves forward and back, then tries to castle' do
       it 'is illegal for queenside rook' do
-	pending
-	@board.board[7][0].update_attributes(y_position: 6)
+	@board.board[7][0].update_attributes(y_position: 6, moved: true)
 	@board.refresh(@game.id)
 	@board.board[7][0].update_attributes(y_position: 7)
 	@board.refresh(@game.id)
@@ -234,8 +225,7 @@ RSpec.describe Game, :type => :model do
       end
 
       it 'is illegal for kingside rook' do
-	pending
-	@board.board[7][7].update_attributes(y_position: 6)
+	@board.board[7][7].update_attributes(y_position: 6, moved: true)
 	@board.refresh(@game.id)
 	@board.board[7][7].update_attributes(y_position: 7)
 	@board.refresh(@game.id)
@@ -245,8 +235,7 @@ RSpec.describe Game, :type => :model do
 
     context 'white rook moves in and back, then tries to castle' do
       it 'is illegal for queenside rook' do
-	pending
-	@board.board[7][0].update_attributes(x_position: 1)
+	@board.board[7][0].update_attributes(x_position: 1, moved: true)
 	@board.refresh(@game.id)
 	@board.board[7][0].update_attributes(x_position: 0)
 	@board.refresh(@game.id)
@@ -254,8 +243,7 @@ RSpec.describe Game, :type => :model do
       end
 
       it 'is illegal for kingside rook' do
-	pending
-	@board.board[7][7].update_attributes(x_position: 6)
+	@board.board[7][7].update_attributes(x_position: 6, moved: true)
 	@board.refresh(@game.id)
 	@board.board[7][7].update_attributes(x_position: 7)
 	@board.refresh(@game.id)

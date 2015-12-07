@@ -53,12 +53,15 @@ class Game < ActiveRecord::Base
     king = Piece.find_by(type: 'King', color: color, game_id: game_id)
 
     #return false if king has moved
+
     if king.color == false
       return false unless king.x_position == 4 && king.y_position == 0
       black_king = king
+      return false if black_king.moved == true
     else
       return false unless king.x_position == 4 && king.y_position == 7
       white_king = king
+      return false if white_king.moved == true
     end
 
     #there are no pieces between the king and chosen rook
@@ -76,16 +79,16 @@ class Game < ActiveRecord::Base
 
     if x > king.x_position && king.color == false
       black_king_rook = Piece.find_by(x_position: 7, y_position: 0, type: 'Rook', color: color, game_id: game_id)
-      return false if black_king_rook == nil
+      return false if black_king_rook.moved == true || black_king_rook == nil
     elsif x > king.x_position && king.color == true
       white_king_rook = Piece.find_by(x_position: 7, y_position: 7, type: 'Rook', color: color, game_id: game_id)
-      return false if white_king_rook == nil
+      return false if white_king_rook.moved == true || white_king_rook == nil
     elsif x < king.x_position && king.color == false
       black_queen_rook = Piece.find_by(x_position: 0, y_position: 0, type: 'Rook', color: color, game_id: game_id)
-      return false if black_queen_rook == nil
+      return false if black_queen_rook.moved == true || black_queen_rook == nil
     elsif x < king.x_position && king.color == true
       white_queen_rook = Piece.find_by(x_position: 0, y_position: 7, type: 'Rook', color: color, game_id: game_id)
-      return false if white_queen_rook == nil
+      return false if white_queen_rook.moved == true || white_queen_rook == nil
     else
       return false
     end    
@@ -104,16 +107,16 @@ class Game < ActiveRecord::Base
     if castling == true
       if x > king.x_position && king.color == false
         black_king_rook = Piece.find_by(x_position: 7, y_position: 0, type: 'Rook', color: color, game_id: game_id)
-        black_king_rook.update_attributes(x_position: 5)
+        black_king_rook.update_attributes(x_position: 5, moved: true)
       elsif x > king.x_position && king.color == true
         white_king_rook = Piece.find_by(x_position: 7, y_position: 7, type: 'Rook', color: color, game_id: game_id)
-        white_king_rook.update_attributes(x_position: 5)
+        white_king_rook.update_attributes(x_position: 5, moved: true)
       elsif x < king.x_position && king.color == false
         black_queen_rook = Piece.find_by(x_position: 0, y_position: 0, type: 'Rook', color: color, game_id: game_id)
-        black_queen_rook.update_attributes(x_position: 2)
+        black_queen_rook.update_attributes(x_position: 2, moved: true)
       elsif x < king.x_position && king.color == true
         white_queen_rook = Piece.find_by(x_position: 0, y_position: 7, type: 'Rook', color: color, game_id: game_id)
-        white_queen_rook.update_attributes(x_position: 2)
+        white_queen_rook.update_attributes(x_position: 2, moved: true)
       end
     else
       return false
