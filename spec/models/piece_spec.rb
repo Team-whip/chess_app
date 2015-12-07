@@ -205,12 +205,14 @@ RSpec.describe Piece, :type => :model do
     end
   end
 
-  describe "#attempt_move" do
+	describe "#attempt_move" do
     before :each do
       @game = Game.create
       @board = Board.new
-      @pawn = Pawn.new(x_position: 0, y_position: 1, color: false, game_id: @game.id)
+      @pawn = Pawn.create(x_position: 0, y_position: 1, color: false, game_id: @game.id)
+      @king = King.create(x_position: 4, y_position: 0, color: false, game_id: @game.id)
       @board.board[1][0] = @pawn
+      @board.board[4][0] = @king
       @board.refresh(@game.id)
     end
 
@@ -236,8 +238,41 @@ RSpec.describe Piece, :type => :model do
 	@board.refresh(@game.id)
 	expect(@pawn.attempt_move(@pawn.x_position, @pawn.y_position + 1, @board, @pawn.color, @game.id)).to be false
       end
+    end
+
+    context "king attempts to move into check" do
+    	it "invalid move into check" do
+  check_piece = Bishop.create(x_position: 6, y_position: 3, color: true, game_id: @game.id)
+  @board.refresh(@game.id)
+  expect(@king.attempt_move(@king.x_position, @king.y_position + 1, @board, @king.color, @game.id)).to be false
+    	end
+   end
+    
+
+    context 'king tries to castle with no pieces in the way' do
+    	it 'is a legal move' do
+   rook = Rook.create(x_position: 0, y_position: 0, color: false, game_id: @game.id)
+   @board.refresh(@game.id)
+   expect(@king.attempt_move(@king.x_position - 2, @king.y_position, @board, @king.color, @game.id)).to be true
+    	end
+    end
+
+    context 'king tries to castle with pieces in the way' do
+      it 'fails kingside' do
+  @rook = Rook.create(x_position: 7, y_position: 0, color: false, game_id: @game.id)
+	@board.board[7][5] = Bishop.create(x_position: 5, y_position: 0, color: true, game_id: @game.id)
+	@board.refresh(@game.id)
+	expect(@king.attempt_move(@king.x_position + 2, @king.y_position, @board, @king.color, @game.id)).to be false
+      end
+
+      it 'fails queenside' do
+	@rook = Rook.create(x_position: 0, y_position: 0, color: false, game_id: @game.id)
+	Bishop.create(x_position: 2, y_position: 0, color: true, game_id: @game.id)
+	@board.refresh(@game.id)
+	expect(@king.attempt_move(@king.x_position - 2, @king.y_position, @board, @king.color, @game.id)).to be false
     end 
   end
+end
 
   describe '.capture' do
     before :each do
