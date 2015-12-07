@@ -2,6 +2,7 @@ class Pawn < Piece
 	def legal_move?(x, y)
 		return false if backwards_move?(y)
 		return false if horizontal_move?(x)
+		return false if enemy_in_front?
 
 		normal_move?(y) || first_move?(y)
 	end
@@ -35,4 +36,18 @@ class Pawn < Piece
 	def normal_move?(y)
 		(y - y_position).abs == 1
 	end
+
+	def enemy_in_front?
+      in_front = false
+      if color == false
+        if Piece.find_by(x_position: x_position, y_position: y_position + 1, color: true, game_id: game_id) != nil
+          in_front = true
+        end
+      elsif color == true
+        if Piece.find_by(x_position: x_position, y_position: y_position - 1, color: false, game_id: game_id) != nil
+         in_front = true
+        end
+      end
+      in_front
+    end
 end

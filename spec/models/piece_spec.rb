@@ -210,8 +210,10 @@ RSpec.describe Piece, :type => :model do
     before :each do
       @game = Game.create
       @board = Board.new
-      @pawn = Pawn.new(x_position: 0, y_position: 1, color: false, game_id: @game.id)
-      @king = King.new(x_position: 4, y_position: 0, color: false, game_id: @game.id)
+      @pawn = Pawn.create(x_position: 0, y_position: 1, color: false, game_id: @game.id)
+      @king = King.create(x_position: 4, y_position: 0, color: false, game_id: @game.id)
+      #@rook = Rook.create(x_postion: 7, y_position: 0, color: false, game_id: @game.id)
+      #@rook_queen = Rook.create(x_position: 0, y_position: 0, color: false, game_id: @game.id)
       @board.board[1][0] = @pawn
       @board.board[4][0] = @king
       @board.refresh(@game.id)
@@ -243,19 +245,16 @@ RSpec.describe Piece, :type => :model do
 
     context "king attempts to move into check" do
     	it "invalid move into check" do
-  pending "Confirmed to work in console"
-  check_piece = Bishop.new(x_position: 6, y_position: 3, color: true, game_id: @game.id)
-  @board.board[6][3] = check_piece
+  check_piece = Bishop.create(x_position: 6, y_position: 3, color: true, game_id: @game.id)
   @board.refresh(@game.id)
   expect(@king.attempt_move(@king.x_position, @king.y_position + 1, @board, @king.color, @game.id)).to be false
     	end
-    end
+   end
+    
 
     context 'king tries to castle with no pieces in the way' do
     	it 'is a legal move' do
-   pending "Confirmed in console that this works"
-   rook = Rook.new(x_position: 0, y_position: 0, color: false, game_id: @game.id)
-   @board.board[0][0] = rook
+   rook = Rook.create(x_position: 0, y_position: 0, color: false, game_id: @game.id)
    @board.refresh(@game.id)
    expect(@king.attempt_move(@king.x_position - 2, @king.y_position, @board, @king.color, @game.id)).to be true
     	end
@@ -263,39 +262,19 @@ RSpec.describe Piece, :type => :model do
 
     context 'king tries to castle with pieces in the way' do
       it 'fails kingside' do
-  pending "Confirmed in the console that this works"
-	@board.board[7][5] = Bishop.create(x_position: 5, y_position: 7, color: true, game_id: @game.id)
+  @rook = Rook.create(x_position: 7, y_position: 0, color: false, game_id: @game.id)
+	@board.board[7][5] = Bishop.create(x_position: 5, y_position: 0, color: true, game_id: @game.id)
 	@board.refresh(@game.id)
 	expect(@king.attempt_move(@king.x_position + 2, @king.y_position, @board, @king.color, @game.id)).to be false
       end
 
       it 'fails queenside' do
-  pending "Confirmed in the console that this works"
-	@board.board[7][2] = Bishop.create(x_position: 2, y_position: 7, color: true, game_id: @game.id)
-	@board.refresh(@game.id)
-	expect(@king.attempt_move(@king.x_position - 2, @king.y_position, @board, @king.color, @game.id)).to be false
+      	@rook = Rook.create(x_position: 0, y_position: 0, color: false, game_id: @game.id)
+				Bishop.create(x_position: 2, y_position: 0, color: true, game_id: @game.id)
+				@board.refresh(@game.id)
+				expect(@king.attempt_move(@king.x_position - 2, @king.y_position, @board, @king.color, @game.id)).to be false
       end
     end
   end
 
-  describe '.capture' do
-    before :each do
-      @game = Game.create
-      @board = Board.new
-      @board.board[2][2] = Pawn.new(x_position: 2, y_position: 2, game_id: @game.id)
-      @pawn = @board.board[2][2]
-      @attacker = Rook.new(x_position: 2, y_position: 3, game_id: @game.id)
-      @board.board[3][2] = @attacker
-      @x = 2
-      @y = 2
-    end
-
-    context 'when captured' do
-      it 'the board space is nil' do
-      	pending "Dead pieces method"
-				@attacker.capture(@x, @y, @board)
-				expect(@board.board[2][2]).to equal nil
-      end
-    end
-  end
 end

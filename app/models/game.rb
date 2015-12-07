@@ -22,14 +22,15 @@ class Game < ActiveRecord::Base
     king = Piece.find_by(type: 'King', color: color, game_id: id )
     color == true ? enemy_color = false : enemy_color = true
     enemies = Piece.where(color: enemy_color , game_id: id)
+    in_check = false
 
     enemies.each do |enemy|
       if enemy.legal_move?(x, y)
         @enemy_making_check = enemy
-        return true
+        in_check = true
       end
     end
-    false
+    in_check
   end
 
   def captured_pieces(x, y, board)
@@ -52,53 +53,87 @@ class Game < ActiveRecord::Base
   def legal_castle_move?(x, y, color, game_id)
     king = Piece.find_by(type: 'King', color: color, game_id: game_id)
 
-    #return false if king has moved
-
     if king.color == false
-      return false unless king.x_position == 4 && king.y_position == 0
-      black_king = king
-      return false if black_king.moved == true
+      if king.x_position == 4
+        if king.y_position == 0
+          black_king = king
+        else
+          return false
+        end
+      else
+        return false
+      end
+      if black_king.moved
+        return false
+      end
     else
-      return false unless king.x_position == 4 && king.y_position == 7
-      white_king = king
-      return false if white_king.moved == true
+      if king.x_position == 4
+        if king.y_position == 7
+          white_king = king
+        else
+          return false
+        end
+      else
+        return false
+      end
+      if white_king.moved
+        return false
+      end
     end
 
-    #there are no pieces between the king and chosen rook
-    #this will be handled by pushing this through the attempt_move which checks for obstructions
-
-    #the king is not in check
-    #this will be handled by pushing this through attempt_move which checks for in_check?
-
-    #check that intent is to castle
-    return false unless (x - king.x_position).abs == 2
-    return false unless y == king.y_position
-
-    #check which side rook the castling will occur on and return false if rook has moved
-    #or been captured
+    if (x - king.x_position).abs == 2
+      if y != king.y_position
+        return false
+      end
+    else
+      return false
+    end
 
     if x > king.x_position && king.color == false
       black_king_rook = Piece.find_by(x_position: 7, y_position: 0, type: 'Rook', color: color, game_id: game_id)
-      return false if black_king_rook.moved == true || black_king_rook == nil
+      if black_king_rook == nil
+        return false
+      elsif black_king_rook.moved
+        return false
+      else
+        return true
+      end
     elsif x > king.x_position && king.color == true
       white_king_rook = Piece.find_by(x_position: 7, y_position: 7, type: 'Rook', color: color, game_id: game_id)
-      return false if white_king_rook.moved == true || white_king_rook == nil
+      if white_king_rook == nil
+        return false
+      elsif white_king_rook.moved 
+        return false
+      else
+        return true
+      end
     elsif x < king.x_position && king.color == false
       black_queen_rook = Piece.find_by(x_position: 0, y_position: 0, type: 'Rook', color: color, game_id: game_id)
-      return false if black_queen_rook.moved == true || black_queen_rook == nil
+      if black_queen_rook == nil
+        return false
+      elsif black_queen_rook.moved 
+        return false
+      else
+        return true
+      end
     elsif x < king.x_position && king.color == true
       white_queen_rook = Piece.find_by(x_position: 0, y_position: 7, type: 'Rook', color: color, game_id: game_id)
-      return false if white_queen_rook.moved == true || white_queen_rook == nil
+      if white_queen_rook == nil
+        return false
+      elsif white_queen_rook.moved
+        return false
+      else
+        return true
+      end
     else
       return false
-    end    
-    true
+    end  
   end
 
-  def castling_occured(x, y, board, color, game_id)
+  def castling_occured(x, y, color, game_id)
     king = Piece.find_by(type: 'King', color: color, game_id: game_id)
-
-    if king.king_legal_move?(x, y, color, game_id) == true && king.is_move_obstructed?(x, y, board) == false
+    
+    if self.legal_castle_move?(x, y, color, game_id)
       castling = true
     else
       castling = false
