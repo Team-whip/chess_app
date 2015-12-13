@@ -11,7 +11,8 @@ class PiecesController < ApplicationController
 
     if piece.player_id == current_player.id && game.turn == current_player.id
       if piece.attempt_move(new_x.to_i, new_y.to_i, @board, piece.color, @game_id)
-	piece.update_attributes(x_position: new_x, y_position: new_y, moved: true)
+	move_distance = piece.y_position - new_y.to_i
+	piece.update_attributes(x_position: new_x, y_position: new_y, moved: true, last_move: move_distance.abs)
 	if game.turn == game.player_one_id
 	  game.update_attributes(turn: game.player_two_id)
 	else
