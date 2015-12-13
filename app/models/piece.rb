@@ -9,7 +9,11 @@ class Piece < ActiveRecord::Base
       if game.moving_in_to_check?(x, y, color)
 	return false
       else
-	self.is_move_obstructed?(x, y, board) ? false : true
+	if game.castling_occured(x, y, color, game_id)
+	  self.is_move_obstructed?(x, y, board) ? false : true
+	elsif self.legal_move?(x, y)
+	  self.is_move_obstructed?(x, y, board) ? false : true
+	end
       end
     else
       if self.legal_move?(x, y)
