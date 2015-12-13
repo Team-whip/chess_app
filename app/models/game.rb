@@ -34,27 +34,24 @@ class Game < ActiveRecord::Base
 
   def can_move_out_of_check?(color, game_id)
     king = Piece.find_by(type: 'King', color: color, game_id: id )
-    puts 1
-    starting_x = king.x_position
-    starting_y = king.y_position
+    #puts 1
     success = false
-    puts 2
+    #puts 2
 
   ((king.x_position - 1)..(king.x_position + 1)).each do |x|
     ((king.y_position - 1 )..(king.y_position + 1)).each do |y|
-      puts 3
+      #puts 3
         if king.legal_move?(x, y)
-          puts 4
-          king.update_attributes(x_position: x, y_position: y)
-          puts 5
-          success = true unless in_check?(color)
-          king.update_attributes(x_position: starting_x, y_position: starting_y)
-          puts 6
+          #puts 4
+          if moving_in_to_check?(x, y, color) == false
+            success = true
+            #puts 5
+          end
         end
       end
     end
     success
-    puts 7
+    #puts 6
   end
 
   def checkmate?(color)

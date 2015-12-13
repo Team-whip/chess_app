@@ -58,7 +58,26 @@ class Piece < ActiveRecord::Base
   end
 
   def is_move_on_board?(x, y, board)
-    board.board[y][x] != nil ? true : false
+    on_board = false
+    puts 0
+    if board.board[y][x] != nil
+      puts 1
+      if x < 7
+        puts 2
+        if x > 0
+          puts 3
+          if y < 7
+            puts 4
+            if y > 0
+              on_board = true
+              puts 5
+            end
+          end
+        end
+      end
+    end
+    on_board
+    puts 6
   end
 
   def location_obstructed?(x, y, board)

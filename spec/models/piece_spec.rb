@@ -210,18 +210,16 @@ RSpec.describe Piece, :type => :model do
       @game = Game.create
       @board = Board.new
       @king = King.create(x_position: 7, y_position: 0, color: false, game_id: @game.id)
-      @board.board[7][0] = @king
+      @board.board[0][7] = @king
       @board.refresh(@game.id)
     end
 
     context "piece" do
       it "is a move on the board" do
-  pending
   expect(@king.is_move_on_board?(@king.x_position - 1, @king.y_position, @board)).to be true
     end
 
       it "is not a move on the board" do
-  pending
   expect(@king.is_move_on_board?(@king.x_position + 1, @king.y_position, @board)).to be false
     end
    end
