@@ -12,7 +12,7 @@
        <!-- draw td data and piece glyphs -->
 	     <td data-x = <%= x %>, data-y = <%= y %>, class = "text-center chess-square">
        <% glyph = @board.piece_glyphs(y, x) %>
-       <% if glyph != nil %>
+       <% if glyph != nil && piece.game.current_player==piece.player_id %>
        <%= link_to glyph, move_piece_path( game_id: @game.id,
         y_position: y,
         x_position: x), :method => :post %>
