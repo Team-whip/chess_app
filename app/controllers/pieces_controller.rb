@@ -1,5 +1,4 @@
 class PiecesController < ApplicationController
-  skip_before_filter :verify_authenticity_token, if: :json_request?
 
   def update
     new_x = params[:new_x]
@@ -24,11 +23,4 @@ class PiecesController < ApplicationController
     end
 
   end
-
-  protected
-
-  def json_request?
-    request.format.json?
-  end
-
 end
