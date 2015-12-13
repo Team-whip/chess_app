@@ -25,33 +25,49 @@ class Game < ActiveRecord::Base
 
     enemies.each do |enemy|
       if enemy.legal_move?(x, y)
-        @enemy_making_check = enemy
+        enemy_making_check = enemy
         in_check = true
       end
     end
     in_check
   end
 
-  def can_move_out_of_check?(color, game_id)
-    king = Piece.find_by(type: 'King', color: color, game_id: id )
-    #puts 1
-    success = false
-    #puts 2
+  def is_move_on_board?(x, y, game_id)
+    king = Piece.find_by(type: 'King', x_position: x, y_position: y, game_id: id )
+    on_board = false
 
+    if x >= 0 && x <= 7 && y >= 0 && y <= 7
+      on_board = true
+    else
+      false
+    end
+
+  end
+
+  def can_move_out_of_check?(color, game_id)
+    king = Piece.find_by(type: 'King', color: color, game_id: game_id )
+    puts 1
+    move_out_check = false
+    puts 2
   ((king.x_position - 1)..(king.x_position + 1)).each do |x|
     ((king.y_position - 1 )..(king.y_position + 1)).each do |y|
-      #puts 3
-        if king.legal_move?(x, y)
-          #puts 4
+      puts 3
+        if is_move_on_board?(x, y, game_id)
+          puts 4
           if moving_in_to_check?(x, y, color) == false
-            success = true
-            #puts 5
+            move_out_check = true
+            return move_out_check
+            puts 5
           end
         end
       end
     end
-    success
-    #puts 6
+    move_out_check
+    puts 6
+  end
+
+  def can_be_captured?
+    
   end
 
   def checkmate?(color)
@@ -61,7 +77,7 @@ class Game < ActiveRecord::Base
 
     return false if king.can_move_out_of_check?
 
-    # See if another piece can capture checking piece
+    return false if @enemy_making_check.can_be_captured?
 
     # See if another piece can block check
 
@@ -76,18 +92,6 @@ class Game < ActiveRecord::Base
   def captured_pieces(x, y, board)
     self.dead_pieces << [board.board[y][x].type, board.board[y][x].color]
     self.save!
-  end
-
-  def in_checkmate?
-    # Checks to see if either player is in checkmate.
-  end
-
-  def player_turn
-    # Checks to see who's turn it is.
-  end
-
-  def check_two_players_present
-    # Checks that two players are present(logged in) to play.
   end
 
   def legal_castle_move?(x, y, color, game_id)
