@@ -231,6 +231,12 @@ to {
   }
 }
 
+@media only screen and (max-width: 768px) {
+  .my-games h1, .my-games h2 {
+    margin-top: 10px !important;
+  }
+}
+
 .chess-board tr:nth-child(odd) td:nth-child(even) { 
   background: gray;
 }
@@ -283,7 +289,7 @@ to {
 }
 
 .my-games h1, .my-games h2 {
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .dashboard-heading {
