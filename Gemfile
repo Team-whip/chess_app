@@ -13,10 +13,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rubocop'
 gem 'simple_form'
 gem 'devise'
-gem 'bootstrap', '~> 4.0.0.alpha1'
+gem 'bootstrap', '~> 4.0.0.alpha2'
 gem 'autoprefixer-rails'
 gem 'capybara'
 gem 'octicons-rails'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-tether', '>= 1.1.0'
+end
 
 group :development, :test do
   gem 'byebug'
@@ -26,7 +30,6 @@ group :development do
   gem 'better_errors'
   gem 'pry-rails'
   gem 'web-console', '~> 2.0'
-
   gem 'spring'
 end
 
