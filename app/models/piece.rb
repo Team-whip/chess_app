@@ -156,17 +156,5 @@ class Piece < ActiveRecord::Base
     end
   end
 
-  def can_be_captured?(color)
-    king = self.find_by(type: 'King', color: color, game_id: id )
-    enemies = game.enemies(color)
-
-    enemies.each do |enemy|
-      if enemy.legal_move?(x_position, y_position)
-        return true
-      end
-    end
-    false
-  end
-
 end
 
