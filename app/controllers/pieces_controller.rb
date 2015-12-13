@@ -9,7 +9,7 @@ class PiecesController < ApplicationController
     @board.refresh(@game_id)
 
     if piece.attempt_move(new_x.to_i, new_y.to_i, @board, piece.color, @game_id)
-      piece.update_attributes(x_position: new_x, y_position: new_y)
+      piece.update_attributes(x_position: new_x, y_position: new_y, moved: true)
 
       render json: {
 	update_url: game_path(@game_id)
