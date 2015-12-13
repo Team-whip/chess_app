@@ -46,10 +46,7 @@ class Piece < ActiveRecord::Base
       end
     end
   end
-  
-    def is_a_move_on_the_board?
-      # Check to make sure it is on the board?
-    end
+
   def is_piece_on_board?
     if self.x_position == nil || self.y_position == nil
       self.alive = false
@@ -60,19 +57,8 @@ class Piece < ActiveRecord::Base
     end
   end
 
-  def is_a_move_on_the_board?
-    # Check to make sure it is on the board?
-  end
-
-
-  def is_piece_on_board?
-    if self.x_position == nil || self.y_position == nil
-      self.alive = false
-      false
-    else
-      self.alive = true
-      true
-    end
+  def is_move_on_board?(x, y, board)
+    board.board[y][x] != nil ? true : false
   end
 
   def location_obstructed?(x, y, board)
@@ -147,7 +133,7 @@ class Piece < ActiveRecord::Base
       end
     end
 
-   def capture(x, y, board)
+  def capture(x, y, board)
     game_id = board.board[y][x].game_id
     game = Game.find(game_id)
     game.captured_pieces(x, y, board)
@@ -164,6 +150,18 @@ class Piece < ActiveRecord::Base
           false
         end
     end
+  end
+
+  def can_be_captured?(color)
+    king = self.find_by(type: 'King', color: color, game_id: id )
+    enemies = game.enemies(color)
+
+    enemies.each do |enemy|
+      if enemy.legal_move?(x_position, y_position)
+        return true
+      end
+    end
+    false
   end
 
 end

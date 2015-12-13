@@ -6,8 +6,7 @@ class Game < ActiveRecord::Base
 
   def in_check?(color)
     king = Piece.find_by(type: 'King', color: color, game_id: id )
-    color == true ? enemy_color = false : enemy_color = true
-    enemies = Piece.where(color: enemy_color , game_id: id)
+    enemies = enemies(color)
     in_check = false
 
     enemies.each do |enemy|
@@ -21,8 +20,7 @@ class Game < ActiveRecord::Base
 
   def moving_in_to_check?(x, y, color)
     king = Piece.find_by(type: 'King', color: color, game_id: id )
-    color == true ? enemy_color = false : enemy_color = true
-    enemies = Piece.where(color: enemy_color , game_id: id)
+    enemies = enemies(color)
     in_check = false
 
     enemies.each do |enemy|
@@ -32,6 +30,50 @@ class Game < ActiveRecord::Base
       end
     end
     in_check
+  end
+
+  def can_move_out_of_check?(color, game_id)
+    king = Piece.find_by(type: 'King', color: color, game_id: id )
+    puts 1
+    starting_x = king.x_position
+    starting_y = king.y_position
+    success = false
+    puts 2
+
+  ((king.x_position - 1)..(king.x_position + 1)).each do |x|
+    ((king.y_position - 1 )..(king.y_position + 1)).each do |y|
+      puts 3
+        if king.legal_move?(x, y)
+          puts 4
+          king.update_attributes(x_position: x, y_position: y)
+          puts 5
+          success = true unless in_check?(color)
+          king.update_attributes(x_position: starting_x, y_position: starting_y)
+          puts 6
+        end
+      end
+    end
+    success
+    puts 7
+  end
+
+  def checkmate?(color)
+    king = Piece.find_by(type: 'King', color: color, game_id: id )
+
+    return false unless in_check?(color)
+
+    return false if king.can_move_out_of_check?
+
+    # See if another piece can capture checking piece
+
+    # See if another piece can block check
+
+  end
+
+  def enemies(color)
+    king = Piece.find_by(type: 'King', color: color, game_id: id )
+    color == true ? enemy_color = false : enemy_color = true
+    enemies = Piece.where(color: enemy_color , game_id: id)
   end
 
   def captured_pieces(x, y, board)
@@ -156,8 +198,6 @@ class Game < ActiveRecord::Base
       end
     else
       return false
-  end  
-
+   end  
   end
-
 end

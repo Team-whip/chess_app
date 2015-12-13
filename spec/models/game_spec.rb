@@ -267,4 +267,30 @@ RSpec.describe Game, :type => :model do
       end
     end
   end
+
+  describe "#can_move_out_of_check" do
+    before :each do
+      @game = Game.create
+      @board = Board.new
+      @black_king = King.create(x_position: 6, y_position: 3, color: false, game_id: @game.id)
+      @white_rook = Rook.create(x_position: 6, y_position: 7, color: true, game_id: @game.id)
+      @board.board[7][3] = @black_king
+      @board.board[7][7] = @white_rook
+      @board.refresh(@game.id)
+    end
+
+  context "king is not surrounded" do
+      it "can move out of check" do
+  expect(@game.can_move_out_of_check?(@black_king.color, @game.id)).to be true
+      end
+    end
+
+  context "king is surrounded" do
+      it "cannot move out of check" do
+  @white_queen = Queen.create(x_position: 4, y_position: 3, color: false, game_id: @game.id)
+  @board.refresh(@game.id)
+  expect(@game.can_move_out_of_check?(@black_king.color, @game.id)).to be false     
+      end
+    end
+  end
 end
