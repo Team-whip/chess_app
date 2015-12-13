@@ -4,12 +4,8 @@ class CreateGames < ActiveRecord::Migration
 
     	t.string :name
     	t.string :player_color
-    	t.integer :player_turn
 
       t.timestamps null: false
     end
-
-    # add index when the player class exists
-
   end
 end
