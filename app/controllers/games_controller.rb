@@ -19,7 +19,6 @@ class GamesController < ApplicationController
 
   def create
     @game = current_player.games.create(game_params)
-    @board = Board.new.populate(@game.id)
     current_player.join_games.create(game: @game)
     @game.update_attributes(player_one_id: current_player.id)
     redirect_to game_path(@game)

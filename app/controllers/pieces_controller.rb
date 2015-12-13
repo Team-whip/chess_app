@@ -8,18 +8,26 @@ class PiecesController < ApplicationController
     @board = Board.new
     @board.refresh(@game_id)
 
-    if piece.attempt_move(new_x.to_i, new_y.to_i, @board, piece.color, @game_id)
-      piece.update_attributes(x_position: new_x, y_position: new_y, moved: true)
+    if piece.player_id == current_player.id
+      if piece.attempt_move(new_x.to_i, new_y.to_i, @board, piece.color, @game_id)
+	piece.update_attributes(x_position: new_x, y_position: new_y, moved: true)
+
+	render json: {
+	  update_url: game_path(@game_id)
+	}
+      else
+	flash[:warning] = "Invalid Move"
+
+	render json: {
+	  update_url: game_path(@game_id)
+	}
+      end
+    else
+      flash[:warning] = "You can only move your own pieces"
 
       render json: {
 	update_url: game_path(@game_id)
       }
-    else
-     flash[:warning] = "Invalid Move"
-
-     render json: {
-       update_url: game_path(@game_id)
-     }
     end
 
   end
