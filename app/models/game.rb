@@ -188,10 +188,10 @@ class Game < ActiveRecord::Base
         white_king_rook.update_attributes(x_position: 5, moved: true)
       elsif x < king.x_position && king.color == false
         black_queen_rook = Piece.find_by(x_position: 0, y_position: 0, type: 'Rook', color: color, game_id: game_id)
-        black_queen_rook.update_attributes(x_position: 2, moved: true)
+        black_queen_rook.update_attributes(x_position: 3, moved: true)
       elsif x < king.x_position && king.color == true
         white_queen_rook = Piece.find_by(x_position: 0, y_position: 7, type: 'Rook', color: color, game_id: game_id)
-        white_queen_rook.update_attributes(x_position: 2, moved: true)
+        white_queen_rook.update_attributes(x_position: 3, moved: true)
       end
     else
       return false

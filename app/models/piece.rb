@@ -5,14 +5,22 @@ class Piece < ActiveRecord::Base
   def attempt_move(x, y, board, color, game_id)
     game = Game.find_by(id: game_id)
 
-    if game.moving_in_to_check?(x, y, color)
-      return false
-    elsif king_legal_move?(x, y, color, game_id)
-      self.is_move_obstructed?(x, y, board) ? false : true
-    elsif self.legal_move?(x, y)
-      self.is_move_obstructed?(x, y, board) ? false : true
+    if self.class == King
+      if game.moving_in_to_check?(x, y, color)
+	return false
+      else
+	if game.castling_occured(x, y, color, game_id)
+	  self.is_move_obstructed?(x, y, board) ? false : true
+	elsif self.legal_move?(x, y)
+	  self.is_move_obstructed?(x, y, board) ? false : true
+	end
+      end
     else
-      false
+      if self.legal_move?(x, y)
+	self.is_move_obstructed?(x, y, board) ? false : true
+      else
+	return false
+      end
     end
   end
 

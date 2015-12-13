@@ -239,19 +239,11 @@ to {
 }
 }
 
-<<<<<<< HEAD
-.chess-board tr:nth-child(even) td:nth-child(odd) { 
-  background: gray;
-}
-
-.chess-board tr:nth-child(odd) td:nth-child(even) {
-=======
 .chess-board tr:nth-child(odd) td:nth-child(even) { 
   background: gray;
 }
 
 .chess-board tr:nth-child(even) td:nth-child(odd) {
->>>>>>> 0076821154b0bbdd27291c3db99d38e96847ec64
   background: gray;
 }
 
