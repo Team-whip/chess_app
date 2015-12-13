@@ -5,19 +5,19 @@ class Board
     @board = Array.new(8) { Array.new(8) }
   end
 
-  def populate(game_id)
-    self.create_black_rooks(game_id)
-    self.create_black_knights(game_id)
-    self.create_black_bishops(game_id)
-    self.create_black_queen(game_id)
-    self.create_black_king(game_id)
-    self.create_black_pawns(game_id)
-    self.create_white_rooks(game_id)
-    self.create_white_knights(game_id)
-    self.create_white_bishops(game_id)
-    self.create_white_queen(game_id)
-    self.create_white_king(game_id)
-    self.create_white_pawns(game_id)
+  def populate(game_id, player_one_id, player_two_id)
+    self.create_white_rooks(game_id, player_one_id)
+    self.create_white_knights(game_id, player_one_id)
+    self.create_white_bishops(game_id, player_one_id)
+    self.create_white_queen(game_id, player_one_id)
+    self.create_white_king(game_id, player_one_id)
+    self.create_white_pawns(game_id, player_one_id)
+    self.create_black_rooks(game_id, player_two_id)
+    self.create_black_knights(game_id, player_two_id)
+    self.create_black_bishops(game_id, player_two_id)
+    self.create_black_queen(game_id, player_two_id)
+    self.create_black_king(game_id, player_two_id)
+    self.create_black_pawns(game_id, player_two_id)
 
     self.refresh(game_id)
   end
@@ -95,71 +95,71 @@ class Board
     table_data.html_safe
   end
 
-  def create_black_rooks(game_id)
-    Rook.create(color: false, x_position: 7, y_position: 0, game_id: game_id)
-    Rook.create(color: false, x_position: 0, y_position: 0, game_id: game_id)
+  def create_black_rooks(game_id, player_two_id)
+    Rook.create(color: false, x_position: 7, y_position: 0, game_id: game_id, player_id: player_two_id)
+    Rook.create(color: false, x_position: 0, y_position: 0, game_id: game_id, player_id: player_two_id)
   end
 
-  def create_black_knights(game_id)
-    Knight.create(color: false, x_position: 1, y_position: 0, game_id: game_id)
-    Knight.create(color: false, x_position: 6, y_position: 0, game_id: game_id)
+  def create_black_knights(game_id, player_two_id)
+    Knight.create(color: false, x_position: 1, y_position: 0, game_id: game_id, player_id: player_two_id)
+    Knight.create(color: false, x_position: 6, y_position: 0, game_id: game_id, player_id: player_two_id)
   end
 
-  def create_black_bishops(game_id)
-    Bishop.create(color: false, x_position: 2, y_position: 0, game_id: game_id)
-    Bishop.create(color: false, x_position: 5, y_position: 0, game_id: game_id)
+  def create_black_bishops(game_id, player_two_id)
+    Bishop.create(color: false, x_position: 2, y_position: 0, game_id: game_id, player_id: player_two_id)
+    Bishop.create(color: false, x_position: 5, y_position: 0, game_id: game_id, player_id: player_two_id)
   end
 
-  def create_black_queen(game_id)
-    Queen.create(color: false, x_position: 3, y_position: 0, game_id: game_id)
+  def create_black_queen(game_id, player_two_id)
+    Queen.create(color: false, x_position: 3, y_position: 0, game_id: game_id, player_id: player_two_id)
   end
 
-  def create_black_king(game_id)
-    King.create(color: false, x_position: 4, y_position: 0, game_id: game_id)
+  def create_black_king(game_id, player_two_id)
+    King.create(color: false, x_position: 4, y_position: 0, game_id: game_id, player_id: player_two_id)
   end
 
-  def create_black_pawns(game_id)
-    Pawn.create(color: false, x_position: 0, y_position: 1, game_id: game_id)
-    Pawn.create(color: false, x_position: 1, y_position: 1, game_id: game_id)
-    Pawn.create(color: false, x_position: 2, y_position: 1, game_id: game_id)
-    Pawn.create(color: false, x_position: 3, y_position: 1, game_id: game_id)
-    Pawn.create(color: false, x_position: 4, y_position: 1, game_id: game_id)
-    Pawn.create(color: false, x_position: 5, y_position: 1, game_id: game_id)
-    Pawn.create(color: false, x_position: 6, y_position: 1, game_id: game_id)
-    Pawn.create(color: false, x_position: 7, y_position: 1, game_id: game_id)
+  def create_black_pawns(game_id, player_two_id)
+    Pawn.create(color: false, x_position: 0, y_position: 1, game_id: game_id, player_id: player_two_id)
+    Pawn.create(color: false, x_position: 1, y_position: 1, game_id: game_id, player_id: player_two_id)
+    Pawn.create(color: false, x_position: 2, y_position: 1, game_id: game_id, player_id: player_two_id)
+    Pawn.create(color: false, x_position: 3, y_position: 1, game_id: game_id, player_id: player_two_id)
+    Pawn.create(color: false, x_position: 4, y_position: 1, game_id: game_id, player_id: player_two_id)
+    Pawn.create(color: false, x_position: 5, y_position: 1, game_id: game_id, player_id: player_two_id)
+    Pawn.create(color: false, x_position: 6, y_position: 1, game_id: game_id, player_id: player_two_id)
+    Pawn.create(color: false, x_position: 7, y_position: 1, game_id: game_id, player_id: player_two_id)
   end
 
-  def create_white_rooks(game_id)
-    Rook.create(color: true, x_position: 7, y_position: 7, game_id: game_id)
-    Rook.create(color: true, x_position: 0, y_position: 7, game_id: game_id)
+  def create_white_rooks(game_id, player_one_id)
+    Rook.create(color: true, x_position: 7, y_position: 7, game_id: game_id, player_id: player_one_id)
+    Rook.create(color: true, x_position: 0, y_position: 7, game_id: game_id, player_id: player_one_id)
   end
 
-  def create_white_knights(game_id)
-    Knight.create(color: true, x_position: 1, y_position: 7, game_id: game_id)
-    Knight.create(color: true, x_position: 6, y_position: 7, game_id: game_id)
+  def create_white_knights(game_id, player_one_id)
+    Knight.create(color: true, x_position: 1, y_position: 7, game_id: game_id, player_id: player_one_id)
+    Knight.create(color: true, x_position: 6, y_position: 7, game_id: game_id, player_id: player_one_id)
   end
 
-  def create_white_bishops(game_id)
-    Bishop.create(color: true, x_position: 2, y_position: 7, game_id: game_id)
-    Bishop.create(color: true, x_position: 5, y_position: 7, game_id: game_id)
+  def create_white_bishops(game_id, player_one_id)
+    Bishop.create(color: true, x_position: 2, y_position: 7, game_id: game_id, player_id: player_one_id)
+    Bishop.create(color: true, x_position: 5, y_position: 7, game_id: game_id, player_id: player_one_id)
   end
 
-  def create_white_queen(game_id)
-    Queen.create(color: true, x_position: 3, y_position: 7, game_id: game_id)
+  def create_white_queen(game_id, player_one_id)
+    Queen.create(color: true, x_position: 3, y_position: 7, game_id: game_id, player_id: player_one_id)
   end
 
-  def create_white_king(game_id)
-    King.create(color: true, x_position: 4, y_position: 7, game_id: game_id)
+  def create_white_king(game_id, player_one_id)
+    King.create(color: true, x_position: 4, y_position: 7, game_id: game_id, player_id: player_one_id)
   end
 
-  def create_white_pawns(game_id)
-    Pawn.create(color: true, x_position: 0, y_position: 6, game_id: game_id)
-    Pawn.create(color: true, x_position: 1, y_position: 6, game_id: game_id)
-    Pawn.create(color: true, x_position: 2, y_position: 6, game_id: game_id)
-    Pawn.create(color: true, x_position: 3, y_position: 6, game_id: game_id)
-    Pawn.create(color: true, x_position: 4, y_position: 6, game_id: game_id)
-    Pawn.create(color: true, x_position: 5, y_position: 6, game_id: game_id)
-    Pawn.create(color: true, x_position: 6, y_position: 6, game_id: game_id)
-    Pawn.create(color: true, x_position: 7, y_position: 6, game_id: game_id)
+  def create_white_pawns(game_id, player_one_id)
+    Pawn.create(color: true, x_position: 0, y_position: 6, game_id: game_id, player_id: player_one_id)
+    Pawn.create(color: true, x_position: 1, y_position: 6, game_id: game_id, player_id: player_one_id)
+    Pawn.create(color: true, x_position: 2, y_position: 6, game_id: game_id, player_id: player_one_id)
+    Pawn.create(color: true, x_position: 3, y_position: 6, game_id: game_id, player_id: player_one_id)
+    Pawn.create(color: true, x_position: 4, y_position: 6, game_id: game_id, player_id: player_one_id)
+    Pawn.create(color: true, x_position: 5, y_position: 6, game_id: game_id, player_id: player_one_id)
+    Pawn.create(color: true, x_position: 6, y_position: 6, game_id: game_id, player_id: player_one_id)
+    Pawn.create(color: true, x_position: 7, y_position: 6, game_id: game_id, player_id: player_one_id)
   end
 end

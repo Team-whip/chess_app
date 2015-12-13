@@ -3,13 +3,39 @@
   <section class="my-games">
   <h1 class="text-center"><%= @game.name %></h1>
 
-  <% flash.each do |key, value| %>
-    <div class = 'col-xs-4'></div>
-    <div class="alert alert-info col-xs-4"><%= value %></div>
-    <div class = 'col-xs-4'></div>
-  <% end %>
+  <div class = 'col-xs-12'>
+    <% flash.each do |key, value| %>
+      <div class = 'col-xs-4'></div>
+      <div class="alert alert-info col-xs-4"><%= value %></div>
+      <div class = 'col-xs-4'></div>
+    <% end %>
+  </div>
+
+  <div>
+    <% unless @game.player_two_id == nil %>
+      <h3 class = 'text-center name'>Player Two: <%= @player_two.first_name %>
+	<% if @game.turn == @game.player_two_id %>
+	  <div class = 'attention'>
+	    <span class = 'mega-octicon octicon-chevron-left'></span><small> Player Two's turn!</small>
+	  </div>
+	<% end %>
+      </h3>
+    <% end %>
+  </div>
 
   <%= render "gameboard" %>
+
+  <div>
+    <% unless @game.player_two_id == nil %>
+      <h3 class = 'text-center name'>Player One: <%= @player_one.first_name %>  
+	<% if @game.turn == @game.player_one_id %>
+	  <div class = 'attention'>
+	    <span class = 'mega-octicon octicon-chevron-left'></span><small> Player One's turn!</small>
+	  </div>
+	<% end %>
+      </h3>
+    <% end %>
+  </div>
 
   </section>
   <script>
