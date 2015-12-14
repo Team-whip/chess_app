@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe Board, :type => :model do
   describe "#populate the board" do
     game = Game.create
-    board = Board.new.populate(game.id)
+    @player_one = Player.create
+    @player_two = Player.create
+    board = Board.new.populate(game.id, @player_one.id, @player_two.id)
 
     describe "create the black pieces" do
       context "the black rook" do
@@ -269,7 +271,9 @@ RSpec.describe Board, :type => :model do
   end
   describe "#refresh the board" do
     game = Game.new
-    board = Board.new.populate(game.id)
+    @player_one = Player.new
+    @player_two = Player.new
+    board = Board.new.populate(game.id, @player_one.id, @player_two.id)
     
     context "white player has moved the pawn at 3,6" do
       pawn = board[6][3]

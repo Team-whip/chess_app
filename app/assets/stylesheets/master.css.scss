@@ -6,13 +6,6 @@ body {
   background: url('background.png');
 }
 
-@media only screen and (min-width: 461px) {
-  #gameboard img, #deadPieces img, #deadPieces2 img {
-    height: 48px;
-    width: 48px;
-}
-}
-
 @media only screen and (max-width: 460px) {
   #gameboard {
     img {
@@ -211,10 +204,14 @@ to {
 
 #deadPieceContainer, #deadPieceContainer2 {
   position: absolute;
+  border: solid 2px tan;
+  box-shadow: 0 0 3px, rgba(0,0,0,.3);
+  -o-box-shadow: 0 0 3px, rgba(0,0,0,.3);
+  -moz-box-shadow: 0 0 3px, rgba(0,0,0,.3);
 }
 
 #deadPieceContainer2 {
-  top: 130px;
+  top: 127px;
   left: 0px;
   display: none;
 }
@@ -225,18 +222,19 @@ to {
   display: none;
 }
 
-#deadPieces, #deadPieces2 {
-  border: solid 2px tan;
-  box-shadow: 0 0 3px, rgba(0,0,0,.3);
-  -o-box-shadow: 0 0 3px, rgba(0,0,0,.3);
-  -moz-box-shadow: 0 0 3px, rgba(0,0,0,.3);
-}
-
-
 @media only screen and (max-width: 900px) {
-  #deadPieces, #deadPieces2 {
+  #deadPieceContainer, #deadPieceContainer2, #deadPieces, #deadPieces2 {
     display: none;
 }
+  #deadPieceContainer, #deadPieceContainer2 {
+    border: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .my-games h1, .my-games h2 {
+    margin-top: 10px !important;
+  }
 }
 
 .chess-board tr:nth-child(odd) td:nth-child(even) { 
@@ -291,7 +289,7 @@ to {
 }
 
 .my-games h1, .my-games h2 {
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .dashboard-heading {
@@ -321,4 +319,17 @@ to {
 
 .padding-top {
   margin-top: 50px;
+}
+
+.name {
+  padding: 5px;
+}
+
+.attention {
+  display: inline-block;
+  color: #0275d8;
+}
+
+.modal h1, .modal h2, .modal h3, .modal h4, .modal h5, .modal h6, .modal p, .modal a {
+  color: #222;
 }

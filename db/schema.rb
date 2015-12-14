@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20151206235007) do
+=======
+ActiveRecord::Schema.define(version: 20151213221113) do
+>>>>>>> 715007c2e1cd5be7b2841c479be717a696fcae86
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +27,6 @@ ActiveRecord::Schema.define(version: 20151206235007) do
 
   create_table "games", force: :cascade do |t|
     t.string   "name"
-    t.integer  "player_turn"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.integer  "player_id"
@@ -32,6 +35,7 @@ ActiveRecord::Schema.define(version: 20151206235007) do
     t.boolean  "player_one_color", default: true
     t.boolean  "player_two_color", default: false
     t.string   "dead_pieces",      default: [],                 array: true
+    t.integer  "turn"
   end
 
   add_index "games", ["player_id"], name: "index_games_on_player_id", using: :btree
@@ -71,6 +75,7 @@ ActiveRecord::Schema.define(version: 20151206235007) do
     t.datetime "updated_at", null: false
     t.integer  "player_id"
     t.boolean  "moved"
+    t.integer  "last_move"
   end
 
   add_index "pieces", ["game_id"], name: "index_pieces_on_game_id", using: :btree
