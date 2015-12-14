@@ -2,12 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.codepage{
-  width: 200px;
-  margin:4px;
-}
-
 .social-icon{
   width: 32px;
   margin:4px;
+}
+
+.about-img {
+  width: 100px;
+  margin:4px;
+  border-radius: 50%;
+  filter: grayscale(80%);
+  padding: 10px;
 }
