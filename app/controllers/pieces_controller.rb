@@ -19,9 +19,16 @@ class PiecesController < ApplicationController
 	  game.update_attributes(turn: game.player_one_id)
 	end
 
-	render json: {
-	  update_url: game_path(@game_id)
-	}
+
+	if (piece.type == 'Pawn' && piece.y_position == 7) || (piece.type == 'Pawn' && piece.y_position == 0)
+	  render json: {
+	    update_url: game_path(@game_id) + '#pawnPromotion'
+	  }
+	else
+	  render json: {
+	    update_url: game_path(@game_id)
+	  }
+	end
       else
 	flash[:warning] = "Invalid Move"
 
