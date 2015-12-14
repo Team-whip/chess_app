@@ -135,6 +135,16 @@ class Game < ActiveRecord::Base
           end
           y_diff -= 1 
         end
+      elsif enemy_x_lesser && enemy_y_greater
+        while x_diff > 0
+          while y_diff > 0
+            if ally.legal_move?(@enemy_making_check.x_position + x_diff, @enemy_making_check.y_position - y_diff)
+              block = true
+            end
+            y_diff -= 1
+          end
+          x_diff -=1
+        end
 
       end
     end
