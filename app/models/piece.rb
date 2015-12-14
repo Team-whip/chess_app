@@ -6,7 +6,7 @@ class Piece < ActiveRecord::Base
     game = Game.find_by(id: game_id)
 
     if self.class == King
-      if game.moving_in_to_check?(x, y, color)
+      if game.moving_into_check?(x, y, color)
 	return false
       else
 	if game.castling_occured(x, y, color, game_id)

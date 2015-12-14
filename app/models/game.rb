@@ -18,7 +18,7 @@ class Game < ActiveRecord::Base
     in_check
   end
 
-  def moving_in_to_check?(x, y, color)
+  def moving_into_check?(x, y, color)
     king = Piece.find_by(type: 'King', color: color, game_id: id )
     enemies = enemies(color)
     in_check = false
@@ -54,7 +54,7 @@ class Game < ActiveRecord::Base
       puts 3
         if is_move_on_board?(x, y, game_id)
           puts 4
-          if moving_in_to_check?(x, y, color) == false
+          if moving_into_check?(x, y, color) == false
             move_out_check = true
             return move_out_check
             puts 5
