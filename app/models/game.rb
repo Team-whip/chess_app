@@ -49,19 +49,19 @@ class Game < ActiveRecord::Base
     puts 1
     move_out_check = false
     puts 2
-  ((king.x_position - 1)..(king.x_position + 1)).each do |x|
-    ((king.y_position - 1 )..(king.y_position + 1)).each do |y|
-      puts 3
-        if is_move_on_board?(x, y, game_id)
+  ##((king.x_position - 1)..(king.x_position + 1)).each do |x|
+    ##((king.y_position - 1 )..(king.y_position + 1)).each do |y|
+      ##puts 3
+        #if is_move_on_board?(x, y, game_id)
           puts 4
           if moving_into_check?(x, y, color) == false
             move_out_check = true
             return move_out_check
             puts 5
           end
-        end
-      end
-    end
+        #end
+      ##end
+    ##end
     move_out_check
     puts 6
   end
