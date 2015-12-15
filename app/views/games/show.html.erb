@@ -5,13 +5,13 @@
 
   <div class = 'col-xs-12'>
     <% flash.each do |key, value| %>
-      <div class = 'col-xs-4'></div>
-      <div class="alert alert-info col-xs-4"><%= value %></div>
-      <div class = 'col-xs-4'></div>
+      <div class = 'col-md-4 hidden-sm-down'></div>
+      <div class="alert alert-info col-xs-12 col-md-4"><%= value %></div>
+      <div class = 'col-md-4 hidden-sm-down'></div>
     <% end %>
   </div>
 
-  <div>
+  <div class = 'col-xs-12'>
     <% unless @game.player_two_id == nil %>
       <h3 class = 'text-center name'>Player Two: <%= @player_two.first_name %>
 	<% if @game.turn == @game.player_two_id %>
@@ -25,7 +25,7 @@
 
   <%= render "gameboard" %>
 
-  <div>
+  <div class = 'col-xs-12'>
     <% unless @game.player_two_id == nil %>
       <h3 class = 'text-center name'>Player One: <%= @player_one.first_name %>  
 	<% if @game.turn == @game.player_one_id %>
@@ -38,70 +38,104 @@
   </div>
 
   </section>
+  <!-- Modal -->
+  <div class="modal fade" id="pawnPromotion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+	<div class="modal-header">
+	  <h4 class="modal-title" id="myModalLabel">Pawn Promotion!</h4>
+	</div>
+	<div class="modal-body">
+	  <h5>
+	  Select the piece you would like to replace your pawn.
+	</h5>
+	<% @color = nil %>
+	<% if current_player.id == @game.player_two_id %>
+	  <% @color = 'black' %>
+	<% else %>
+	  <% @color = 'white' %>
+	<% end %>
+	<%= link_to image_tag("#{@color}_queen.png"), game_path(@game, type: 'Queen'), data: {confirm: 'Are you sure you want the Queen?'}, method: :put %>
+	<%= link_to image_tag("#{@color}_knight.png"), game_path(@game, type: 'Knight'), data: {confirm: 'Are you sure you want the Knight?'}, method: :put %>
+	<%= link_to image_tag("#{@color}_bishop.png"), game_path(@game, type: 'Bishop'), data: {confirm: 'Are you sure you want the Knight?'}, method: :put %>
+	<%= link_to image_tag("#{@color}_rook.png"), game_path(@game, type: 'Rook'), data: {confirm: 'Are you sure you want the Knight?'}, method: :put %>
+	</div>
+      </div>
+    </div>
+  </div>
   <script>
     $(document).ready(function() {
-      var board = $('#gameboard');
-      var deadPieces = $('#deadPieceContainer');
-      var deadPieces2 = $('#deadPieceContainer2');
+    var board = $('#gameboard');
+    var deadPieces = $('#deadPieceContainer');
+    var deadPieces2 = $('#deadPieceContainer2');
 
-      var calculateLeft = function(board, deadPieces) {
-	var screen = $(document).width() / 2;
-	var boardWidth = board.width() / 2;
-	var deadWidth = deadPieces.width();
-	return screen - boardWidth - deadWidth - 1;
-      }
+    var calculateLeft = function(board, deadPieces) {
+      var screen = $(document).width() / 2;
+      var boardWidth = board.width() / 2;
+      var deadWidth = deadPieces.width();
+      return screen - boardWidth - deadWidth - 5;
+    }
 
-      var calculateRight = function (board) {
-	var screen = $(document).width() / 2;
-	var boardWidth = board.width() / 2;
-	return screen + boardWidth + 1;
-      }
-      deadPieces.css({'left':calculateLeft(board, deadPieces),'display':'initial'});
-      deadPieces2.css({'left':calculateRight(board),'display':'initial'});
+    var calculateRight = function (board) {
+      var screen = $(document).width() / 2;
+      var boardWidth = board.width() / 2;
+      return screen + boardWidth + 1;
+    }
+    deadPieces.css({'left':calculateLeft(board, deadPieces),'display':'initial'});
+    deadPieces2.css({'left':calculateRight(board),'display':'initial'});
 
-      $(window).on('resize', function() {
-	deadPieces.css('left', calculateLeft(board, deadPieces));
-	deadPieces2.css('left', calculateRight(board));
-      });
-
-
-      $('#gameboard td').click(function() {
-	$this = $(this);
-	var pieceIsSelected = $('#gameboard td').hasClass('selected');
-	if (pieceIsSelected){
-	  var $piece = selectedPiece();
-	  if ($piece.data('piece-id') == $this.data('piece-id')) {
-	    deselectPiece( $this );
-	    } else {
-	    sendMove( $this );
-	  }
-	  } else {
-	  selectPiece($this);
-	}
-	function selectedPiece() {
-	  return $('#gameboard td.selected');
-	}
-	function selectPiece($piece) {
-	  $piece.addClass('selected');
-	}
-	function deselectPiece($piece) {
-	  $piece.removeClass('selected');
-	}
-	function sendMove($new_space) {
-	  $this = $new_space
-	  var $x = $this.data('x');
-	  var $y = $this.data('y');
-	  var $pieceId = $piece.data('piece-id');
-	  jQuery.ajax({
-	    url: "<%= pieces_path %>",
-	    type: "PATCH",
-	    data: {new_x: $x, new_y: $y, pieceId: $pieceId},
-	    success: function(data) {
-	      $(location).attr('href', data.update_url);
-	    }
-	  });
-	}
-      });
+    $(window).on('resize', function() {
+      deadPieces.css('left', calculateLeft(board, deadPieces));
+      deadPieces2.css('left', calculateRight(board));
     });
-  </script>
+
+    if(window.location.hash == "#pawnPromotion") {
+      $('#pawnPromotion').modal({
+	keyboard: false,
+	backdrop: 'static'
+      });
+    }
+
+    $('#gameboard td').click(function() {
+      $this = $(this);
+      var pieceIsSelected = $('#gameboard td').hasClass('selected');
+      if (pieceIsSelected){
+	var $piece = selectedPiece();
+	if ($piece.data('piece-id') == $this.data('piece-id')) {
+	  deselectPiece( $this );
+	  } else {
+	  sendMove( $this );
+	}
+	} else {
+	selectPiece($this);
+      }
+      function selectedPiece() {
+	return $('#gameboard td.selected');
+      }
+      function selectPiece($piece) {
+	$piece.addClass('selected');
+      }
+      function deselectPiece($piece) {
+	$piece.removeClass('selected');
+      }
+      function sendMove($new_space) {
+	$this = $new_space
+	var $x = $this.data('x');
+	var $y = $this.data('y');
+	var $pieceId = $piece.data('piece-id');
+	jQuery.ajax({
+	  url: "<%= pieces_path %>",
+	  type: "PATCH",
+	  data: {new_x: $x, new_y: $y, pieceId: $pieceId},
+	  success: function(data) {
+	    $(location).attr('href', data.update_url);
+	    $(document).ajaxStop(function() { 
+	      location.reload(true); 
+	    });
+	  }
+	});
+      }
+    });
+  });
+</script>
 </div>

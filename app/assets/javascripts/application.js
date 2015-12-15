@@ -11,8 +11,8 @@
 // about supported directives.
 //
 //= require jquery
-//= require bootstrap-sprockets
+//= require tether
+//= require bootstrap
 //= require jquery_ujs
-//= require dataTables/jquery.dataTables
 //= require turbolinks
 //= require_tree .
