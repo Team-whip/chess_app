@@ -9,9 +9,7 @@ http://teamwhipchess.herokuapp.com/
 
 === To use the seeds file
 
-```ruby
   rake db:seeds
-```
 
 Two players will be created. Test & Test Two
 <br/>
