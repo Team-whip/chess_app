@@ -49,6 +49,10 @@ class Game < ActiveRecord::Base
     puts 1
     move_out_check = false
     puts 2
+
+    x = king.x_position - 1
+    y = king.y_position
+
   ##((king.x_position - 1)..(king.x_position + 1)).each do |x|
     ##((king.y_position - 1 )..(king.y_position + 1)).each do |y|
       ##puts 3
