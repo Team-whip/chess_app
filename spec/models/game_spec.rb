@@ -332,6 +332,20 @@ RSpec.describe Game, :type => :model do
     end
   end
 
+  describe "#obstructed_square?" do
+    before :each do
+      @game = Game.create
+      @board = Board.new
+      @black_king = King.create(x_position: 7, y_position: 3, color: false, game_id: @game.id)
+      @board.board[3][7] = @black_king
+      @board.refresh(@game.id)
+    end
+
+      it "is an obstructed square" do
+  expect(@game.obstructed_square?(@black_king.x_position - 1, @black_king.y_position, @black_king.color, @board)).to be true
+      end
+    end
+
   describe "#enemy_can_be_blocked?" do
     before :each do
       @game = Game.create
@@ -344,7 +358,7 @@ RSpec.describe Game, :type => :model do
     end
 
     context "no pieces are available to block" do
-      it "cannot be block" do
+      it "cannot be blocked" do
   pending
   expect(@game.can_be_blocked?(@black_king.color, @board)).to be false
       end

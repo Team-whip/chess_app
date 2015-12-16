@@ -83,68 +83,24 @@ class Game < ActiveRecord::Base
     capture
   end
 
-  # def can_be_blocked?(color, board)
+  def obstructed_square?(x, y, color, board)
+    piece = Piece.find_by(type: 'King', color: color, game_id: id )
+    piece.location_obstructed?(x, y, board)
+  end
+
+  # def can_be_blocked?(color)
   #   king = Piece.find_by(type: 'King', color: color, game_id: id )
   #   enemies = enemies(color)
-  #   allies = enemies(!color)
   #   block = false
 
+  #   obstruction = obstructed_squares(x, y, color, board)
+
   #   enemies.each do |enemy|
-  #     if enemy.legal_move?(king.x_position, king.y_position)
-  #       @enemy_making_check = enemy
+  #     obstruction.each do |square|
+  #       return true if enemy.legal_move?(square[0], square[1])
   #     end
   #   end
 
-  #   x_diff = (@enemy_making_check.x_position - king.x_position).abs
-  #   y_diff = (@enemy_making_check.y_position - king.y_position).abs
-
-  #   if @enemy_making_check.x_position - king.x_position > 0
-  #     enemy_x_greater = true
-  #   elsif @enemy_making_check.x_position - king.x_position < 0
-  #     enemy_x_lesser = true
-  #   elsif @enemy_making_check.x_position - king.x_position = 0
-  #     enemy_x_same = true
-  #   end
-
-  #   if @enemy_making_check.y_position - king.y_position > 0
-  #     enemy_y_greater = true
-  #   elsif @enemy_making_check.y_position - king.y_position < 0
-  #     enemy_y_lesser = true
-  #   elsif @enemy_making_check.y_position - king.y_position = 0
-  #     enemy_y_same = true
-  #   end
-
-  #   allies.each do |ally|
-  #     if enemy_x_greater && enemy_y_greater
-  #       while x_diff > 0
-  #         while y_diff > 0
-  #           if ally.legal_move?(@enemy_making_check.x_position - x_diff, @enemy_making_check.y_position - y_diff)
-  #             block = true
-  #           end
-  #         y_diff -= 1
-  #         end
-  #       x_diff -= 1
-  #       end   
-  #     elsif enemy_x_same && enemy_y_greater
-  #       while y_diff > 0
-  #         if ally.legal_move?(@enemy_making_check.x_position, @enemy_making_check.y_position - y_diff)
-  #           block = true
-  #         end
-  #         y_diff -= 1 
-  #       end
-  #     elsif enemy_x_lesser && enemy_y_greater
-  #       while x_diff > 0
-  #         while y_diff > 0
-  #           if ally.legal_move?(@enemy_making_check.x_position + x_diff, @enemy_making_check.y_position - y_diff)
-  #             block = true
-  #           end
-  #           y_diff -= 1
-  #         end
-  #         x_diff -=1
-  #       end
-
-  #     end
-  #   end
   #   block
   # end
 
