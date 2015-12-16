@@ -342,7 +342,7 @@ RSpec.describe Game, :type => :model do
     end
 
       it "is an obstructed square" do
-  expect(@game.obstructed_square?(@black_king.x_position - 1, @black_king.y_position, @black_king.color, @board)).to be true
+  expect(@game.obstructed_square?(@black_king.x_position - 1, @black_king.y_position, @black_king.color, @board)).to be false
       end
     end
 
