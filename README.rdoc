@@ -8,10 +8,14 @@ http://teamwhipchess.herokuapp.com/
 ---
 
 === To use the seeds file
+
+```ruby
+  rake db:seeds
 ```
-rake db:seeds
-```
+
 Two players will be created. Test & Test Two
+<br/>
+
 Login for Test is:
   test@test.com
   password
