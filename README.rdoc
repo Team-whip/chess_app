@@ -12,7 +12,6 @@ http://teamwhipchess.herokuapp.com/
   rake db:seeds
 
 Two players will be created. Test & Test Two
-<br/>
 
 Login for Test is:
   test@test.com
