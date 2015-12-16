@@ -32,7 +32,7 @@ class Game < ActiveRecord::Base
     in_check
   end
 
-  def is_move_on_board?(x, y, game_id)
+  def is_move_on_board?(x, y)
     king = Piece.find_by(type: 'King', x_position: x, y_position: y, game_id: id )
     on_board = false
 
@@ -44,30 +44,23 @@ class Game < ActiveRecord::Base
 
   end
 
-  def can_move_out_of_check?(color, game_id)
-    king = Piece.find_by(type: 'King', color: color, game_id: game_id )
-    puts 1
-    move_out_check = false
-    puts 2
+  def can_move_out_of_check?(color)
+    king = Piece.find_by(type: 'King', color: color, game_id: id )
 
-    x = king.x_position - 1
-    y = king.y_position
-
-  ##((king.x_position - 1)..(king.x_position + 1)).each do |x|
-    ##((king.y_position - 1 )..(king.y_position + 1)).each do |y|
-      ##puts 3
-        #if is_move_on_board?(x, y, game_id)
-          puts 4
-          if moving_into_check?(x, y, color) == false
-            move_out_check = true
-            return move_out_check
-            puts 5
+  ((king.x_position - 1)..(king.x_position + 1)).each do |x|
+    ((king.y_position - 1 )..(king.y_position + 1)).each do |y|
+        if is_move_on_board?(x, y)
+          unless moving_into_check?(x, y, color)
+            return true
+          else
+            false
           end
-        #end
-      ##end
-    ##end
-    move_out_check
-    puts 6
+        else 
+          false
+        end
+      end
+    end
+    false
   end
 
   def can_be_captured?(color)
@@ -90,70 +83,70 @@ class Game < ActiveRecord::Base
     capture
   end
 
-  def can_be_blocked?(color, board)
-    king = Piece.find_by(type: 'King', color: color, game_id: id )
-    enemies = enemies(color)
-    allies = enemies(!color)
-    block = false
+  # def can_be_blocked?(color, board)
+  #   king = Piece.find_by(type: 'King', color: color, game_id: id )
+  #   enemies = enemies(color)
+  #   allies = enemies(!color)
+  #   block = false
 
-    enemies.each do |enemy|
-      if enemy.legal_move?(king.x_position, king.y_position)
-        @enemy_making_check = enemy
-      end
-    end
+  #   enemies.each do |enemy|
+  #     if enemy.legal_move?(king.x_position, king.y_position)
+  #       @enemy_making_check = enemy
+  #     end
+  #   end
 
-    x_diff = (@enemy_making_check.x_position - king.x_position).abs
-    y_diff = (@enemy_making_check.y_position - king.y_position).abs
+  #   x_diff = (@enemy_making_check.x_position - king.x_position).abs
+  #   y_diff = (@enemy_making_check.y_position - king.y_position).abs
 
-    if @enemy_making_check.x_position - king.x_position > 0
-      enemy_x_greater = true
-    elsif @enemy_making_check.x_position - king.x_position < 0
-      enemy_x_lesser = true
-    elsif @enemy_making_check.x_position - king.x_position = 0
-      enemy_x_same = true
-    end
+  #   if @enemy_making_check.x_position - king.x_position > 0
+  #     enemy_x_greater = true
+  #   elsif @enemy_making_check.x_position - king.x_position < 0
+  #     enemy_x_lesser = true
+  #   elsif @enemy_making_check.x_position - king.x_position = 0
+  #     enemy_x_same = true
+  #   end
 
-    if @enemy_making_check.y_position - king.y_position > 0
-      enemy_y_greater = true
-    elsif @enemy_making_check.y_position - king.y_position < 0
-      enemy_y_lesser = true
-    elsif @enemy_making_check.y_position - king.y_position = 0
-      enemy_y_same = true
-    end
+  #   if @enemy_making_check.y_position - king.y_position > 0
+  #     enemy_y_greater = true
+  #   elsif @enemy_making_check.y_position - king.y_position < 0
+  #     enemy_y_lesser = true
+  #   elsif @enemy_making_check.y_position - king.y_position = 0
+  #     enemy_y_same = true
+  #   end
 
-    allies.each do |ally|
-      if enemy_x_greater && enemy_y_greater
-        while x_diff > 0
-          while y_diff > 0
-            if ally.legal_move?(@enemy_making_check.x_position - x_diff, @enemy_making_check.y_position - y_diff)
-              block = true
-            end
-          y_diff -= 1
-          end
-        x_diff -= 1
-        end   
-      elsif enemy_x_same && enemy_y_greater
-        while y_diff > 0
-          if ally.legal_move?(@enemy_making_check.x_position, @enemy_making_check.y_position - y_diff)
-            block = true
-          end
-          y_diff -= 1 
-        end
-      elsif enemy_x_lesser && enemy_y_greater
-        while x_diff > 0
-          while y_diff > 0
-            if ally.legal_move?(@enemy_making_check.x_position + x_diff, @enemy_making_check.y_position - y_diff)
-              block = true
-            end
-            y_diff -= 1
-          end
-          x_diff -=1
-        end
+  #   allies.each do |ally|
+  #     if enemy_x_greater && enemy_y_greater
+  #       while x_diff > 0
+  #         while y_diff > 0
+  #           if ally.legal_move?(@enemy_making_check.x_position - x_diff, @enemy_making_check.y_position - y_diff)
+  #             block = true
+  #           end
+  #         y_diff -= 1
+  #         end
+  #       x_diff -= 1
+  #       end   
+  #     elsif enemy_x_same && enemy_y_greater
+  #       while y_diff > 0
+  #         if ally.legal_move?(@enemy_making_check.x_position, @enemy_making_check.y_position - y_diff)
+  #           block = true
+  #         end
+  #         y_diff -= 1 
+  #       end
+  #     elsif enemy_x_lesser && enemy_y_greater
+  #       while x_diff > 0
+  #         while y_diff > 0
+  #           if ally.legal_move?(@enemy_making_check.x_position + x_diff, @enemy_making_check.y_position - y_diff)
+  #             block = true
+  #           end
+  #           y_diff -= 1
+  #         end
+  #         x_diff -=1
+  #       end
 
-      end
-    end
-    block
-  end
+  #     end
+  #   end
+  #   block
+  # end
 
   def checkmate?(color)
     king = Piece.find_by(type: 'King', color: color, game_id: id )
