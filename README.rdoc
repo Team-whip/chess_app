@@ -7,6 +7,24 @@
 http://teamwhipchess.herokuapp.com/
 ---
 
+=== To use the seeds file
+
+  rake db:seeds
+
+Two players will be created. Test & Test Two
+
+Login for Test is:
+  test@test.com
+  password
+
+Login for Test Two is:
+  test2@test.com
+  password
+  
+All of the games except for Turn Management will be playable solo by the first Test player.
+
+Turn management will need both players.
+
 === Development
 
 The goal of this application is for five new developers to learn how to work together in an Agile environment.
