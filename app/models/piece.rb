@@ -4,24 +4,60 @@ class Piece < ActiveRecord::Base
 
   def attempt_move(x, y, board, color, game_id)
     game = Game.find_by(id: game_id)
+    old_x = self.x_position
+    old_y = self.y_position
+
+    if in_check(color, game_id)
+      if self.class != King && self.legal_move?(x, y)
+	if @enemy_making_check.is_move_obstructed?(@king.x_position, @king.y_position, board)
+	  puts 1
+	  return true
+	else
+	  self.update_attributes(x_position: old_x, y_position: old_y)
+	  puts 2
+	  return false
+	end
+      end
+    end
 
     if self.class == King
       if game.moving_into_check?(x, y, color)
+	puts 3
 	return false
       else
 	if game.castling_occured(x, y, color, game_id)
+	  puts 4
 	  self.is_move_obstructed?(x, y, board) ? false : true
 	elsif self.legal_move?(x, y)
+	  puts 5
 	  self.is_move_obstructed?(x, y, board) ? false : true
 	end
       end
     else
       if self.legal_move?(x, y)
+	puts 6
 	self.is_move_obstructed?(x, y, board) ? false : true
       else
+	puts 7
 	return false
       end
     end
+  end
+
+  def in_check(color, game_id)
+    @king = Piece.find_by(type: 'King', color: color, game_id: game_id)
+    check = false
+    enemy_color = false
+    color == true ? enemy_color = false : enemy_color = true
+    enemies = Piece.where(game_id: game_id, color: enemy_color)
+
+    enemies.each do |enemy|
+      if enemy.legal_move?(@king.x_position, @king.y_position)
+	@enemy_making_check = enemy
+	check = true
+      end
+    end
+    check
   end
 
   def is_move_obstructed?(x, y, board)
@@ -39,21 +75,56 @@ class Piece < ActiveRecord::Base
 	false
       end
     else
-      if self.location_obstructed?(x, y, board)
-	if board.board[y][x].color != self.color
-	  capture(x, y, board)
+      if x != original_x && y != original_y
+	puts 'diagonal'
+	if self.diagonal_path_obstructed?(x, y, board)
+	  return true
+	elsif check_location(x, y, board)
+	  return true
 	else
-	  true
+	  return false
 	end
-      elsif x != original_x && y != original_y
-	self.diagonal_path_obstructed?(x, y, board)
       elsif x != original_x && y == original_y
-	self.horizontal_path_obstructed?(x, y, board)
+	puts 'horizontal'
+	if self.horizontal_path_obstructed?(x, y, board)
+	  return true
+	elsif check_location(x, y, board)
+	  return true
+	else
+	  return false
+	end
       elsif y != original_y && x == original_x
-	self.vertical_path_obstructed?(x, y, board)
+	puts 'vertical'
+	puts self.vertical_path_obstructed?(x, y, board).inspect
+	if self.vertical_path_obstructed?(x, y, board)
+	  puts 'path obstructed'
+	  return true
+	elsif check_location(x, y, board)
+	  puts 'skipped path'
+	  return true
+	else
+	  puts 'not obstructed'
+	  return false
+	end
       end
     end
   end
+
+  def check_location(x, y, board)
+    check = false
+    if self.location_obstructed?(x, y, board)
+      if board.board[y][x].color != self.color
+	capture(x, y, board)
+	puts 'captured'
+	check = false
+      else
+	puts 'not captured'
+	check = true
+      end
+    end
+    check
+  end
+
 
   def is_piece_on_board?
     if self.x_position == nil || self.y_position == nil

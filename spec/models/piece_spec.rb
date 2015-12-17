@@ -294,4 +294,38 @@ end
     end
   end
 
+  describe '.attempt_move' do
+    before :each do
+      @game = Game.create
+      @board = Board.new
+      @board.board[0][4] = King.create(x_position: 4, y_position: 0, color: false, game_id: @game.id)
+      @board.board[3][4] = Queen.create(x_position: 4, y_position: 3, color: true, game_id: @game.id)
+      @queen = Queen.create(x_position: 2, y_position: 2, color: false,  game_id: @game.id)
+      @king = @board.board[0][4]
+      @enemy = @board.board[3][4]
+      @board.board[2][2] = @queen
+      @board.refresh(@game.id)
+    end
+
+    context 'when moving to block while king is in check' do
+      it 'returns true' do
+	# expect(@queen.attempt_move(4, 2, @board, false, @game.id)).to be true
+	expect(@enemy.is_move_obstructed?(4, 0, @board)).to be true
+      end
+    end
+
+    context 'when king tries to move' do
+      it 'returns true' do
+	expect(@king.attempt_move(3, 0, @board, false, @game.id)).to be true
+      end
+    end
+
+    context 'when moving while king is in check' do
+      it 'returns false' do
+	expect(@queen.attempt_move(1, 2, @board, false, @game.id)).to be false
+      end
+    end
+
+  end
+
 end

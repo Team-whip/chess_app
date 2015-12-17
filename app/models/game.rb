@@ -4,19 +4,19 @@ class Game < ActiveRecord::Base
   has_many :joined_players, through: :join_games, source: :player
   belongs_to :players
 
-  def in_check?(color)
-    king = Piece.find_by(type: 'King', color: color, game_id: id )
-    enemies = enemies(color)
-    in_check = false
+  # def in_check?(color)
+  #   king = Piece.find_by(type: 'King', color: color, game_id: id )
+  #   enemies = enemies(color)
+  #   in_check = false
 
-    enemies.each do |enemy|
-      if enemy.legal_move?(king.x_position, king.y_position)
-        enemy_making_check = enemy
-        in_check = true
-      end
-    end
-    in_check
-  end
+  #   enemies.each do |enemy|
+  #     if enemy.legal_move?(king.x_position, king.y_position)
+  #       enemy_making_check = enemy
+  #       in_check = true
+  #     end
+  #   end
+  #   in_check
+  # end
 
   def moving_into_check?(x, y, color)
     king = Piece.find_by(type: 'King', color: color, game_id: id )
@@ -103,6 +103,12 @@ class Game < ActiveRecord::Base
 
   #   block
   # end
+  #
+  
+
+  # Find all pieces putting king in check.
+  # For each of those pieces, find their path to the king.
+  # For each space in path, check if allied piece can intercept.
 
   def checkmate?(color)
     king = Piece.find_by(type: 'King', color: color, game_id: id )
@@ -113,6 +119,7 @@ class Game < ActiveRecord::Base
 
     return false if can_be_captured?
 
+    # if in check from two pieces, blocking is not important
     return false if can_be_blocked?
 
   end
