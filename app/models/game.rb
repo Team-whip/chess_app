@@ -151,20 +151,15 @@ class Game < ActiveRecord::Base
     enemies = enemies(color)
     allies = enemies(!color)
 
-    blocked = false
-
     obstruction = obstruction_array(x, y, color)
-    puts obstruction.inspect
 
     allies.each do |ally|
-      next if ally == Piece.where(type: 'King')
+      next if ally == king
       obstruction.each do |square|
-        puts ally.legal_move?(square[0], square[1]).inspect
-        ally.legal_move?(square[0], square[1])
-        blocked = true
+        return true if ally.legal_move?(square[0], square[1])
       end
     end
-    blocked
+    false
   end
 
   def checkmate?(color)
