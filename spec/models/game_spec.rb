@@ -332,20 +332,6 @@ RSpec.describe Game, :type => :model do
     end
   end
 
-  describe "#obstructed_square?" do
-    before :each do
-      @game = Game.create
-      @board = Board.new
-      @black_king = King.create(x_position: 7, y_position: 3, color: false, game_id: @game.id)
-      @board.board[3][7] = @black_king
-      @board.refresh(@game.id)
-    end
-
-      it "is an obstructed square" do
-  expect(@game.obstructed_square?(@black_king.x_position - 1, @black_king.y_position, @black_king.color, @board)).to be false
-      end
-    end
-
   describe "#enemy_can_be_blocked?" do
     before :each do
       @game = Game.create
@@ -359,17 +345,23 @@ RSpec.describe Game, :type => :model do
 
     context "no pieces are available to block" do
       it "cannot be blocked" do
-  pending
-  expect(@game.can_be_blocked?(@black_king.color, @board)).to be false
+  expect(@game.can_be_blocked?(@white_rook.x_position, @white_rook.y_position, @black_king.color)).to be false
+      end
+    end
+
+    context "pieces have no legal move to block" do
+      it "cannot be blocked" do
+  @black_rook = Rook.create(x_position: 4, y_position: 0, color: false, game_id: @game.id)
+  @board.refresh(@game.id)
+  expect(@game.can_be_blocked?(@white_rook.y_position, @white_rook.y_position, @black_king.color)).to be false
       end
     end
 
     context "pieces are available to block" do
       it "can be blocked" do
-  pending
   @black_rook = Rook.create(x_position: 6, y_position: 5, color: false, game_id: @game.id)
   @board.refresh(@game.id)
-  expect(@game.can_be_blocked?(@black_king.color, @board)).to be true
+  expect(@game.can_be_blocked?(@white_rook.x_position, @white_rook.y_position, @black_king.color)).to be true
       end
     end
   end

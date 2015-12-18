@@ -83,26 +83,89 @@ class Game < ActiveRecord::Base
     capture
   end
 
-  def obstructed_square?(x, y, color, board)
-    piece = Piece.find_by(type: 'King', color: color, game_id: id )
-    piece.location_obstructed?(x, y, board)
+  def obstruction_array(x, y, color)
+    king = Piece.find_by(type: 'King', color: color, game_id: id )
+    pos_x = king.x_position
+    pos_y = king.y_position
+  
+    if x == pos_x || y == pos_y
+      rectilinear_obstruction_array(x, y, color)
+    else
+      diagonal_obstruction_array(x, y, color)
+    end
   end
 
-  # def can_be_blocked?(color)
-  #   king = Piece.find_by(type: 'King', color: color, game_id: id )
-  #   enemies = enemies(color)
-  #   block = false
+  def diagonal_obstruction_array(x, y, color)
+    king = Piece.find_by(type: 'King', color: color, game_id: id )
+    pos_x = king.x_position
+    pos_y = king.y_position
 
-  #   obstruction = obstructed_squares(x, y, color, board)
+    obstruction_array = []
 
-  #   enemies.each do |enemy|
-  #     obstruction.each do |square|
-  #       return true if enemy.legal_move?(square[0], square[1])
-  #     end
-  #   end
+    return [] if x == pos_x
+    return [] if y == pos_y
 
-  #   block
-  # end
+    horizontal_increment = x > pos_x ? 1 : -1
+    vertical_increment = y > pos_y ? 1 : -1
+
+    pos_x += horizontal_increment
+    pos_y += vertical_increment
+
+    while (x - pos_x).abs > 0 && (y - pos_y).abs > 0
+      obstruction_array << [pos_x, pos_y]
+      pos_x += horizontal_increment
+      pos_y += vertical_increment
+    end
+    obstruction_array
+  end
+
+  def rectilinear_obstruction_array(x, y, color)
+    king = Piece.find_by(type: 'King', color: color, game_id: id )
+    pos_x = king.x_position
+    pos_y = king.y_position
+
+    obstruction_array = []
+
+    if y == pos_y 
+      horizontal_increment = x > pos_x ? 1 : -1
+      pos_x += horizontal_increment
+
+      while (x - pos_x).abs > 0
+        obstruction_array << [pos_x, pos_y]
+        pos_x += horizontal_increment
+      end
+    elsif x == pos_x
+      vertical_increment = y > pos_y ? 1 : -1
+      pos_y += vertical_increment
+
+      while (y - pos_y).abs > 0
+        obstruction_array << [pos_x, pos_y]
+        pos_y += vertical_increment
+      end
+    end
+    obstruction_array
+  end
+
+  def can_be_blocked?(x, y, color)
+    king = Piece.find_by(type: 'King', color: color, game_id: id )
+    enemies = enemies(color)
+    allies = enemies(!color)
+
+    blocked = false
+
+    obstruction = obstruction_array(x, y, color)
+    puts obstruction.inspect
+
+    allies.each do |ally|
+      next if ally == Piece.where(type: 'King')
+      obstruction.each do |square|
+        puts ally.legal_move?(square[0], square[1]).inspect
+        ally.legal_move?(square[0], square[1])
+        blocked = true
+      end
+    end
+    blocked
+  end
 
   def checkmate?(color)
     king = Piece.find_by(type: 'King', color: color, game_id: id )

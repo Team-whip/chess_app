@@ -75,30 +75,30 @@ class Piece < ActiveRecord::Base
     # pieces moving down and right diagonally
     if self.x_position < x && self.y_position < y
       while new_x < x && new_y < y do
-	new_x += 1
-	new_y += 1
-	board.board[new_y][new_x] != nil ? (return true) : (return false)
+	     new_x += 1
+	     new_y += 1
+	     board.board[new_y][new_x] != nil ? (return true) : (return false)
       end
       # pieces moving down and left diagonally
     elsif self.x_position > x && self.y_position < y
       while new_x > x && new_y < y do
-	new_x -= 1
-	new_y += 1
-	board.board[new_y][new_x] != nil ? (return true) : (return false)
+	     new_x -= 1
+	     new_y += 1
+	     board.board[new_y][new_x] != nil ? (return true) : (return false)
       end
       # pieces moving up and right diagonally
     elsif self.x_position < x && self.y_position > y
       while new_x < x && new_y > y do
-	new_x += 1
-	new_y -= 1
-	board.board[new_y][new_x] != nil ? (return true) : (return false)
+	     new_x += 1
+	     new_y -= 1
+	     board.board[new_y][new_x] != nil ? (return true) : (return false)
       end
       # pieces moving up and left diagonally
     elsif self.x_position > x && self.y_position > y
       while new_x > x && new_y > y do
-	new_x -= 1
-	new_y -= 1
-	board.board[new_y][new_x] != nil ? (return true) : (return false)
+	     new_x -= 1
+	     new_y -= 1
+	     board.board[new_y][new_x] != nil ? (return true) : (return false)
       end
     end
   end
@@ -108,14 +108,14 @@ class Piece < ActiveRecord::Base
     # pieces moving up
     if self.y_position > y
       while new_y > y do
-	new_y -= 1
-	board.board[new_y][self.x_position] != nil ? (return true) : (return false)
+	     new_y -= 1
+	     board.board[new_y][self.x_position] != nil ? (return true) : (return false)
       end
       # pieces moving down
     elsif self.y_position < y
       while new_y < y do
-	new_y += 1
-	board.board[new_y][self.x_position] != nil ? (return true) : (return false)
+	     new_y += 1
+	     board.board[new_y][self.x_position] != nil ? (return true) : (return false)
       end
     end
   end
@@ -125,14 +125,14 @@ class Piece < ActiveRecord::Base
     # pieces moving right
     if self.x_position < x
       while new_x < x do
-	new_x += 1
-	board.board[self.y_position][new_x] != nil ? (return true) : (return false)
+	     new_x += 1
+	     board.board[self.y_position][new_x] != nil ? (return true) : (return false)
       end
       # pieces moving left
     elsif self.x_position > x
       while new_x > x do
-	new_x -= 1
-	board.board[self.y_position][new_x] != nil ? (return true) : (return false)
+	     new_x -= 1
+	     board.board[self.y_position][new_x] != nil ? (return true) : (return false)
       end
     end
   end
