@@ -75,43 +75,45 @@ class Game < ActiveRecord::Base
       end
     end
 
-    allies.each do |ally|
-      if ally.legal_move?(@enemy_making_check.x_position, @enemy_making_check.y_position)
-        capture = true
+    if allies != nil
+      allies.each do |ally|
+        if ally.legal_move?(@enemy_making_check.x_position, @enemy_making_check.y_position)
+          capture = true
+        end
       end
     end
     capture
   end
 
-  def obstruction_array(x, y, color)
+  def obstruction_array(enemy_x, enemy_y, color)
     king = Piece.find_by(type: 'King', color: color, game_id: id )
     pos_x = king.x_position
     pos_y = king.y_position
   
-    if x == pos_x || y == pos_y
-      rectilinear_obstruction_array(x, y, color)
+    if enemy_x == pos_x || enemy_y == pos_y
+      rectilinear_obstruction_array(enemy_x, enemy_y, color)
     else
-      diagonal_obstruction_array(x, y, color)
+      diagonal_obstruction_array(enemy_x, enemy_y, color)
     end
   end
 
-  def diagonal_obstruction_array(x, y, color)
+  def diagonal_obstruction_array(enemy_x, enemy_y, color)
     king = Piece.find_by(type: 'King', color: color, game_id: id )
     pos_x = king.x_position
     pos_y = king.y_position
 
     obstruction_array = []
 
-    return [] if x == pos_x
-    return [] if y == pos_y
+    return [] if enemy_x == pos_x
+    return [] if enemy_y == pos_y
 
-    horizontal_increment = x > pos_x ? 1 : -1
-    vertical_increment = y > pos_y ? 1 : -1
+    horizontal_increment = enemy_x > pos_x ? 1 : -1
+    vertical_increment = enemy_y > pos_y ? 1 : -1
 
     pos_x += horizontal_increment
     pos_y += vertical_increment
 
-    while (x - pos_x).abs > 0 && (y - pos_y).abs > 0
+    while (enemy_x - pos_x).abs > 0 && (enemy_y - pos_y).abs > 0
       obstruction_array << [pos_x, pos_y]
       pos_x += horizontal_increment
       pos_y += vertical_increment
@@ -119,26 +121,26 @@ class Game < ActiveRecord::Base
     obstruction_array
   end
 
-  def rectilinear_obstruction_array(x, y, color)
+  def rectilinear_obstruction_array(enemy_x, enemy_y, color)
     king = Piece.find_by(type: 'King', color: color, game_id: id )
     pos_x = king.x_position
     pos_y = king.y_position
 
     obstruction_array = []
 
-    if y == pos_y 
-      horizontal_increment = x > pos_x ? 1 : -1
+    if enemy_y == pos_y 
+      horizontal_increment = enemy_x > pos_x ? 1 : -1
       pos_x += horizontal_increment
 
-      while (x - pos_x).abs > 0
+      while (enemy_x - pos_x).abs > 0
         obstruction_array << [pos_x, pos_y]
         pos_x += horizontal_increment
       end
-    elsif x == pos_x
-      vertical_increment = y > pos_y ? 1 : -1
+    elsif enemy_x == pos_x
+      vertical_increment = enemy_y > pos_y ? 1 : -1
       pos_y += vertical_increment
 
-      while (y - pos_y).abs > 0
+      while (enemy_y - pos_y).abs > 0
         obstruction_array << [pos_x, pos_y]
         pos_y += vertical_increment
       end
@@ -146,33 +148,62 @@ class Game < ActiveRecord::Base
     obstruction_array
   end
 
-  def can_be_blocked?(x, y, color)
+  def can_be_blocked?(enemy_x, enemy_y, color)
     king = Piece.find_by(type: 'King', color: color, game_id: id )
     enemies = enemies(color)
     allies = enemies(!color)
 
-    obstruction = obstruction_array(x, y, color)
+    obstruction = obstruction_array(enemy_x, enemy_y, color)
 
-    allies.each do |ally|
-      next if ally == king
-      obstruction.each do |square|
-        return true if ally.legal_move?(square[0], square[1])
+    if allies != nil
+      allies.each do |ally|
+        next if ally == king
+        obstruction.each do |square|
+          return true if ally.legal_move?(square[0], square[1])
+        end
       end
     end
     false
   end
 
-  def checkmate?(color)
+  def multiple_checks?(color)
+    king = Piece.find_by(type: 'King', color: color, game_id: id )
+    enemies = enemies(color)
+    allies = enemies(!color)
+
+    multiple_checks = false
+
+    count = 0
+    while count < 3 do 
+      enemies.each do |enemy|     
+        if enemy.legal_move?(king.x_position, king.y_position)
+          @enemy_making_check = enemy
+          count += 1
+        end
+      end
+
+      if count > 3
+        multiple_checks = true
+      end
+    end
+    multiple_checks
+  end
+
+  def checkmate?(enemy_x, enemy_y, color)
     king = Piece.find_by(type: 'King', color: color, game_id: id )
 
     return false unless in_check?(color)
 
-    return false if king.can_move_out_of_check?
+    return false if can_move_out_of_check?(color)
 
-    return false if can_be_captured?
+    return false if can_be_captured?(color)
 
-    return false if can_be_blocked?
-
+    if multiple_checks?(color) == false
+      return false if can_be_blocked?(enemy_x, enemy_y, color)
+    elsif multiple_checks?(color) == true
+      return true
+    end
+    true
   end
 
   def enemies(color)
