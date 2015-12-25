@@ -19,7 +19,6 @@ class PiecesController < ApplicationController
 	  game.update_attributes(turn: game.player_one_id)
 	end
 
-
 	if (piece.type == 'Pawn' && piece.y_position == 7) || (piece.type == 'Pawn' && piece.y_position == 0)
 	  render json: {
 	    update_url: game_path(@game_id) + '#pawnPromotion'

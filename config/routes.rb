@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resource :pieces, only: [:update]
   get 'about', :to => 'static_pages#about'
   get 'code', :to => 'static_pages#code'
+  get 'game_over', :to => 'static_pages#game_over'
 
   # This line is a good example of how to add controller methods as routes
   # post '/games/select_piece' => 'games#select_piece', :as => :select_piece

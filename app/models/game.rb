@@ -189,7 +189,21 @@ class Game < ActiveRecord::Base
     multiple_checks
   end
 
-  def checkmate?(enemy_x, enemy_y, color)
+  def enemy_path(color)
+    king = Piece.find_by(type: 'King', color: color, game_id: id )
+    enemies = enemies(color)
+
+    obstruction_array = []
+
+    enemies.each do |enemy|
+      if enemy.legal_move?(king.x_position, king.y_position)
+        obstruction_array << [enemy.x_position, enemy.y_position]
+      end
+    end
+    obstruction_array.first
+  end
+
+  def checkmate?(color)
     king = Piece.find_by(type: 'King', color: color, game_id: id )
 
     return false unless in_check?(color)
@@ -199,7 +213,7 @@ class Game < ActiveRecord::Base
     return false if can_be_captured?(color)
 
     if multiple_checks?(color) == false
-      return false if can_be_blocked?(enemy_x, enemy_y, color)
+      return false if can_be_blocked?(enemy_path[0], enemy_path[1], color)
     elsif multiple_checks?(color) == true
       return true
     end

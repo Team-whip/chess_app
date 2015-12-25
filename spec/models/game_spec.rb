@@ -400,12 +400,12 @@ RSpec.describe Game, :type => :model do
       it "is not in check from enemy rook" do
   @white_rook.update_attributes(x_position: 5)
   @board.refresh(@game.id)
-  expect(@game.checkmate?(@white_rook.x_position, @white_rook.y_position, @black_king.color)).to be false
+  expect(@game.checkmate?(@black_king.color)).to be false
       end
 
     context "king is not surrounded" do
       it "can move out of check" do
-  expect(@game.checkmate?(@white_rook.x_position, @white_rook.y_position, @black_king.color)).to be false
+  expect(@game.checkmate?(@black_king.color)).to be false
       end
     end
 
@@ -413,7 +413,7 @@ RSpec.describe Game, :type => :model do
       it "can be captured" do
   @black_queen = Queen.create(x_position: 5, y_position: 7, color: false, game_id: @game.id)
   @board.refresh(@game.id)
-  expect(@game.checkmate?(@white_rook.x_position, @white_rook.y_position, @black_king.color)).to be false
+  expect(@game.checkmate?(@black_king.color)).to be false
       end
     end
 
@@ -421,7 +421,7 @@ RSpec.describe Game, :type => :model do
       it "can be blocked" do
   @black_rook = Rook.create(x_position: 6, y_position: 5, color: false, game_id: @game.id)
   @board.refresh(@game.id)
-  expect(@game.checkmate?(@white_rook.x_position, @white_rook.y_position, @black_king.color)).to be false
+  expect(@game.checkmate?(@black_king.color)).to be false
       end
     end
 
@@ -429,7 +429,7 @@ RSpec.describe Game, :type => :model do
       it "cannot move out of check" do
   @white_queen = Queen.create(x_position: 5, y_position: 3, color: true, game_id: @game.id)
   @board.refresh(@game.id)
-  expect(@game.checkmate?(@white_rook.x_position, @white_rook.y_position, @black_king.color)).to be true 
+  expect(@game.checkmate?(@black_king.color)).to be true 
       end
     end
   end
