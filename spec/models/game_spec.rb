@@ -265,6 +265,10 @@ RSpec.describe Game, :type => :model do
       it 'moves kingside rook to the correct castle position' do
 	expect(@game.castling_occured(@white_king.x_position + 2, @white_king.y_position, @white_king.color, @game.id)).to be true
       end
+
+      it 'moves queenside rook to the correct castle position' do
+  expect(@game.castling_occured(@white_king.x_position - 2, @white_king.y_position, @white_king.color, @game.id)).to be true
+      end
     end
   end
 end
